@@ -16,9 +16,9 @@ const WavyAnimation: React.FC<WavyAnimationProps> = ({ amplitude }) => {
   return (
     <section>
       <div className="wavy">
-        <span style={{ width: `${currentAmplitude}vh`, height: `${currentAmplitude}vh`, transition: 'all 3s linear' }}></span>
-        <span style={{ width: `${currentAmplitude * 0.85}vh`, height: `${currentAmplitude * 0.95}vh`, transition: 'all 3s linear' }}></span>
-        <span style={{ width: `${currentAmplitude * 0.65}vh`, height: `${currentAmplitude * 0.85}vh`, transition: 'all 3s linear' }}></span>
+        <span style={{ width: `${currentAmplitude}vh`, height: `${currentAmplitude}vh`, transition: 'all 0.5s linear' }}></span>
+        <span style={{ width: `${currentAmplitude * 0.85}vh`, height: `${currentAmplitude * 0.95}vh`, transition: 'all 0.5s linear' }}></span>
+        <span style={{ width: `${currentAmplitude * 0.65}vh`, height: `${currentAmplitude * 0.85}vh`, transition: 'all 0.5s linear' }}></span>
       </div>
     </section>
   );
