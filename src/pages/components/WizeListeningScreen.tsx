@@ -1,18 +1,18 @@
 import React from "react";
 import { useState } from 'react'
 import SwitchButton from '@/components/switchButton';
-import {ScreenProps} from "@/pages/components/Screen.props";
+import { ScreenProps } from "@/pages/components/Screen.props";
 import useDisplayWord from '@/hooks/useDisplayWord'
 
-export const WizeListeningScreen: React.FC<ScreenProps> = ({toNextScreen}) => {
+export const WizeListeningScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     const text = ['Wiz is listening']
-    const {displayTexts, handleReset} = useDisplayWord(text)
-    const [customObjContent, setCustomObjContent] = useState<{className: string, text: string, onClick?: Function, showIcon?:boolean}[]>([
-        {
-            className: 'bordered',
-            text: 'Repeat your last message',
-            onClick: handleReStart
-        },
+    const { displayTexts, handleReset } = useDisplayWord(text)
+    const [customObjContent, setCustomObjContent] = useState<{ className: string, text: string, onClick?: Function, showIcon?: boolean }[]>([
+        // {
+        //     className: 'bordered',
+        //     text: 'Repeat your last message',
+        //     onClick: handleReStart
+        // },
         {
             className: 'bubblyrose',
             text: 'Tap to send',

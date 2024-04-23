@@ -1,14 +1,14 @@
-import {useState} from "react";
+import { useState } from "react";
 import Image from 'next/image';
 import imageLogo from '/WineWiz.png';
 import WavyAnimation from '@/components/WavyAnimation/WavyAnimation';
-import {WineWizScreen} from "@/pages/components/WineWizScreen";
-import {BudgetScreen} from "@/pages/components/BudgetScreen";
-import {MoreAboutYourNeedsScreen} from "@/pages/components/MoreAboutYourNeedsScreen";
-import {WizeListeningScreen} from "@/pages/components/WizeListeningScreen";
-import {WizeThinkingScreen} from "@/pages/components/WizeThinkingScreen";
-import {WineWizeIndex} from "@/pages/components/WineWizeIndex";
-import {PickingScreen} from "@/pages/components/PickingScreen";
+import { WineWizScreen } from "@/pages/components/WineWizScreen";
+import { BudgetScreen } from "@/pages/components/BudgetScreen";
+import { MoreAboutYourNeedsScreen } from "@/pages/components/MoreAboutYourNeedsScreen";
+import { WizeListeningScreen } from "@/pages/components/WizeListeningScreen";
+import { WizeThinkingScreen } from "@/pages/components/WizeThinkingScreen";
+import { WineWizeIndex } from "@/pages/components/WineWizeIndex";
+import { PickingScreen } from "@/pages/components/PickingScreen";
 
 const SCREENS = {
     INDEX: 'index',
@@ -29,29 +29,41 @@ const SCREENS_MAP = {
     [SCREENS.WIZE_THINKING]: SCREENS.PICKING_WINE,
 }
 
+const amplitudes = {
+    [SCREENS.INDEX]: 450,
+    [SCREENS.WINE_WIZ]: 350,
+    [SCREENS.BUDGET]: 350,
+    [SCREENS.MORE_ABOUT_YOUR_NEED]: 350,
+    [SCREENS.WIZE_LISTENING]: 250,
+    [SCREENS.WIZE_THINKING]: 150,
+    [SCREENS.PICKING_WINE]: 350
+};
+
 export default function ChattingPage() {
-    const [amplitude] = useState(350); // 初始波浪幅度设置为200vh
     const [currentScreen, setCurrentScreen] = useState(SCREENS.INDEX);
     const toNextScreen = () => {
-        setCurrentScreen(SCREENS_MAP[currentScreen]);
+        const nextScreen = SCREENS_MAP[currentScreen];
+        setCurrentScreen(nextScreen);
     }
+
     const SCREENS_COMPONENTS = {
-        [SCREENS.INDEX]: <WineWizeIndex toNextScreen={toNextScreen}/>,
-        [SCREENS.WINE_WIZ]: <WineWizScreen toNextScreen={toNextScreen}/>,
-        [SCREENS.BUDGET]: <BudgetScreen toNextScreen={toNextScreen}/>,
-        [SCREENS.MORE_ABOUT_YOUR_NEED]: <MoreAboutYourNeedsScreen toNextScreen={toNextScreen}/>,
-        [SCREENS.WIZE_LISTENING]: <WizeListeningScreen toNextScreen={toNextScreen}/>,
+        [SCREENS.INDEX]: <WineWizeIndex toNextScreen={toNextScreen} />,
+        [SCREENS.WINE_WIZ]: <WineWizScreen toNextScreen={toNextScreen} />,
+        [SCREENS.BUDGET]: <BudgetScreen toNextScreen={toNextScreen} />,
+        [SCREENS.MORE_ABOUT_YOUR_NEED]: <MoreAboutYourNeedsScreen toNextScreen={toNextScreen} />,
+        [SCREENS.WIZE_LISTENING]: <WizeListeningScreen toNextScreen={toNextScreen} />,
         [SCREENS.WIZE_THINKING]: <WizeThinkingScreen toNextScreen={toNextScreen} />,
         [SCREENS.PICKING_WINE]: <PickingScreen toNextScreen={toNextScreen} />
     };
 
-  const currentScreenComponent = SCREENS_COMPONENTS[currentScreen];
+
+    const currentScreenComponent = SCREENS_COMPONENTS[currentScreen];
 
 
-  return (
-      <div className={"container h-screen"}>
-          <WavyAnimation amplitude={amplitude} />
-          {currentScreenComponent}
-      </div>
-  );
+    return (
+        <div className="container h-screen">
+            <WavyAnimation amplitude={amplitudes[currentScreen]} />
+            {currentScreenComponent}
+        </div>
+    );
 }

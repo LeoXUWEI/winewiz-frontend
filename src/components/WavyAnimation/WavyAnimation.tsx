@@ -1,5 +1,5 @@
 // WavyAnimation.tsx
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 
 interface WavyAnimationProps {
@@ -7,12 +7,18 @@ interface WavyAnimationProps {
 }
 
 const WavyAnimation: React.FC<WavyAnimationProps> = ({ amplitude }) => {
+  const [currentAmplitude, setCurrentAmplitude] = useState(amplitude);
+
+  useEffect(() => {
+    setCurrentAmplitude(amplitude);
+  }, [amplitude]);
+
   return (
     <section>
       <div className="wavy">
-        <span style={{ width: `${amplitude}vh`, height: `${amplitude}vh` }}></span>
-        <span style={{ width: `${amplitude * 0.85}vh`, height: `${amplitude * 0.95}vh` }}></span>
-        <span style={{ width: `${amplitude * 0.65}vh`, height: `${amplitude * 0.85}vh` }}></span>
+        <span style={{ width: `${currentAmplitude}vh`, height: `${currentAmplitude}vh`, transition: 'all 1s linear' }}></span>
+        <span style={{ width: `${currentAmplitude * 0.85}vh`, height: `${currentAmplitude * 0.95}vh`, transition: 'all 1s linear' }}></span>
+        <span style={{ width: `${currentAmplitude * 0.65}vh`, height: `${currentAmplitude * 0.85}vh`, transition: 'all 1s linear' }}></span>
       </div>
     </section>
   );
