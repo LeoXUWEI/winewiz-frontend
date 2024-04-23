@@ -1,0 +1,43 @@
+.myContainer{
+  :global {
+    .adm-button {
+      border: none;
+      background-color: none;
+      margin-bottom: 10px;
+      border-radius: 40px;
+    }
+    .adm-button-large{
+      padding-bottom: none;
+    }
+    .adm-space-item{
+      display: flex;
+      align-items: center;
+    }
+    .pinot{
+      background-color: #6B003A;
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+    .white{
+      background-color: #ffffff;
+      color: #6B003A;
+    }
+    .bubblyrose{
+      background-color: #FD877F;
+      color: #6B003A;
+    }
+    .bordered{
+      border: 2px solid #ffff;
+      color: #ffffff;
+      opacity: 0.8;
+      background-color: rgb(168, 121, 142);
+    }
+    .picking{
+      width: 70%;
+      margin: auto;
+      color: #ffffff;
+      background-color: #6B003A;
+      margin-bottom: 20px;
+    }
+  }
+}
