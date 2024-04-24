@@ -1,11 +1,11 @@
 import React from "react";
 import { useState } from 'react'
 import SwitchButton from '@/components/switchButton';
-import {ScreenProps} from "@/pages/components/Screen.props";
+import {ScreenProps} from "@/types/Screen.props";
 import useDisplayWord from '@/hooks/useDisplayWord'
 
 
-export const MoreAboutYourNeedsScreen: React.FC<ScreenProps> = ({toNextScreen}) => {
+const MoreAboutYourNeedsScreen: React.FC<ScreenProps> = ({toNextScreen}) => {
     let text = [
         "So you picked super premium wines, usually costing",
         "Apart from that, what other things can you think ofabout this gift? Forinstance:",
@@ -48,3 +48,5 @@ export const MoreAboutYourNeedsScreen: React.FC<ScreenProps> = ({toNextScreen}) 
         </>
     )
 }
+
+export default MoreAboutYourNeedsScreen;

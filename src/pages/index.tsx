@@ -2,13 +2,13 @@ import { useState } from "react";
 import Image from 'next/image';
 import imageLogo from '/WineWiz.png';
 import WavyAnimation from '@/components/WavyAnimation/WavyAnimation';
-import { WineWizScreen } from "@/pages/components/WineWizScreen";
-import { BudgetScreen } from "@/pages/components/BudgetScreen";
-import { MoreAboutYourNeedsScreen } from "@/pages/components/MoreAboutYourNeedsScreen";
-import { WizeListeningScreen } from "@/pages/components/WizeListeningScreen";
-import { WizeThinkingScreen } from "@/pages/components/WizeThinkingScreen";
-import { WineWizeIndex } from "@/pages/components/WineWizeIndex";
-import { PickingScreen } from "@/pages/components/PickingScreen";
+import  WineWizScreen  from "@/pages/components/WineWizScreen";
+import  BudgetScreen  from "@/pages/components/BudgetScreen";
+import  MoreAboutYourNeedsScreen  from "@/pages/components/MoreAboutYourNeedsScreen";
+import  WizeListeningScreen  from "@/pages/components/WizeListeningScreen";
+import  WizeThinkingScreen  from "@/pages/components/WizeThinkingScreen";
+import  WineWizeIndex  from "@/pages/components/WineWizeIndex";
+import  PickingScreen  from "@/pages/components/PickingScreen";
 
 const SCREENS = {
     INDEX: 'index',

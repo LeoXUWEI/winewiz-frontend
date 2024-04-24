@@ -1,11 +1,11 @@
 import React from "react";
 import { useState, useEffect } from 'react'
 import SwitchButton from '@/components/switchButton';
-import {ScreenProps} from "@/pages/components/Screen.props";
+import {ScreenProps} from "@/types/Screen.props";
 import useDisplayWord from '@/hooks/useDisplayWord'
 
 
-export const PickingScreen: React.FC<ScreenProps> = ({toNextScreen}) => {
+const PickingScreen: React.FC<ScreenProps> = ({toNextScreen}) => {
     const text = ["Great, so it is for your friend's wedding. Any moreinformation l should know? For instance, their..."]
     const pickingText = "Great, so it is for your friend's wedding"
     const {displayTexts, handleReset} = useDisplayWord(text)
@@ -69,3 +69,5 @@ export const PickingScreen: React.FC<ScreenProps> = ({toNextScreen}) => {
         </>
     )
 }
+
+export default PickingScreen;

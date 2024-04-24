@@ -2,11 +2,11 @@ import React from "react";
 import { useState, useEffect, useRef } from 'react'
 import { CapsuleTabs } from 'antd-mobile'
 import SwitchButton from '@/components/switchButton';
-import {ScreenProps} from "@/pages/components/Screen.props";
+import {ScreenProps} from "@/types/Screen.props";
 import useDisplayWord from '@/hooks/useDisplayWord'
 import styles from './BudgetScreen.module.scss'
 
-export const BudgetScreen: React.FC<ScreenProps> = ({toNextScreen}) => {
+const BudgetScreen: React.FC<ScreenProps> = ({toNextScreen}) => {
     let text = ["First, let's start withSo you picked super premium wines, usually costingrour budget. Tap on the onedeal to you, lf you do not .."]
     const {displayTexts, handleReset} = useDisplayWord(text)
     const [customClassName, setCustomClassName] = useState('pinot')
@@ -75,3 +75,4 @@ export const BudgetScreen: React.FC<ScreenProps> = ({toNextScreen}) => {
         </div>
     )
 }
+export default BudgetScreen;

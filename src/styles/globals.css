@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -116,4 +117,12 @@ section .wavy span:nth-child(3) {
     width: 100%;
     margin-top: 10px;
   }
+}
+
+.font-1 {
+  font-family: Poppins, sans-serif;
+}
+
+.font-2 {
+  font-family: Oswald, sans-serif;
 }

@@ -1,9 +1,9 @@
 import React from "react";
-import {ScreenProps} from "@/pages/components/Screen.props";
+import {ScreenProps} from "@/types/Screen.props";
 import useDisplayWord from '@/hooks/useDisplayWord'
 
 
-export const WizeThinkingScreen: React.FC<ScreenProps> = ({toNextScreen}) => {
+const WizeThinkingScreen: React.FC<ScreenProps> = ({toNextScreen}) => {
     const {displayTexts} = useDisplayWord(['Wiz is thinking'])
     return (
         <>
@@ -11,3 +11,4 @@ export const WizeThinkingScreen: React.FC<ScreenProps> = ({toNextScreen}) => {
         </>
     )
 }
+export default WizeThinkingScreen;

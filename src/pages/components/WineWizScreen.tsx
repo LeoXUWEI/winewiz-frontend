@@ -1,11 +1,11 @@
 import React from "react";
 import { useState } from 'react'
-import {ScreenProps} from "@/pages/components/Screen.props";
+import {ScreenProps} from "@/types/Screen.props";
 import SwitchButton from '@/components/switchButton';
 import useDisplayWord from '@/hooks/useDisplayWord'
 import { setTimeout } from "timers/promises";
 
-export const WineWizScreen: React.FC<ScreenProps> = ({toNextScreen}) => {
+const WineWizScreen: React.FC<ScreenProps> = ({toNextScreen}) => {
     
     let origintext = [
         'Hi, l am wiz, your personal wine master.',
@@ -29,7 +29,7 @@ export const WineWizScreen: React.FC<ScreenProps> = ({toNextScreen}) => {
             <div>
                 <h1 className={'text-[#6B003A] text-3xl text-center font-bold pt-10'}>WineWiz</h1>
                 { (showAll ? origintext : displayTexts).map((item: string, index: number) => (
-                    <div className={'text-left mt-3 text-[#6B003A] font-bold pl-5 pr-5 w-screen'} key={index}>{item}</div>
+                    <div className={'text-left mt-3 text-[#6B003A] font-bold pl-5 pr-5 w-screen font-1'} key={index}>{item}</div>
                 ))}
             </div>
             <div className={'w-80 mx-auto'}>
@@ -41,3 +41,4 @@ export const WineWizScreen: React.FC<ScreenProps> = ({toNextScreen}) => {
         </>
     )
 }
+export default WineWizScreen;
