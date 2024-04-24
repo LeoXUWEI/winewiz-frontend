@@ -9,6 +9,7 @@
   --background-end-rgb: 255, 255, 255;
 }
 
+
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
@@ -17,12 +18,14 @@
   }
 }
 
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(to bottom,
       transparent,
       rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
+
 
 @layer utilities {
   .text-balance {
@@ -119,6 +122,7 @@ section .wavy span:nth-child(3) {
   }
 }
 
+/* 字体引入 */
 .font-1 {
   font-family: Poppins, sans-serif;
 }
