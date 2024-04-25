@@ -123,10 +123,37 @@ section .wavy span:nth-child(3) {
 }
 
 /* 字体引入 */
-.font-1 {
-  font-family: Poppins, sans-serif;
+/* 
+<uniquifier>: Use a unique and descriptive class name
+<weight>: Use a value from 200 to 800 
+*/
+
+.font_product_title {
+  font-family: "Dosis", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
 }
 
-.font-2 {
-  font-family: Oswald, sans-serif;
+.font_page_title {
+  font-family: "Dosis", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+}
+
+.font_button_text {
+  font-family: "Dosis", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+}
+
+.font_display_text {
+  font-family: "Dosis", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+}
+
+.font_paragraph {
+  font-family: "Dosis", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
 }
