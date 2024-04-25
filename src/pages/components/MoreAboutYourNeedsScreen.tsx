@@ -1,21 +1,21 @@
 import React from "react";
 import { useState } from 'react'
 import SwitchButton from '@/components/switchButton';
-import {ScreenProps} from "@/types/Screen.props";
+import { ScreenProps } from "@/types/Screen.props";
 import useDisplayWord from '@/hooks/useDisplayWord'
 
 
-const MoreAboutYourNeedsScreen: React.FC<ScreenProps> = ({toNextScreen}) => {
+const MoreAboutYourNeedsScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     let text = [
-        "So you picked super premium wines, usually costing",
-        "Apart from that, what other things can you think ofabout this gift? Forinstance:",
-        "1. what purpose is this gift for?",
-        "2. Know Their Preference: Does your friend preferred,white,rosé,or perhaps sparkling wine?",
-        "3.Food Pairing: what's on the menu?",
-        "4.special Touch: Consider a wine from a region or ayear that is meaningful to your friend. Forinstance,a wine from a region they've visited ordream of visiting,or a vintage from a significantyear in their life."
+        "So you picked super premium wines, usually costing $50-$100.",
+        "Apart from that, what other things can you think of about this gift? For instance:",
+        "1. What purpose is this gift for?",
+        "2. Know Their Preference: Does your friend prefer red, white, rosé, or perhaps sparkling wine?",
+        "3. Food Pairing: What's on the menu?",
+        "4. Special Touch: Consider a wine from a region or a year that is meaningful to your friend. For instance, a wine from a region they have visited or dream of visiting, or a vintage from a significant year in their life."
     ]
-    const {displayTexts, handleReset} = useDisplayWord(text)
-    const [customObjContent, setCustomObjContent] = useState<{className: string, text: string, onClick: Function, showIcon?: boolean}[]>([
+    const { displayTexts, handleReset } = useDisplayWord(text)
+    const [customObjContent, setCustomObjContent] = useState<{ className: string, text: string, onClick: Function, showIcon?: boolean }[]>([
         {
             className: 'bordered',
             text: 'Repeat your last message',
@@ -38,9 +38,9 @@ const MoreAboutYourNeedsScreen: React.FC<ScreenProps> = ({toNextScreen}) => {
     }
     return (
         <>
-            <h1 className={'text-[#6B003A] text-3xl text-center font-bold pt-10'}>More about your needs</h1>
+            <h1 className={'text-[#6B003A] text-[24px] font_page_title text-center pt-10'}>More about your needs</h1>
             {displayTexts.map((item: string, index: number) => (
-                <div className={'mt-3 text-[#6B003A] font-bold text-left pl-5 pr-5 w-screen'} key={index}>{item}</div>
+                <div className={'text-[#6B003A] text-[14px] font_paragraph text-left mt-3 pl-5 pr-5 w-screen'} key={index}>{item}</div>
             ))}
             <div className={'mt-16 w-80 mx-auto'}>
                 <SwitchButton toNextScreen={toNextScreen} customObjContent={customObjContent} />

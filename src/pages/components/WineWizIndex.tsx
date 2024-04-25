@@ -2,9 +2,9 @@ import React from "react";
 import { ScreenProps } from "@/types/Screen.props";
 
 
-const WineWizeIndex: React.FC<ScreenProps> = ({ toNextScreen }) => {
+const WineWizIndex: React.FC<ScreenProps> = ({ toNextScreen }) => {
     return (
-        <div className={"content flex-row"}>
+        <div onClick={toNextScreen} className={"content flex-row w-screen h-screen"}>
             <div className={"enterShow flex flex-col justify-center pt-36"}>
                 {/* <img
                     className={"image_logo pb-12"}
@@ -22,11 +22,10 @@ const WineWizeIndex: React.FC<ScreenProps> = ({ toNextScreen }) => {
                 />
             </div>
             <p
-                onClick={toNextScreen}
-                className={'text-center mt-10 text-[#6B003A] text-[18px] font_button_text'}>tap to continue
+                className={'text-center mt-10 text-[#6B003A] text-[18px] font_button_text'}>tap anywhere to continue
             </p>
         </div>
     )
 }
 
-export default WineWizeIndex;
+export default WineWizIndex;
