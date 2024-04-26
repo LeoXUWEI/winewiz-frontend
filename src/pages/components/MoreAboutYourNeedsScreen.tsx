@@ -38,9 +38,9 @@ const MoreAboutYourNeedsScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     }
     return (
         <>
-            <h1 className={'text-[#6B003A] text-[24px] font_page_title text-center pt-10'}>More about your needs</h1>
+            <h1 className={'text-[#6B003A] text-[24px] font_extra_bold text-center pt-10'}>More about your needs</h1>
             {displayTexts.map((item: string, index: number) => (
-                <div className={'text-[#6B003A] text-[14px] font_paragraph text-left mt-3 pl-5 pr-5 w-screen'} key={index}>{item}</div>
+                <div className={'text-[#6B003A] text-[14px] font_medium_bold text-left mt-3 pl-5 pr-5 w-screen'} key={index}>{item}</div>
             ))}
             <div className={'mt-16 w-80 mx-auto'}>
                 <SwitchButton toNextScreen={toNextScreen} customObjContent={customObjContent} />

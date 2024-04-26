@@ -28,7 +28,7 @@ const WizListeningScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     }
     return (
         <>
-            <div className={'text-[#6B003A] text-[24px] font_display_text text-center pt-80'}>{displayTexts[0]}</div>
+            <div className={'text-[#6B003A] text-[24px] font_normal_bold text-center pt-80'}>{displayTexts[0]}</div>
             <div className={'mt-16 w-80 mx-auto'}>
                 <SwitchButton toNextScreen={toNextScreen} customObjContent={customObjContent} />
             </div>

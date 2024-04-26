@@ -12,7 +12,7 @@ const WineWizIndex: React.FC<ScreenProps> = ({ toNextScreen }) => {
                     alt="WineWiz"
                 /> */}
                 <p
-                    className={'text-center pb-12 text-[#6B003A] text-[64px] font_product_title'}>WineWiz
+                    className={'text-center pb-12 text-[#6B003A] text-[64px] font_extra_bold'}>WineWiz
                 </p>
 
                 <img
@@ -22,7 +22,7 @@ const WineWizIndex: React.FC<ScreenProps> = ({ toNextScreen }) => {
                 />
             </div>
             <p
-                className={'text-center mt-10 text-[#6B003A] text-[18px] font_button_text'}>tap anywhere to continue
+                className={'text-center mt-10 text-[#6B003A] text-[18px] font_extra_bold'}>tap anywhere to continue
             </p>
         </div>
     )

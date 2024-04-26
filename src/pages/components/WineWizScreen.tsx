@@ -27,9 +27,9 @@ const WineWizScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     return (
         <>
             <div>
-                <h1 className={'text-[#6B003A] text-[24px] font_page_title text-center pt-10'}>WineWiz</h1>
+                <h1 className={'text-[#6B003A] text-[24px] font_extra_bold text-center pt-10'}>WineWiz</h1>
                 {(showAll ? origintext : displayTexts).map((item: string, index: number) => (
-                    <div className={'text-[#6B003A] text-[14px] font_paragraph text-left mt-3 pl-5 pr-5 w-screen'} key={index}>{item}</div>
+                    <div className={'text-[#6B003A] text-[14px] font_medium_bold text-left mt-3 pl-5 pr-5 w-screen'} key={index}>{item}</div>
                 ))}
             </div>
             <div className={'w-80 mx-auto'}>

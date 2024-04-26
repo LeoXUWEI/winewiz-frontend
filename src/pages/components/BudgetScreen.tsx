@@ -49,10 +49,10 @@ const BudgetScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     }
     return (
         <div className={styles.BudgetScreen}>
-            <h1 className={'text-[#6B003A] text-[24px] font_page_title text-center pt-10'}>Budget</h1>
+            <h1 className={'text-[#6B003A] text-[24px] font_extra_bold text-center pt-10'}>Budget</h1>
             <div className={'h-10 overflow-auto'} ref={displayTextRef}>
                 {displayTexts.map((item: string, index: number) => (
-                    <div className={' text-[#6B003A] text-[14px] font_paragraph text-center mt-3 pl-5 pr-5 w-screen'} key={index}>{item}</div>
+                    <div className={' text-[#6B003A] text-[14px] font_medium_bold text-center mt-3 pl-5 pr-5 w-screen'} key={index}>{item}</div>
                 ))}
             </div>
             <div>
@@ -61,8 +61,8 @@ const BudgetScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
                         <CapsuleTabs.Tab
                             title={<span className={'flex flex-row justify-between'}
                             >
-                                <span className={'text-[#6B003A] text-[14px] font_display_text'}>{item.label}</span>
-                                <span className={'text-[#6B003A] text-[14px] font_display_text'}>{item.value}</span>
+                                <span className={'text-[#6B003A] text-[14px] font_normal_bold'}>{item.label}</span>
+                                <span className={'text-[#6B003A] text-[14px] font_normal_bold'}>{item.value}</span>
                             </span>}
                             key={item.key}
                         />)
