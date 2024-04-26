@@ -71,29 +71,34 @@ section .wavy {
   background: rgba(247, 236, 228, 1);
 }
 
-section .wavy span {
+section .wavy div {
   position: absolute;
   top: 0;
   left: 50%;
-  transform: translate(-50%, 15%);
+  transform: translate(-50%, 25%);
+}
+
+section .wavy div span {
+  position: absolute;
+  top: 0;
   background: rgba(247, 236, 228, 1);
 }
 
-section .wavy span:nth-child(1) {
+section .wavy div:nth-child(1) span {
   z-index: 3;
   animation: animate 20s linear infinite;
   border-radius: 40%;
   background: rgba(107, 0, 58, 0.75);
 }
 
-section .wavy span:nth-child(2) {
+section .wavy div:nth-child(2) span {
   z-index: 2;
   animation: animate 22s linear infinite;
   border-radius: 30%;
   background: rgba(190, 32, 47, 0.5);
 }
 
-section .wavy span:nth-child(3) {
+section .wavy div:nth-child(3) span {
   z-index: 1;
   animation: animate 24s linear infinite;
   border-radius: 35%;
@@ -102,11 +107,11 @@ section .wavy span:nth-child(3) {
 
 @keyframes animate {
   0% {
-    transform: translate(-50%, 25%) rotate(0deg);
+    transform: rotate(0deg);
   }
 
   100% {
-    transform: translate(-50%, 25%) rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 
@@ -123,8 +128,8 @@ section .wavy span:nth-child(3) {
 }
 
 /* 字体引入 */
-/* 
-<weight>: Use a value from 200 to 800 
+/*
+<weight>: Use a value from 200 to 800
 */
 
 .font_extra_bold {
