@@ -20,19 +20,19 @@ const WavyAnimation: React.FC<WavyAnimationProps> = ({ amplitude }) => {
   }
 
   return (
-      <section>
-        <div className="wavy">
-          <div style={{ ...getStyle(currentAmplitude), zIndex: '3' }}>
-            <span style={{ ...getStyle(currentAmplitude) }}></span>
-          </div>
-          <div style={{ ...getStyle(currentAmplitude * 0.85), zIndex: '2' }}>
-            <span style={{ ...getStyle(currentAmplitude * 0.85) }}></span>
-          </div>
-          <div style={{ ...getStyle(currentAmplitude * 0.65), zIndex: '1' }}>
-            <span style={{ ...getStyle(currentAmplitude * 0.65) }}></span>
-          </div>
+    <section>
+      <div className="wavy">
+        <div style={{ ...getStyle(currentAmplitude), zIndex: '3' }}>
+          <span style={{ ...getStyle(currentAmplitude) }}></span>
         </div>
-      </section>
+        <div style={{ ...getStyle(currentAmplitude * 0.95), zIndex: '2' }}>
+          <span style={{ ...getStyle(currentAmplitude * 0.95) }}></span>
+        </div>
+        <div style={{ ...getStyle(currentAmplitude * 0.75), zIndex: '1' }}>
+          <span style={{ ...getStyle(currentAmplitude * 0.75) }}></span>
+        </div>
+      </div>
+    </section>
   );
 };
 
