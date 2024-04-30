@@ -11,21 +11,14 @@ const WineWizScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     ];
     const { displayTexts, handleReset } = useDisplayWord(initialText);
 
-    useEffect(() => {
-        const fetchTextToSpeech = async (text: string) => {
-            try {
-                const audioBuffer = await textToSpeech(text);
-                const blob = new Blob([audioBuffer], { type: 'audio/mp3' });
-                const audio = new Audio(URL.createObjectURL(blob));
-                audio.play();
-                console.log('Text to speech success');
-            } catch (error) {
-                console.error('Failed to convert text to speech:', error);
-            }
-        };
+    const speakText = async () => {
+        const { speakText } = await import('../../../utils/textToSpeech');
+        speakText(initialText.join(' '));
+      }
 
-        fetchTextToSpeech(initialText.join(' '));
-    }, []);
+    useEffect(() => {
+        speakText();
+      }, []);
 
     const [showFullText, setShowFullText] = useState(false);
     const [buttonContent, setButtonContent] = useState([
