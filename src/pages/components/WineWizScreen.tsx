@@ -1,44 +1,57 @@
-import React from "react";
-import { useState } from 'react'
+import React, { useEffect, useState } from "react";
 import { ScreenProps } from "@/types/Screen.props";
 import SwitchButton from '@/components/switchButton';
-import useDisplayWord from '@/hooks/useDisplayWord'
-import { setTimeout } from "timers/promises";
+import useDisplayWord from '@/hooks/useDisplayWord';
+import { textToSpeech } from '../../../utils/api';
 
 const WineWizScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
+    const initialText = [
+        'Hi, I am Wiz, your personal wine master.',
+        'I can pick the perfect gift wine for you with just a few questions answered. Afterwards, I will help you create personalized gift cards to make your gift special!'
+    ];
+    const { displayTexts, handleReset } = useDisplayWord(initialText);
 
-    let origintext = [
-        'Hi, I am Wiz, your personal wine master. ',
-        'I can pick the perfect gift wine for you  with just a few questions answered. Afterwards, I will help you create personalized gift cards to make your gift special!'
-    ]
-    const { displayTexts } = useDisplayWord(origintext)
-    const [showAll, setShowAll] = useState(false)
-    const [customObjContent, setCustomObjContent] = useState<{ className: string, text: string, onClick: Function }[]>([{
-        className: 'pinot',
-        text: 'Continue',
-        onClick: handleContinue
-    }])
-    function handleContinue() {
-        setShowAll(true)
-        window.setTimeout(() => {
-            toNextScreen()
-        }, 200)
-    }
+    useEffect(() => {
+        const fetchTextToSpeech = async (text: string) => {
+            try {
+                const audioBuffer = await textToSpeech(text);
+                const blob = new Blob([audioBuffer], { type: 'audio/mp3' });
+                const audio = new Audio(URL.createObjectURL(blob));
+                audio.play();
+                console.log('Text to speech success');
+            } catch (error) {
+                console.error('Failed to convert text to speech:', error);
+            }
+        };
+
+        fetchTextToSpeech(initialText.join(' '));
+    }, []);
+
+    const [showFullText, setShowFullText] = useState(false);
+    const [buttonContent, setButtonContent] = useState([
+        { className: 'pinot', text: 'Continue', onClick: () => handleContinue() }
+    ]);
+
+    const handleContinue = () => {
+        setShowFullText(true);
+        setTimeout(toNextScreen, 200);
+    };
+
     return (
         <>
             <div>
-                <h1 className={'text-[#6B003A] text-[24px] font_extra_bold text-center pt-10'}>WineWiz</h1>
-                {(showAll ? origintext : displayTexts).map((item: string, index: number) => (
-                    <div className={'text-[#6B003A] text-[14px] font_medium_bold text-left mt-3 pl-5 pr-5 w-screen'} key={index}>{item}</div>
+                <h1 className="text-[#6B003A] text-[24px] font_page_title text-center pt-10">WineWiz</h1>
+                {(showFullText ? initialText : displayTexts).map((item, index) => (
+                    <div className="text-[#6B003A] text-[14px] font_paragraph text-left mt-3 pl-5 pr-5 w-screen" key={index}>
+                        {item}
+                    </div>
                 ))}
             </div>
-            <div className={'w-80 mx-auto'}>
-                {/* <Button block size='large' onClick={handleContinue} className={'adm-button bg-red-950'}>
-                    Continue1
-                </Button> */}
-                <SwitchButton toNextScreen={toNextScreen} customObjContent={customObjContent} />
+            <div className="w-80 mx-auto">
+                <SwitchButton toNextScreen={toNextScreen} customObjContent={buttonContent} />
             </div>
         </>
-    )
-}
+    );
+};
+
 export default WineWizScreen;
