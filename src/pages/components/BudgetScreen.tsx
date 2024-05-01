@@ -75,6 +75,7 @@ const BudgetScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
 
     const handleChange = (key: string) => {
         selectKey.current = key
+        localStorage.setItem("budget_key", key)
         console.log('Key changed:', key);
     }
     return (
