@@ -19,6 +19,7 @@
     "eslint": "8.57.0",
     "eslint-config-next": "14.2.2",
     "next": "13.3.4",
+    "node-libs-browser": "^2.2.1",
     "openai": "^4.39.1",
     "postcss": "8.4.38",
     "react": "18.2.0",

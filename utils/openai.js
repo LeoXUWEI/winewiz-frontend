@@ -1,9 +1,12 @@
 import OpenAI from "openai";
 import dotenv from 'dotenv';
+import nodeLibs from 'node-libs-browser';
+global.child_process = nodeLibs.child_process;
 
 dotenv.config({ path: '.env.local'});
 const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
-let messageThread = [];
+let messageThread = '';
+let transcription = '';
 
 const openai = new OpenAI({
   organization: 'org-WWX61vrDTDnPOaeYP5nfSHp5',
@@ -24,7 +27,7 @@ export async function retrieveAssistant() {
 
 export async function createThread(keyinput) {
   try {
-    const messageThread = await openai.beta.threads.create({
+    messageThread = await openai.beta.threads.create({
       messages: [
         {
           role: "user",
@@ -32,9 +35,21 @@ export async function createThread(keyinput) {
         },
       ],
     });
+    console.log("Message thread created!");
+    console.log(messageThread);
     return messageThread;
   } catch (error) {
     console.error("Error creating message thread:", error);
     throw error;
   }
+}
+
+export async function transcribeAudio(audioStream) {
+  transcription = await openai.audio.transcriptions.create({
+    model: "whisper-1",
+    audio: audioStream,
+  });
+
+  console.log(transcription.text);
+  return transcription.text;
 }
