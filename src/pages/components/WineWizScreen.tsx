@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { ScreenProps } from "@/types/Screen.props";
 import SwitchButton from '@/components/switchButton';
 import useDisplayWord from '@/hooks/useDisplayWord';
-import { textToSpeech } from '../../../utils/api';
 
 const WineWizScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     const initialText = [
@@ -18,6 +17,11 @@ const WineWizScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
 
     useEffect(() => {
         speakText();
+
+        return () => {
+            // stop speaking
+            
+        }
       }, []);
 
     const [showFullText, setShowFullText] = useState(false);
