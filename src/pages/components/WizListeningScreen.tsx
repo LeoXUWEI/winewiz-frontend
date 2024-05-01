@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import SwitchButton from '@/components/switchButton';
 import { ScreenProps } from "@/types/Screen.props";
 import useDisplayWord from '@/hooks/useDisplayWord';
+import {transcribeAudio } from '../../../utils/openai'
 import { startRecording, stopRecording } from '../../../utils/audio';
 
 const WizListeningScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
@@ -40,8 +41,9 @@ const WizListeningScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
 
             if (blob) {
                 // Send audio for transcription
-                // const transcription = await transcribeAudio(blob);
-                // console.log(transcription); // Logging the transcription
+                const file = new File([blob], "userspeak.mp3");
+                const transcription = await transcribeAudio(file);
+                console.log("transcription"+transcription); // Logging the transcription
                 toNextScreen();
             }
         }

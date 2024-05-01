@@ -47,7 +47,7 @@ export async function createThread(keyinput) {
 export async function transcribeAudio(audioStream) {
   transcription = await openai.audio.transcriptions.create({
     model: "whisper-1",
-    audio: audioStream,
+    file: audioStream,
   });
 
   console.log(transcription.text);

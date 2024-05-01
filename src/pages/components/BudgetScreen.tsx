@@ -9,16 +9,21 @@ import { createThread } from '../../../utils/openai';
 
 const BudgetScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     let text = ["First, let’s start with your budget. Tap on the one budget range that is ideal to you. If you do not have a specific budget, it is fine, tap the last choice and I will help you out."]
-    
+    const [speaked, setSpeaked] = useState(false);
     const speakText = async () => {
         const { speakText } = await import('../../../utils/textToSpeech');
         speakText(text.join(' '));
     }
 
     useEffect(() => {
-        speakText();
-      }, []);
-    
+        if (speaked) {
+            console.log("speak");
+            speakText();
+            setSpeaked(true);
+        }
+
+    }, []);
+
     const { displayTexts, handleReset } = useDisplayWord(text)
     const [customClassName, setCustomClassName] = useState('pinot')
     let selectKey = useRef('')
@@ -29,7 +34,7 @@ const BudgetScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
             console.log('Selected key:', selectKey);
             try {
                 console.log('Creating thread...');
-                const threadResponse = await createThread(selectKey); 
+                const threadResponse = await createThread(selectKey);
                 console.log('Thread created successfully:', threadResponse);
                 toNextScreen();
             } catch (error) {
@@ -67,7 +72,7 @@ const BudgetScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
         { label: 'collector and icon wines', value: '$200 and up', key: '$200 and up' },
         // { label: 'I do not have a specific budget', value: '', key: 'no' },
     ]
-    
+
     const handleChange = (key: string) => {
         selectKey.current = key
         console.log('Key changed:', key);
