@@ -7,7 +7,7 @@ import useDisplayWord from '@/hooks/useDisplayWord'
 
 const MoreAboutYourNeedsScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     let text = [
-        "So you picked super premium wines, usually costing $50-$100.",
+        "So you picked super premium wines, usually costing $50-$100. (TODO: change this to the user's actual selection)",
         "Apart from that, what other things can you think of about this gift? For instance:",
         "1. What purpose is this gift for?",
         "2. Know Their Preference: Does your friend prefer red, white, rosé, or perhaps sparkling wine?",

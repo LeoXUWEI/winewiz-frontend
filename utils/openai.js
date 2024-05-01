@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config({ path: '.env.local'});
 const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
+let messageThread = [];
 
 const openai = new OpenAI({
   organization: 'org-WWX61vrDTDnPOaeYP5nfSHp5',
@@ -19,4 +20,21 @@ export async function retrieveAssistant() {
   );
   console.log("Assistant retrieved!");
   console.log(myAssistant);
+}
+
+export async function createThread(keyinput) {
+  try {
+    const messageThread = await openai.beta.threads.create({
+      messages: [
+        {
+          role: "user",
+          content: `Hello, please help me pick a wine and my budget is around ${keyinput} dollars.`
+        },
+      ],
+    });
+    return messageThread;
+  } catch (error) {
+    console.error("Error creating message thread:", error);
+    throw error;
+  }
 }

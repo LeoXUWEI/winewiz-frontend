@@ -5,6 +5,7 @@ import SwitchButton from '@/components/switchButton';
 import { ScreenProps } from "@/types/Screen.props";
 import useDisplayWord from '@/hooks/useDisplayWord'
 import styles from './BudgetScreen.module.scss'
+import { createThread } from '../../../utils/openai';
 
 const BudgetScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     let text = ["First, let’s start with your budget. Tap on the one budget range that is ideal to you. If you do not have a specific budget, it is fine, tap the last choice and I will help you out."]
@@ -22,6 +23,23 @@ const BudgetScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     const [customClassName, setCustomClassName] = useState('pinot')
     let selectKey = useRef('')
     const displayTextRef = useRef<any>()
+
+    const handleContinue = async () => {
+        if (selectKey) {
+            console.log('Selected key:', selectKey);
+            try {
+                console.log('Creating thread...');
+                const threadResponse = await createThread(selectKey); 
+                console.log('Thread created successfully:', threadResponse);
+                toNextScreen();
+            } catch (error) {
+                console.error('Failed to create message thread:', error);
+            }
+        } else {
+            console.log('No key selected');
+        }
+    };
+
     const [customObjContent, setCustomObjContent] = useState<{ className: string, text: string, onClick: Function }[]>([
         {
             className: 'bordered',
@@ -41,21 +59,18 @@ const BudgetScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
         handleReset()
     }
     const tabs = [
-        { label: 'budget wines', value: '$10 and under', key: 'budget' },
-        { label: 'mid-range wines', value: '$10 to $25', key: 'mid-range' },
-        { label: 'premium wines', value: '$25 to $50', key: 'premium' },
-        { label: 'super premium wines', value: '$50 to $100', key: 'super' },
-        { label: 'luxury wines', value: '$100 and up', key: 'luxury' },
-        { label: 'collector and icon wines', value: '$200 and up', key: 'collector' },
-        { label: 'I do not have a specific budget', value: '', key: 'no' },
+        { label: 'budget wines', value: '$10 and under', key: '$10 and under' },
+        { label: 'mid-range wines', value: '$10 to $25', key: '$10 to $25' },
+        { label: 'premium wines', value: '$25 to $50', key: '$25 to $50' },
+        { label: 'super premium wines', value: '$50 to $100', key: '$50 to $100' },
+        { label: 'luxury wines', value: '$100 and up', key: '$100 and up' },
+        { label: 'collector and icon wines', value: '$200 and up', key: '$200 and up' },
+        // { label: 'I do not have a specific budget', value: '', key: 'no' },
     ]
-    function handleContinue() {
-        if (selectKey.current) {
-            toNextScreen()
-        }
-    }
+    
     const handleChange = (key: string) => {
         selectKey.current = key
+        console.log('Key changed:', key);
     }
     return (
         <div className={styles.BudgetScreen}>
