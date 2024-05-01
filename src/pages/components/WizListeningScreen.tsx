@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import SwitchButton from '@/components/switchButton';
 import { ScreenProps } from "@/types/Screen.props";
 import useDisplayWord from '@/hooks/useDisplayWord';
-import { transcribeAudio } from '../../../utils/openai'
+import { transcribeAudio, createMessages, runThread, listMessage } from '../../../utils/openai'
 import { startRecording, stopRecording } from '../../../utils/audio';
 
 const WizListeningScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
@@ -44,10 +44,23 @@ const WizListeningScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
                 const file = new File([blob], "userspeak.mp3");
                 const transcription = await transcribeAudio(file);
                 if (transcription) {
-                    console.log("transcription" + transcription); // Logging the transcription
+                    //构建数据传递 gpt
+                    let threadId = localStorage.getItem("thread_id");
+                    let msgFromGpt = await createMessages(threadId, transcription);
+                    console.log('msgFromGpt' + JSON.stringify(msgFromGpt));
+                    let assistantId = localStorage.getItem('assistant_id');
+                    let run = await runThread(threadId, assistantId);
+                    if (run.status === 'completed') {
+                        let messages = await listMessage(run.thread_id)
+                        for (const message of messages.data.reverse()) {
+                            debugger
+                            console.log(`${message.role} > ${message.content[0].text.value}`);
+                        }
+                    } else {
+                        console.log(run.status);
+                    }
                     toNextScreen();
                 }
-
             }
         }
     };
