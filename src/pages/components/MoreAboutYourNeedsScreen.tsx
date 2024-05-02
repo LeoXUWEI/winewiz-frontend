@@ -9,7 +9,7 @@ const MoreAboutYourNeedsScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     let text = [] as any;
     if (typeof window !== 'undefined') {
         text = [
-            "So you picked super premium wines, usually costing " + localStorage.getItem("budget_key") + ".",
+            "So you picked " + localStorage.getItem("budget_label") + ", usually costing " + localStorage.getItem("budget_key") + ".",
             "Apart from that, what other things can you think of about this gift? For instance:",
             "1. What purpose is this gift for?",
             "2. Know Their Preference: Does your friend prefer red, white, rosé, or perhaps sparkling wine?",
