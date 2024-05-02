@@ -6,7 +6,7 @@ import useDisplayWord from '@/hooks/useDisplayWord'
 
 
 const MoreAboutYourNeedsScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
-    let text;
+    let text = [] as any;
     if (typeof window !== 'undefined') {
         text = [
             "So you picked super premium wines, usually costing " + localStorage.getItem("budget_key") + ".",
