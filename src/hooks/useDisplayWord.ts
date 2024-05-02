@@ -35,7 +35,7 @@ const useDisplayWord = (texts: Array<string>) => {
     return () => clearTimeout(timeout);
   }, [texts, textIndex, charIndex]); 
 
-  return { displayTexts, handleReset};
+  return { displayTexts, handleReset,setDisplayTexts};
 };
 
 export default useDisplayWord;

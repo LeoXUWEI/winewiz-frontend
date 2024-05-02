@@ -45,17 +45,21 @@ const WizListeningScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
                 const transcription = await transcribeAudio(file);
                 if (transcription) {
                     //构建数据传递 gpt
+                    localStorage.setItem("contentFromGpt", '');
                     let threadId = localStorage.getItem("thread_id");
                     let msgFromGpt = await createMessages(threadId, transcription);
                     console.log('msgFromGpt' + JSON.stringify(msgFromGpt));
                     let assistantId = localStorage.getItem('assistant_id');
                     let run = await runThread(threadId, assistantId);
                     if (run.status === 'completed') {
-                        let messages = await listMessage(run.thread_id)
-                        for (const message of messages.data.reverse()) {
-                            debugger
-                            console.log(`${message.role} > ${message.content[0].text.value}`);
-                        }
+                        let messages = await listMessage(run.thread_id);
+                        // for (const message of messages.data.reverse()) {
+                        //     debugger
+                        //     console.log(`${message.role} > ${(message.content[0] as any).text.value}`);
+                        // }
+                        let contentFromGpt = (messages.data[0].content[0] as any).text.value;
+                        localStorage.setItem("contentFromGpt", contentFromGpt);
+                        console.log(contentFromGpt);
                     } else {
                         console.log(run.status);
                     }

@@ -34,7 +34,7 @@ const BudgetScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
             console.log('Selected key:', selectKey);
             try {
                 console.log('Creating thread...');
-                const threadResponse = await createThread(selectKey.current);
+                const threadResponse = await createThread();
                 console.log('Thread created successfully:', threadResponse);
                 toNextScreen();
             } catch (error) {

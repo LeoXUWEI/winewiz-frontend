@@ -17,35 +17,32 @@ const openai = new OpenAI({
 
 export async function retrieveAssistant() {
   // Retrieve assistant 
-  console.log("Retrieving assistant...");
-  const myAssistant = await openai.beta.assistants.retrieve(
-    "asst_diffUTSlsMltQsgL3Hs4tVLP"
-  );
-  console.log("Assistant retrieved!");
-  localStorage.setItem("assistant_id", myAssistant.id)
-  console.log(myAssistant);
+  // console.log("Retrieving assistant...");
+  // const myAssistant = await openai.beta.assistants.retrieve(
+  //   "asst_diffUTSlsMltQsgL3Hs4tVLP"
+  // );
+  // console.log("Assistant retrieved!");
+  // localStorage.setItem("assistant_id", myAssistant.id)
+  // console.log(myAssistant);
+
+  // const myAssistants = await openai.beta.assistants.list({
+  //   order: "desc",
+  //   limit: "20",
+  // });
+  localStorage.setItem("assistant_id","asst_diffUTSlsMltQsgL3Hs4tVLP")
+  // console.log(myAssistants.data);
+
 }
 
-export async function createThread(keyinput) {
+export async function createThread() {
   try {
-    let threadId = localStorage.getItem("thread_id");
-    let content = "Hello, please help me pick a wine and my budget is around " + keyinput + " dollars. return json format";
-    console.log(content);
-    if (!threadId) {
-      messageThread = await openai.beta.threads.create({
-        messages: [
-          {
-            role: "user",
-            content: content
-          },
-        ],
-      });
-      console.log("Message thread created!");
-      console.log(messageThread);
-      localStorage.setItem("thread_id", messageThread.id)
-      return messageThread.id;
-    }
-    return threadId;
+
+    messageThread = await openai.beta.threads.create();
+    console.log("Message thread created!");
+    console.log(messageThread);
+    localStorage.setItem("thread_id", messageThread.id)
+    return messageThread.id;
+
   } catch (error) {
     console.error("Error creating message thread:", error);
     throw error;
@@ -63,22 +60,26 @@ export async function transcribeAudio(audioStream) {
 }
 
 export async function createMessages(threadId, msg) {
+  let keyinput = localStorage.getItem("budget_key");
+  let content = "Hello, please help me pick a wine and my budget is around " + keyinput + " dollars. ";
+  console.log(content);
   const message = await openai.beta.threads.messages.create(
     threadId,
     {
       role: "user",
-      content: msg
+      content: content + msg
     }
   );
   return message;
 }
 
 export async function runThread(threadId, assistantId) {
+  
+
   let run = await openai.beta.threads.runs.createAndPoll(
     threadId,
     {
-      assistant_id: assistantId,
-      instructions: "must return json format"
+      assistant_id: assistantId
     }
   );
   return run;

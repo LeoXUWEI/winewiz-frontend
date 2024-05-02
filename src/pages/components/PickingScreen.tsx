@@ -6,9 +6,8 @@ import useDisplayWord from '@/hooks/useDisplayWord'
 
 
 const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
-    const text = ["Great, so it is for your friend's wedding. Any moreinformation l should know? For instance, their..."]
-    const pickingText = "Great, so it is for your friend's wedding"
-    const { displayTexts, handleReset } = useDisplayWord(text)
+    
+    const { displayTexts, handleReset, setDisplayTexts } = useDisplayWord([])
     const [showPicking, setShowPicking] = useState(false)
     const [pickText, setPickText] = useState("");
     const [displayPickText, setDisplayPickText] = useState("");
@@ -29,27 +28,54 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
             text: 'Tap to speak',
         }
     ])
+
+
+  
+
     useEffect(() => {
+
+        let contentFromGpt = localStorage.getItem("contentFromGpt");
+        if (contentFromGpt && (typeof contentFromGpt === 'string')) {
+            let jsonFormat = JSON.parse(contentFromGpt);
+            let list = [];
+            list.push(jsonFormat.msg);
+            setDisplayTexts(list);
+        }
+
         let index = 0;
         const interval = setInterval(() => {
-            if (index <= pickText.length) {
-                setDisplayPickText(pickText.substring(0, index));
-                index++;
-            } else {
-                clearInterval(interval);
+
+
+            if (contentFromGpt && (typeof contentFromGpt === 'string')) {
+                let jsonFormat = JSON.parse(contentFromGpt);
+
+                if (index <= jsonFormat.keywords.length) {
+                    setDisplayPickText(jsonFormat.keywords.substring(0, index));
+                    index++;
+
+                } else {
+                    clearInterval(interval);
+                }
             }
+
         }, 100);
         return () => {
             clearInterval(interval);
         };
-    }, [pickText]);
+    }, []);
+
     function handleReStart() {
         handleReset()
     }
     function handlePick() {
         setCustomObjContent(prevContent => ([]))
         setShowPicking(() => true)
-        setPickText(pickingText)
+        let contentFromGpt = localStorage.getItem("contentFromGpt")?.toString;
+        if (contentFromGpt && (typeof contentFromGpt === 'string')) {
+            let jsonFormat = JSON.parse(contentFromGpt);
+            setPickText(jsonFormat.keywords);
+        }
+
     }
     return (
         <>
