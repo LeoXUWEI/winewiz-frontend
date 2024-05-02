@@ -1,16 +1,18 @@
 import React from "react";
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import SwitchButton from '@/components/switchButton';
 import { ScreenProps } from "@/types/Screen.props";
 import useDisplayWord from '@/hooks/useDisplayWord'
-
-
+import { startRecording, stopRecording } from '../../../utils/audio';
+import { transcribeAudio, createMessageSingle, runThread, listMessage } from '../../../utils/openai'
 const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
 
     const { displayTexts, handleReset, setDisplayTexts } = useDisplayWord([])
     const [showPicking, setShowPicking] = useState(false)
     const [pickText, setPickText] = useState("");
     const [displayPickText, setDisplayPickText] = useState("");
+    let recording = useRef<MediaRecorder | null>();
+    const [audioBlob, setAudioBlob] = useState<Blob | null>();
     const [customObjContent, setCustomObjContent] = useState<{ className: string, text: string, onClick?: Function, showIcon?: boolean }[]>([
         {
             className: 'picking',
@@ -26,11 +28,12 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
             className: 'white',
             showIcon: true,
             text: 'Tap to speak',
+            onClick: recordVoice
         }
     ])
 
 
-
+    
 
     useEffect(() => {
 
@@ -66,7 +69,87 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
             };
         }
     }, []);
+    async function recordVoice() {
+        console.log(recording);
+        if (!recording.current) {
+            recording = { current: await startRecording() };
 
+            const newCustomObjContent: { className: string, text: string, onClick?: Function, showIcon?: boolean }[] = customObjContent.map((item, index) => {
+                if (index === 2) {
+                    return { ...item, text: 'tap to send' };
+                }
+                return item;
+            });
+            setCustomObjContent(newCustomObjContent)
+        } else {
+            const blob = await stopRecording(recording.current);
+            setAudioBlob(blob);
+            recording.current = null;
+            const newCustomObjContent: { className: string, text: string, onClick?: Function, showIcon?: boolean }[] = customObjContent.map((item, index) => {
+                if (index === 2) {
+                    return { ...item, text: 'tap to speak' };
+                }
+                return item;
+            });
+            setCustomObjContent(newCustomObjContent)
+
+            if (blob) {
+                // Send audio for transcription
+                const file = new File([blob], "userspeak.mp3");
+                const transcription = await transcribeAudio(file);
+                if (transcription) {
+                    //构建数据传递 gpt
+                    localStorage.setItem("contentFromGpt", '');
+                    let threadId = localStorage.getItem("thread_id");
+                    let msgFromGpt = await createMessageSingle(threadId, transcription);
+                    console.log('msgFromGpt' + JSON.stringify(msgFromGpt));
+                    if (typeof window !== 'undefined') {
+                        let assistantId = localStorage.getItem('assistant_id');
+                        let run = await runThread(threadId, assistantId);
+                        if (run.status === 'completed') {
+                            let messages = await listMessage(run.thread_id);
+                            let content = (messages.data[0].content[0] as any).text.value;
+                            if (typeof window !== 'undefined') {
+                               
+                                console.log(content);
+
+                                 
+                                    if (content && (typeof content === 'string')) {
+                                        let jsonFormat = JSON.parse(content);
+                                        displayTexts.push(jsonFormat.msg)
+                                        setDisplayTexts(displayTexts);
+                                    
+                                    let index = 0;
+                                    const interval = setInterval(() => {
+                        
+                        
+                                        if (content && (typeof content === 'string')) {
+                                            let jsonFormat = JSON.parse(content);
+                        
+                                            if (index <= jsonFormat.keywords.length) {
+                                                setDisplayPickText(jsonFormat.keywords.substring(0, index));
+                                                index++;
+                        
+                                            } else {
+                                                clearInterval(interval);
+                                            }
+                                        }
+                        
+                                    }, 100);
+                        
+                                    return () => {
+                                        clearInterval(interval);
+                                    };
+                                }
+                            }
+                        } else {
+                            console.log(run.status);
+                        }
+                    }
+                }
+            }
+        }
+    }
     function handleReStart() {
         handleReset()
     }

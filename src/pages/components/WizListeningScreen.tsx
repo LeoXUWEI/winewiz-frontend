@@ -8,7 +8,7 @@ import { startRecording, stopRecording } from '../../../utils/audio';
 
 const WizListeningScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     const text = ['Wiz is listening'];
-    const { displayTexts, handleReset } = useDisplayWord(text);
+    const { displayTexts, handleReset ,setDisplayTexts} = useDisplayWord(text);
 
     const [recording, setRecording] = useState<MediaRecorder | null>(null);
     const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
@@ -40,6 +40,7 @@ const WizListeningScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
             setAudioBlob(blob);
 
             if (blob) {
+                setDisplayTexts(['Wiz is thinking']);
                 // Send audio for transcription
                 const file = new File([blob], "userspeak.mp3");
                 const transcription = await transcribeAudio(file);

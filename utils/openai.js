@@ -66,7 +66,8 @@ export async function transcribeAudio(audioStream) {
 export async function createMessages(threadId, msg) {
   if (typeof window !== 'undefined') {
     let keyinput = localStorage.getItem("budget_key");
-    let content = "Hello, please help me pick a wine and my budget is around " + keyinput + " dollars. ";
+    let budgetLabel = localStorage.getItem("budget_label");
+    let content = "Hello, please help me pick a " + budgetLabel + " and my budget is around " + keyinput + " dollars. ";
     console.log(content);
     const message = await openai.beta.threads.messages.create(
       threadId,
@@ -77,6 +78,20 @@ export async function createMessages(threadId, msg) {
     );
     return message;
   }
+}
+
+
+export async function createMessageSingle(threadId, msg) {
+
+  const message = await openai.beta.threads.messages.create(
+    threadId,
+    {
+      role: "user",
+      content: msg
+    }
+  );
+  return message;
+
 }
 
 export async function runThread(threadId, assistantId) {
