@@ -4,22 +4,26 @@ import useDisplayWord from '@/hooks/useDisplayWord'
 import React, { useEffect } from 'react';
 
 const WizThinkingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
-    
+
     const { displayTexts } = useDisplayWord(['Wiz is thinking'])
 
     useEffect(() => {
-        let timer = setInterval(async function() {
-          let result =localStorage.getItem("contentFromGpt"); // 检查数据，如果有结果则返回
-          if (result && result!='') {
-            clearInterval(timer);  // 停止执行
-            toNextScreen();
-          }
+        let timer = setInterval(async function () {
+            if (typeof window !== 'undefined') {
+                let result = localStorage.getItem("contentFromGpt"); // 检查数据，如果有结果则返回
+                if (result && result != '') {
+                    clearInterval(timer);  // 停止执行
+                    toNextScreen();
+                }
+            }
         }, 2000);
-     
+
         return () => {
-          clearInterval(timer); // 组件卸载时停止定时器
+            clearInterval(timer); // 组件卸载时停止定时器
         };
-      }, []);
+
+
+    }, []);
 
 
     return (

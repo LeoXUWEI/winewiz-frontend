@@ -29,7 +29,9 @@ export async function retrieveAssistant() {
   //   order: "desc",
   //   limit: "20",
   // });
-  localStorage.setItem("assistant_id","asst_diffUTSlsMltQsgL3Hs4tVLP")
+  if (typeof window !== 'undefined') {
+    localStorage.setItem("assistant_id", "asst_diffUTSlsMltQsgL3Hs4tVLP");
+  }
   // console.log(myAssistants.data);
 
 }
@@ -40,7 +42,9 @@ export async function createThread() {
     messageThread = await openai.beta.threads.create();
     console.log("Message thread created!");
     console.log(messageThread);
-    localStorage.setItem("thread_id", messageThread.id)
+    if (typeof window !== 'undefined') {
+      localStorage.setItem("thread_id", messageThread.id);
+    }
     return messageThread.id;
 
   } catch (error) {
@@ -60,21 +64,23 @@ export async function transcribeAudio(audioStream) {
 }
 
 export async function createMessages(threadId, msg) {
-  let keyinput = localStorage.getItem("budget_key");
-  let content = "Hello, please help me pick a wine and my budget is around " + keyinput + " dollars. ";
-  console.log(content);
-  const message = await openai.beta.threads.messages.create(
-    threadId,
-    {
-      role: "user",
-      content: content + msg
-    }
-  );
-  return message;
+  if (typeof window !== 'undefined') {
+    let keyinput = localStorage.getItem("budget_key");
+    let content = "Hello, please help me pick a wine and my budget is around " + keyinput + " dollars. ";
+    console.log(content);
+    const message = await openai.beta.threads.messages.create(
+      threadId,
+      {
+        role: "user",
+        content: content + msg
+      }
+    );
+    return message;
+  }
 }
 
 export async function runThread(threadId, assistantId) {
-  
+
 
   let run = await openai.beta.threads.runs.createAndPoll(
     threadId,

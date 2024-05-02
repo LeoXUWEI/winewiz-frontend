@@ -6,14 +6,17 @@ import useDisplayWord from '@/hooks/useDisplayWord'
 
 
 const MoreAboutYourNeedsScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
-    let text = [
-        "So you picked super premium wines, usually costing " + localStorage.getItem("budget_key") + ".",
-        "Apart from that, what other things can you think of about this gift? For instance:",
-        "1. What purpose is this gift for?",
-        "2. Know Their Preference: Does your friend prefer red, white, rosé, or perhaps sparkling wine?",
-        "3. Food Pairing: What's on the menu?",
-        "4. Special Touch: Consider a wine from a region or a year that is meaningful to your friend. For instance, a wine from a region they have visited or dream of visiting, or a vintage from a significant year in their life."
-    ]
+    let text;
+    if (typeof window !== 'undefined') {
+        text = [
+            "So you picked super premium wines, usually costing " + localStorage.getItem("budget_key") + ".",
+            "Apart from that, what other things can you think of about this gift? For instance:",
+            "1. What purpose is this gift for?",
+            "2. Know Their Preference: Does your friend prefer red, white, rosé, or perhaps sparkling wine?",
+            "3. Food Pairing: What's on the menu?",
+            "4. Special Touch: Consider a wine from a region or a year that is meaningful to your friend. For instance, a wine from a region they have visited or dream of visiting, or a vintage from a significant year in their life."
+        ]
+    }
     const { displayTexts, handleReset } = useDisplayWord(text)
     const [customObjContent, setCustomObjContent] = useState<{ className: string, text: string, onClick: Function, showIcon?: boolean }[]>([
         {
