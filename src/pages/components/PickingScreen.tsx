@@ -47,30 +47,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
         if (typeof window !== 'undefined') {
             let contentFromGpt = localStorage.getItem("contentFromGpt");
             if (contentFromGpt && (typeof contentFromGpt === 'string')) {
-                let jsonFormat = ''
-                try {
-                    jsonFormat = JSON.parse(contentFromGpt);
-                } catch (e) {
-                    console.log(e)
-                    jsonFormat = {
-                        "msg": "I've selected the Hollywood Vine 2480 Cabernet, 2014 for its exceptional characteristics and alignment with your budget range of $50 to $100. This full-bodied cabernet is noted for its opulent creme de cassis aromas, integrated with high-quality oak, licorice, and cedar. Praised for its ripe, concentrated flavor with sweet tannin, it delivers a long finish, making it an excellent choice for a super-premium wine under $100.",
-                        "name": "Hollywood Vine 2480 Cabernet, 2014",
-                        "keywords": "super premium, budget $50 to $100",
-                        "theme": "Elegant and sophisticated gathering",
-                        "volume": "750ml",
-                        "category_3": "Cabernet Sauvignon",
-                        "rating": "4.7",
-                        "product_highlights": "Napa, CA- This \'garage\' wine is a limited production newcomer. The opaque purple-colored Cabernet possesses pure creme de cassis aromas intermixed with high quality oak, licorice, and cedar. It is full-bodied and ripe, with sweet tannin, marvelous concentration, and a long finish.",
-                        "country_state": "California",
-                        "region": "Napa Valley",
-                        "brand": "Hollywood Vine",
-                        "abv": "14.80%",
-                        "varietal": "Cabernet Sauvignon",
-                        "food_pairings": "Beef, Hard Cheese, Lamb",
-                        "url": "https://www.totalwine.com/wine/red-wine/cabernet-sauvignon/hollywood-vine-2480-cabernet/p/36082750",
-                        "img": "https://www.totalwine.com/dynamic/x1000,sq/media/sys_master/twmmedia/heb/h19/8812464078878.png"
-                    };
-                }
+                let jsonFormat = JSON.parse(contentFromGpt);
                 displayTexts.push(jsonFormat.msg);
                 setDisplayTexts(displayTexts);
                 speakText();
