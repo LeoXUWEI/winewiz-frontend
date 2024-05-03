@@ -9,7 +9,6 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
 
     const { displayTexts, handleReset, setDisplayTexts } = useDisplayWord([])
     const [showPicking, setShowPicking] = useState(false)
-    const [pickText, setPickText] = useState("");
     const [displayPickText, setDisplayPickText] = useState("");
     let recording = useRef<MediaRecorder | null>();
     const [audioBlob, setAudioBlob] = useState<Blob | null>();
@@ -33,28 +32,30 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     ])
 
 
-    
+    const speakText = async () => {
+        const { speakText } = await import('../../../utils/textToSpeech');
+        speakText(displayTexts[displayTexts.length-1]);
+    }
 
     useEffect(() => {
-
         if (typeof window !== 'undefined') {
             let contentFromGpt = localStorage.getItem("contentFromGpt");
             if (contentFromGpt && (typeof contentFromGpt === 'string')) {
                 let jsonFormat = JSON.parse(contentFromGpt);
-                let list = [];
-                list.push(jsonFormat.msg);
-                setDisplayTexts(list);
+                displayTexts.push(jsonFormat.msg);
+                setDisplayTexts(displayTexts);
+                speakText();
             }
 
             let index = 0;
             const interval = setInterval(() => {
-
-
+                 let oldisplayPickText=displayPickText;
                 if (contentFromGpt && (typeof contentFromGpt === 'string')) {
                     let jsonFormat = JSON.parse(contentFromGpt);
 
                     if (index <= jsonFormat.keywords.length) {
-                        setDisplayPickText(jsonFormat.keywords.substring(0, index));
+                        
+                        setDisplayPickText(oldisplayPickText + jsonFormat.keywords.substring(0, index));
                         index++;
 
                     } else {
@@ -69,6 +70,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
             };
         }
     }, []);
+
     async function recordVoice() {
         console.log(recording);
         if (!recording.current) {
@@ -110,33 +112,32 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
                             let messages = await listMessage(run.thread_id);
                             let content = (messages.data[0].content[0] as any).text.value;
                             if (typeof window !== 'undefined') {
-                               
+
                                 console.log(content);
 
-                                 
-                                    if (content && (typeof content === 'string')) {
-                                        let jsonFormat = JSON.parse(content);
-                                        displayTexts.push(jsonFormat.msg)
-                                        setDisplayTexts(displayTexts);
-                                    
+
+                                if (content && (typeof content === 'string')) {
+                                    let jsonFormat = JSON.parse(content);
+                                    displayTexts.push(jsonFormat.msg)
+                                    setDisplayTexts(displayTexts);
+                                    speakText();
                                     let index = 0;
                                     const interval = setInterval(() => {
-                        
-                        
+
+
                                         if (content && (typeof content === 'string')) {
                                             let jsonFormat = JSON.parse(content);
-                        
+
                                             if (index <= jsonFormat.keywords.length) {
-                                                setDisplayPickText(jsonFormat.keywords.substring(0, index));
+                                                setDisplayPickText(prevDisplayPickText => prevDisplayPickText + jsonFormat.keywords.substring(index, index + 1));
                                                 index++;
-                        
+
                                             } else {
                                                 clearInterval(interval);
                                             }
                                         }
-                        
+
                                     }, 100);
-                        
                                     return () => {
                                         clearInterval(interval);
                                     };
@@ -157,13 +158,8 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
         setCustomObjContent(prevContent => ([]))
         setShowPicking(() => true)
         if (typeof window !== 'undefined') {
-            let contentFromGpt = localStorage.getItem("contentFromGpt")?.toString;
-            if (contentFromGpt && (typeof contentFromGpt === 'string')) {
-                let jsonFormat = JSON.parse(contentFromGpt);
-                setPickText(jsonFormat.keywords);
-            }
+            localStorage.setItem("PickText", displayPickText);
         }
-
     }
     return (
         <>
