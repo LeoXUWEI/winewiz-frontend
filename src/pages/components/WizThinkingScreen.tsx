@@ -28,7 +28,7 @@ const WizThinkingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
 
     return (
         <>
-            <div className={'text-[#6B003A] text-[24px] font_normal_bold text-center pt-80'}>{displayTexts[0]}</div>
+            <div className={'text-[#fff] text-[24px] font_normal_bold text-center pt-80'}>{displayTexts[0]}</div>
         </>
     )
 }
