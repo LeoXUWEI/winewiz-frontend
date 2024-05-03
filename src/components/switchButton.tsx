@@ -1,21 +1,26 @@
 import React from 'react';
+import clsx from 'clsx';
 import { Button, Space } from 'antd-mobile';
-import { AudioOutline } from 'antd-mobile-icons'
 import styles from './switchButton.module.scss'
 
 
 interface switchButtonProps {
-  toNextScreen: () => void;
+  toNextScreen?: () => void;
   customObjContent?: Array<any>
+  isFreePosition?: boolean
 }
 
-const switchButton: React.FC<switchButtonProps> = ({ toNextScreen, customObjContent }) => {
+const switchButton: React.FC<switchButtonProps> = ({ toNextScreen, customObjContent, isFreePosition = false }) => {
+  const classes = clsx(styles.myContainer, 'w-80 bottom-6', {
+    'fixed': !!!isFreePosition
+  })
   return (
-    <div className={`${styles.myContainer} fixed w-80 bottom-6`}>
+    <div className={classes}>
       {customObjContent?.map((item, index) => (
         <Button block size='large' className={`${item.className} text-[18px] font_extra_bold`} onClick={item.onClick} key={index}>
           <Space>
-            {item.showIcon && <AudioOutline />}
+            {/* {item.showIcon && <AudioOutline />} */}
+            {item.children}
             <span>{item.text}</span>
           </Space>
         </Button>
