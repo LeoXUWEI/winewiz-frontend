@@ -76,7 +76,7 @@ export default function MakeGiftCard() {
                   <div>
                     <h3 className="text-[#6B003A] text-[18px] leading-4">Boordy Seyval Vidal Chardonnay</h3>
                     <p className="text-[#6B003A] text-[12px] w-56">750ml</p>
-                    <p className="text-[#6B003A] text-[14px] w-48 leading-5">Maryland - Crisp, clean, and dry - with hints of tropical fruit and herbs on the nose, the "Rockfish" is out most versatile white wine. Pair with veal, roasted pork and seafood dishes.</p>
+                    <p className="text-[#6B003A] text-[14px] w-48 leading-5">Maryland - Crisp, clean, and dry - with hints of tropical fruit and herbs on the nose, the Rockfish is out most versatile white wine. Pair with veal, roasted pork and seafood dishes.</p>
                   </div>
                 </div>
                 <div className="mt-5">
