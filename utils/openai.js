@@ -113,3 +113,8 @@ export async function listMessage(threadId,) {
   return messages;
 }
 
+export async function createVariation(imagebuffer) {
+  const image = await openai.images.createVariation({ model: "dall-e-2", image: imagebuffer, n: 1, size: "1024x1024" });
+  console.log(image.data);
+  return image;
+}
