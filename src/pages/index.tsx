@@ -9,6 +9,7 @@ import WizListeningScreen from "@/pages/components/WizListeningScreen";
 import WizThinkingScreen from "@/pages/components/WizThinkingScreen";
 import WineWizIndex from "@/pages/components/WineWizIndex";
 import PickingScreen from "@/pages/components/PickingScreen";
+import MakeGiftCard from "@/pages/makeGiftCard";
 import PurchasingScreen from '@/pages/components/PurchasingScreen';
 
 const SCREENS = {
@@ -19,7 +20,8 @@ const SCREENS = {
     WIZ_LISTENING: 'wizListening',
     WIZ_THINKING: 'wizThinking',
     PICKING_WINE: 'pickingWine',
-    PURCHASING_WINE: 'purchasingwine'
+    PURCHASING_WINE: 'purchasingwine',
+    MAKE_GIFT: 'makegift',
 };
 
 const SCREENS_MAP = {
@@ -29,7 +31,7 @@ const SCREENS_MAP = {
     [SCREENS.MORE_ABOUT_YOUR_NEED]: SCREENS.WIZ_LISTENING,
     [SCREENS.WIZ_LISTENING]: SCREENS.WIZ_THINKING,
     [SCREENS.WIZ_THINKING]: SCREENS.PICKING_WINE,
-    [SCREENS.PICKING_WINE]: SCREENS.PURCHASING_WINE
+    [SCREENS.PICKING_WINE]: SCREENS.MAKE_GIFT
 }
 
 const amplitudes = {
@@ -58,7 +60,8 @@ export default function ChattingPage() {
         [SCREENS.WIZ_LISTENING]: <WizListeningScreen toNextScreen={toNextScreen} />,
         [SCREENS.WIZ_THINKING]: <WizThinkingScreen toNextScreen={toNextScreen} />,
         [SCREENS.PICKING_WINE]: <PickingScreen toNextScreen={toNextScreen} />,
-        [SCREENS.PURCHASING_WINE]: <PurchasingScreen toNextScreen={toNextScreen} />
+        [SCREENS.PURCHASING_WINE]: <PurchasingScreen toNextScreen={toNextScreen} />,
+        [SCREENS.MAKE_GIFT]: <MakeGiftCard toNextScreen={toNextScreen} />,
     };
 
 
