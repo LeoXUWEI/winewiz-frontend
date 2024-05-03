@@ -13,16 +13,16 @@ const WineWizScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     const speakText = async () => {
         const { speakText } = await import('../../../utils/textToSpeech');
         speakText(initialText.join(' '));
-      }
+    }
 
     useEffect(() => {
         speakText();
 
         return () => {
             // stop speaking
-            
+
         }
-      }, []);
+    }, []);
 
     const [showFullText, setShowFullText] = useState(false);
     const [buttonContent, setButtonContent] = useState([
@@ -37,9 +37,9 @@ const WineWizScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     return (
         <>
             <div>
-                <h1 className="text-[#6B003A] text-[24px] font_page_title text-center pt-10">WineWiz</h1>
+                <h1 className="text-[#6B003A] text-[24px] font_extra_bold text-center pt-10">WineWiz</h1>
                 {(showFullText ? initialText : displayTexts).map((item, index) => (
-                    <div className="text-[#6B003A] text-[14px] font_paragraph text-left mt-3 pl-5 pr-5 w-screen" key={index}>
+                    <div className="text-[#6B003A] text-[14px] font_medium_bold text-left mt-3 pl-5 pr-5 w-screen" key={index}>
                         {item}
                     </div>
                 ))}

@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from 'react'
+import { AudioOutline } from 'antd-mobile-icons'
 import SwitchButton from '@/components/switchButton';
 import { ScreenProps } from "@/types/Screen.props";
 import useDisplayWord from '@/hooks/useDisplayWord'
@@ -18,7 +19,7 @@ const MoreAboutYourNeedsScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
         ]
     }
     const { displayTexts, handleReset } = useDisplayWord(text)
-    const [customObjContent, setCustomObjContent] = useState<{ className: string, text: string, onClick: Function, showIcon?: boolean }[]>([
+    const [customObjContent, setCustomObjContent] = useState<{ className: string, text: string, onClick: Function, children?: any }[]>([
         {
             className: 'bordered',
             text: 'Repeat your last message',
@@ -27,7 +28,7 @@ const MoreAboutYourNeedsScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
         {
             className: 'white',
             text: 'Tap to speak',
-            showIcon: true,
+            children: <AudioOutline />,
             onClick: handleSpeak
         }
     ])

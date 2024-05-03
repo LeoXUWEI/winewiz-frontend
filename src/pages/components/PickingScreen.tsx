@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect, useRef } from 'react'
+import { AudioOutline } from 'antd-mobile-icons'
 import SwitchButton from '@/components/switchButton';
 import { ScreenProps } from "@/types/Screen.props";
 import useDisplayWord from '@/hooks/useDisplayWord'
@@ -12,7 +13,8 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     const [displayPickText, setDisplayPickText] = useState("");
     let recording = useRef<MediaRecorder | null>();
     const [audioBlob, setAudioBlob] = useState<Blob | null>();
-    const [customObjContent, setCustomObjContent] = useState<{ className: string, text: string, onClick?: Function, showIcon?: boolean }[]>([
+    const displayTextRef = useRef<any>();
+    const [customObjContent, setCustomObjContent] = useState<{ className: string, text: string, onClick?: Function, children?: any }[]>([
         {
             className: 'picking',
             text: 'Start Picking',
@@ -25,7 +27,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
         },
         {
             className: 'white',
-            showIcon: true,
+            children: <AudioOutline />,
             text: 'Tap to speak',
             onClick: recordVoice
         }
@@ -34,8 +36,12 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
 
     const speakText = async () => {
         const { speakText } = await import('../../../utils/textToSpeech');
-        speakText(displayTexts[displayTexts.length-1]);
+        speakText(displayTexts[displayTexts.length - 1]);
     }
+
+    useEffect(() => {
+        displayTextRef?.current.scrollTo(0, displayTextRef?.current.scrollHeight);
+    }, [displayTexts])
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -49,12 +55,12 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
 
             let index = 0;
             const interval = setInterval(() => {
-                 let oldisplayPickText=displayPickText;
+                let oldisplayPickText = displayPickText;
                 if (contentFromGpt && (typeof contentFromGpt === 'string')) {
                     let jsonFormat = JSON.parse(contentFromGpt);
 
                     if (index <= jsonFormat.keywords.length) {
-                        
+
                         setDisplayPickText(oldisplayPickText + jsonFormat.keywords.substring(0, index));
                         index++;
 
@@ -165,9 +171,11 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
         <>
             <div>
                 <h1 className={'text-[#6B003A] text-[24px] font_normal_bold text-center pt-10'}>WineWiz</h1>
-                {displayTexts.map((item: string, index: number) => (
-                    <div className={'text-[#6B003A] text-[14px] font_medium_bold text-left mt-3 pl-5 pr-5 w-screen'} key={index}>{item}</div>
-                ))}
+                <div className={'h-10 overflow-auto'} ref={displayTextRef}>
+                    {displayTexts.map((item: string, index: number) => (
+                        <div className={'text-[#6B003A] text-[14px] font_medium_bold text-left mt-3 pl-5 pr-5 w-screen'} key={index}>{item}</div>
+                    ))}
+                </div>
             </div>
             <div className={'w-80 h-56 mx-auto mt-10 border-dashed border-2 border-white rounded-lg p-2'}>
                 <span className={'text-[#6B003A] text-[14px] font_normal_bold'}>{displayPickText}</span>

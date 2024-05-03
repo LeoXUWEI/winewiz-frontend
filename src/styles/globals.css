@@ -127,6 +127,10 @@ section .wavy div:nth-child(3) span {
   }
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 /* 字体引入 */
 /*
 <weight>: Use a value from 200 to 800
