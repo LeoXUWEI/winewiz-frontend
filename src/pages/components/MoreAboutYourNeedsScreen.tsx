@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { AudioOutline } from 'antd-mobile-icons'
 import SwitchButton from '@/components/switchButton';
 import { ScreenProps } from "@/types/Screen.props";
@@ -8,6 +8,16 @@ import useDisplayWord from '@/hooks/useDisplayWord'
 
 const MoreAboutYourNeedsScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     let text = [] as any;
+
+    const speakText = async () => {
+        const { speakText } = await import('../../../utils/textToSpeech');
+        speakText(text.join(' '));
+    }
+
+    useEffect(() => {
+        speakText();
+    }, []);
+
     if (typeof window !== 'undefined') {
         text = [
             "So you picked " + localStorage.getItem("budget_label") + ", usually costing " + localStorage.getItem("budget_key") + ".",
@@ -32,6 +42,8 @@ const MoreAboutYourNeedsScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
             onClick: handleSpeak
         }
     ])
+
+
 
     function handleReStart() {
         handleReset()

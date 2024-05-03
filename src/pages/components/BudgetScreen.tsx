@@ -9,18 +9,16 @@ import { createThread } from '../../../utils/openai';
 
 const BudgetScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     let text = ["First, let’s start with your budget. Tap on the one budget range that is ideal to you. If you do not have a specific budget, it is fine, tap the last choice and I will help you out."]
-    const [speaked, setSpeaked] = useState(false);
+
     const speakText = async () => {
         const { speakText } = await import('../../../utils/textToSpeech');
         speakText(text.join(' '));
     }
 
     useEffect(() => {
-        if (speaked) {
-            console.log("speak");
-            speakText();
-            setSpeaked(true);
-        }
+
+        speakText();
+
 
     }, []);
 
