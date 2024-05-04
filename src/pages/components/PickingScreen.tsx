@@ -5,7 +5,7 @@ import SwitchButton from '@/components/switchButton';
 import { ScreenProps } from "@/types/Screen.props";
 import useDisplayWord from '@/hooks/useDisplayWord'
 import { startRecording, stopRecording } from '../../../utils/audio';
-import { transcribeAudio, createMessageSingle, runThread, listMessage } from '../../../utils/openai'
+import { transcribeAudio, createThread, createMessageSingle, runThread, listMessage } from '../../../utils/openai'
 const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
 
     let audio = null;
@@ -66,9 +66,8 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
                 let oldisplayPickText = displayPickText;
                 if (contentFromGpt && (typeof contentFromGpt === 'string')) {
                     let jsonFormat = JSON.parse(contentFromGpt);
-
+                    localStorage.setItem("PickText", displayPickText + jsonFormat.keywords);
                     if (index <= jsonFormat.keywords.length) {
-
                         setDisplayPickText(oldisplayPickText + jsonFormat.keywords.substring(0, index));
                         index++;
 
@@ -140,6 +139,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
                                     let jsonFormat = JSON.parse(content);
                                     displayTexts.push(jsonFormat.msg)
                                     setDisplayTexts(displayTexts);
+
                                     speakText();
                                     let index = 0;
                                     const interval = setInterval(() => {
@@ -147,11 +147,10 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
 
                                         if (content && (typeof content === 'string')) {
                                             let jsonFormat = JSON.parse(content);
-
+                                            localStorage.setItem("PickText", displayPickText + jsonFormat.keywords);
                                             if (index <= jsonFormat.keywords.length) {
                                                 setDisplayPickText(prevDisplayPickText => prevDisplayPickText + jsonFormat.keywords.substring(index, index + 1));
                                                 index++;
-
                                             } else {
                                                 clearInterval(interval);
                                             }
@@ -174,11 +173,26 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     function handleReStart() {
         handleReset()
     }
-    function handlePick() {
+    async function handlePick() {
         setCustomObjContent(prevContent => ([]))
         setShowPicking(() => true)
         if (typeof window !== 'undefined') {
-            localStorage.setItem("PickText", displayPickText);
+            //选酒
+            const threadId = await createThread();
+            //发送关键词
+            const message = await createMessageSingle(threadId, localStorage.getItem("PickText"));
+            let run = await runThread(threadId, "asst_diffUTSlsMltQsgL3Hs4tVLP");
+            if (run.status === 'completed') {
+                let messages = await listMessage(run.thread_id);
+                let contentFromGpt = (messages.data[0].content[0] as any).text.value;
+                if (typeof window !== 'undefined') {
+                    contentFromGpt = contentFromGpt.replace('【4:3tsource】', '')
+                    localStorage.setItem("selectWinJson", contentFromGpt);
+                    console.log(contentFromGpt);
+                }
+            } else {
+                console.log(run.status);
+            }
         }
         toNextScreen();
     }
