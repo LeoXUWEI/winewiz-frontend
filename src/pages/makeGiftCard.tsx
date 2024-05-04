@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router'
 import { SendOutline } from 'antd-mobile-icons'
 import SwitchButton from '@/components/switchButton';
-export default function MakeGiftCard() {
+export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
   const router = useRouter()
   const { isSaved } = router.query
   const [cardInfo,setCardInfo] =useState("")
