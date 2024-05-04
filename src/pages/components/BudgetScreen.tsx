@@ -15,11 +15,18 @@ const BudgetScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     const speakText = async () => {
         const { speakText } = await import('../../../utils/textToSpeech');
         audio = await speakText(text.join(' '));
-        audio.play();
+        //判断语音文件解析完之前是否跳转到了下一页
+        if (flag) {
+            audio.play();
+        } else {
+            audio.load();
+            audio = null;
+        }
     }
 
     useEffect(() => {
 
+        //页面加载完毕时限制speakText只加载一次
         if (!flag) {
             flag = true;
             speakText();
@@ -48,6 +55,8 @@ const BudgetScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
                 const threadResponse = await createThread();
                 console.log('Thread created successfully:', threadResponse);
                 toNextScreen();
+                //在语音播放前跳转下一页则阻止语音播放
+                flag = false;
             } catch (error) {
                 console.error('Failed to create message thread:', error);
             }
