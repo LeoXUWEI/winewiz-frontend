@@ -8,6 +8,9 @@ import { startRecording, stopRecording } from '../../../utils/audio';
 import { transcribeAudio, createThread, createMessageSingle, runThread, listMessage } from '../../../utils/openai'
 const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
 
+    let audio = null;
+    let flag = false;
+
     const { displayTexts, handleReset, setDisplayTexts } = useDisplayWord([])
     const [showPicking, setShowPicking] = useState(false)
     const [displayPickText, setDisplayPickText] = useState("");
@@ -36,11 +39,19 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
 
     const speakText = async () => {
         const { speakText } = await import('../../../utils/textToSpeech');
-        speakText(displayTexts[displayTexts.length - 1]);
+        audio = await speakText(displayTexts[displayTexts.length - 1]);
+        //判断语音文件解析完之前是否跳转到了下一页
+        if (flag) {
+            audio.play();
+        } else {
+            audio.load();
+            audio = null;
+        }
     }
 
     useEffect(() => {
         displayTextRef?.current.scrollTo(0, displayTextRef?.current.scrollHeight);
+
     }, [displayTexts])
 
     useEffect(() => {
@@ -50,7 +61,11 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
                 let jsonFormat = JSON.parse(contentFromGpt);
                 displayTexts.push(jsonFormat.msg);
                 setDisplayTexts(displayTexts);
-                speakText();
+                //页面加载完毕时限制speakText只加载一次
+                if (!flag) {
+                    flag = true;
+                    speakText();
+                }
             }
 
             let index = 0;
@@ -72,6 +87,12 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
 
             return () => {
                 clearInterval(interval);
+
+                if (audio) {
+                    audio.pause();
+                    audio.load();
+                    audio = null;
+                }
             };
         }
     }, []);
@@ -181,6 +202,8 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
             }
         }
         toNextScreen();
+        //在语音播放前跳转下一页则阻止语音播放
+        flag = false;
     }
     return (
         <>

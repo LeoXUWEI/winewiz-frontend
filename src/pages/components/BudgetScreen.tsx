@@ -9,17 +9,37 @@ import { createThread } from '../../../utils/openai';
 
 const BudgetScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     let text = ["First, let’s start with your budget. Tap on the one budget range that is ideal to you. If you do not have a specific budget, it is fine, tap the last choice and I will help you out."]
+    let audio = null;
+    let flag = false;
 
     const speakText = async () => {
         const { speakText } = await import('../../../utils/textToSpeech');
-        speakText(text.join(' '));
+        audio = await speakText(text.join(' '));
+        //判断语音文件解析完之前是否跳转到了下一页
+        if (flag) {
+            audio.play();
+        } else {
+            audio.load();
+            audio = null;
+        }
     }
 
     useEffect(() => {
 
-        speakText();
+        //页面加载完毕时限制speakText只加载一次
+        if (!flag) {
+            flag = true;
+            speakText();
+        }
 
-
+        return () => {
+            // stop speaking
+            if (audio) {
+                audio.pause();
+                audio.load();
+                audio = null;
+            }
+        }
     }, []);
 
     const { displayTexts, handleReset } = useDisplayWord(text)
@@ -35,6 +55,8 @@ const BudgetScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
                 const threadResponse = await createThread();
                 console.log('Thread created successfully:', threadResponse);
                 toNextScreen();
+                //在语音播放前跳转下一页则阻止语音播放
+                flag = false;
             } catch (error) {
                 console.error('Failed to create message thread:', error);
             }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ScreenProps } from "@/types/Screen.props";
 import SwitchButton from '@/components/switchButton';
 import useDisplayWord from '@/hooks/useDisplayWord';
-import { speakText, stopSpeaking } from '../../../utils/textToSpeech';
+import {clearInterval} from "timers";
 
 const WineWizScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     const initialText = [
@@ -10,24 +10,35 @@ const WineWizScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
         'I can pick the perfect gift wine for you with just a few questions answered. Afterwards, I will help you create personalized gift cards to make your gift special!'
     ];
     const { displayTexts, handleReset } = useDisplayWord(initialText);
+    let audio = null;
+    let flag = false;
 
-    // const speakText = async () => {
-    //     const { speakText } = await import('../../../utils/textToSpeech');
-    //     speakText(initialText.join(' '));
-    // }
-
-    const stopSpeaking = async () => {
-        const { stopSpeaking } = await import('../../../utils/textToSpeech');
-        stopSpeaking();
+    const speakText = async () => {
+        const { speakText } = await import('../../../utils/textToSpeech');
+        audio = await speakText(initialText.join(' '));
+        //判断语音文件解析完之前是否跳转到了下一页
+        if (flag) {
+            audio.play();
+        } else {
+            audio.load();
+            audio = null;
+        }
     }
 
     useEffect(() => {
-        speakText(initialText.join(' '));
+        //页面加载完毕时限制speakText只加载一次
+        if (!flag) {
+            flag = true;
+            speakText();
+        }
 
         return () => {
-            stopSpeaking();
-            console.log('stopSpeaking')
-            stopSpeaking();
+            // stop speaking
+            if (audio) {
+                audio.pause();
+                audio.load();
+                audio = null;
+            }
         }
     }, []);
 
@@ -39,6 +50,8 @@ const WineWizScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     const handleContinue = () => {
         setShowFullText(true);
         setTimeout(toNextScreen, 200);
+        //在语音播放前跳转下一页则阻止语音播放
+        flag = false;
     };
 
     return (
