@@ -9,17 +9,30 @@ import { createThread } from '../../../utils/openai';
 
 const BudgetScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     let text = ["First, let’s start with your budget. Tap on the one budget range that is ideal to you. If you do not have a specific budget, it is fine, tap the last choice and I will help you out."]
+    let audio = null;
+    let flag = false;
 
     const speakText = async () => {
         const { speakText } = await import('../../../utils/textToSpeech');
-        speakText(text.join(' '));
+        audio = await speakText(text.join(' '));
+        audio.play();
     }
 
     useEffect(() => {
 
-        speakText();
+        if (!flag) {
+            flag = true;
+            speakText();
+        }
 
-
+        return () => {
+            // stop speaking
+            if (audio) {
+                audio.pause();
+                audio.load();
+                audio = null;
+            }
+        }
     }, []);
 
     const { displayTexts, handleReset } = useDisplayWord(text)

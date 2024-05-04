@@ -8,6 +8,9 @@ import { startRecording, stopRecording } from '../../../utils/audio';
 import { transcribeAudio, createMessageSingle, runThread, listMessage } from '../../../utils/openai'
 const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
 
+    let audio = null;
+    let flag = false;
+
     const { displayTexts, handleReset, setDisplayTexts } = useDisplayWord([])
     const [showPicking, setShowPicking] = useState(false)
     const [displayPickText, setDisplayPickText] = useState("");
@@ -36,11 +39,13 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
 
     const speakText = async () => {
         const { speakText } = await import('../../../utils/textToSpeech');
-        speakText(displayTexts[displayTexts.length - 1]);
+        audio = await speakText(displayTexts[displayTexts.length - 1]);
+        audio.play();
     }
 
     useEffect(() => {
         displayTextRef?.current.scrollTo(0, displayTextRef?.current.scrollHeight);
+
     }, [displayTexts])
 
     useEffect(() => {
@@ -50,7 +55,10 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
                 let jsonFormat = JSON.parse(contentFromGpt);
                 displayTexts.push(jsonFormat.msg);
                 setDisplayTexts(displayTexts);
-                speakText();
+                if (!flag) {
+                    flag = true;
+                    speakText();
+                }
             }
 
             let index = 0;
@@ -73,6 +81,12 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
 
             return () => {
                 clearInterval(interval);
+
+                if (audio) {
+                    audio.pause();
+                    audio.load();
+                    audio = null;
+                }
             };
         }
     }, []);

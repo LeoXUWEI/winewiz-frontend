@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { ScreenProps } from "@/types/Screen.props";
 import SwitchButton from '@/components/switchButton';
 import useDisplayWord from '@/hooks/useDisplayWord';
@@ -9,18 +9,28 @@ const WineWizScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
         'I can pick the perfect gift wine for you with just a few questions answered. Afterwards, I will help you create personalized gift cards to make your gift special!'
     ];
     const { displayTexts, handleReset } = useDisplayWord(initialText);
+    let audio = null;
+    let flag = false;
 
     const speakText = async () => {
         const { speakText } = await import('../../../utils/textToSpeech');
-        speakText(initialText.join(' '));
+        audio = await speakText(initialText.join(' '));
+        audio.play();
     }
 
     useEffect(() => {
-        speakText();
+        if (!flag) {
+            flag = true;
+            speakText();
+        }
 
         return () => {
             // stop speaking
-
+            if (audio) {
+                audio.pause();
+                audio.load();
+                audio = null;
+            }
         }
     }, []);
 

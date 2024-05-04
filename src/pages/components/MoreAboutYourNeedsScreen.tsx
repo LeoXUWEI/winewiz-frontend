@@ -8,14 +8,29 @@ import useDisplayWord from '@/hooks/useDisplayWord'
 
 const MoreAboutYourNeedsScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     let text = [] as any;
+    let audio = null;
+    let flag = false;
 
     const speakText = async () => {
         const { speakText } = await import('../../../utils/textToSpeech');
-        speakText(text.join(' '));
+        audio = await speakText(text.join(' '));
+        audio.play();
     }
 
     useEffect(() => {
-        speakText();
+        if (!flag) {
+            flag = true;
+            speakText();
+        }
+
+        return () => {
+            // stop speaking
+            if (audio) {
+                audio.pause();
+                audio.load();
+                audio = null;
+            }
+        }
     }, []);
 
     if (typeof window !== 'undefined') {
