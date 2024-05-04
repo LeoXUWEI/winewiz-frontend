@@ -6,7 +6,7 @@ import { ScreenProps } from "@/types/Screen.props";
 import useDisplayWord from '@/hooks/useDisplayWord'
 import { completions } from '../../../utils/openai'
 
-const PickingScreen: React.FC<{toNextScreen: any}> = ({ toNextScreen }) => {
+const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
   const router = useRouter()
   const text = ["Here is what I picked for you. It is a Boordy Seyval Vidal Chardonnay..."]
 
