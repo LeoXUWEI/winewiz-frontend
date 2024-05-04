@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ScreenProps } from "@/types/Screen.props";
 import SwitchButton from '@/components/switchButton';
 import useDisplayWord from '@/hooks/useDisplayWord';
+import { speakText, stopSpeaking } from '../../../utils/textToSpeech';
 
 const WineWizScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     const initialText = [
@@ -10,16 +11,16 @@ const WineWizScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     ];
     const { displayTexts, handleReset } = useDisplayWord(initialText);
 
-    const speakText = async () => {
-        const { speakText } = await import('../../../utils/textToSpeech');
-        speakText(initialText.join(' '));
-    }
+    // const speakText = async () => {
+    //     const { speakText } = await import('../../../utils/textToSpeech');
+    //     speakText(initialText.join(' '));
+    // }
 
     useEffect(() => {
-        speakText();
+        speakText(initialText.join(' '));
 
         return () => {
-            // stop speaking
+            stopSpeaking();
 
         }
     }, []);
