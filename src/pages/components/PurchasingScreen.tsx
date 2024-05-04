@@ -59,7 +59,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
         let jsonStr = contentFromGpt.trim();
         const index = jsonStr.lastIndexOf("}");
         if (index !== -1) {
-          jsonStr = jsonStr.substring(0, index+1);
+          jsonStr = jsonStr.substring(0, index + 1);
           let jsonFormat = JSON.parse(jsonStr);
           setInfo(jsonFormat);
           setWineAttribute(jsonFormat.taste.split(', '));
@@ -78,7 +78,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     handleReset()
   }
   function handlePurchase() {
-      window.location.href = info.url;
+    window.location.href = info.url;
   }
   async function handleMakeGiftcard() {
 
@@ -99,20 +99,20 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
         ))}
       </div>
       <div className="flex flex-row items-center h-72 mt-10 ml-5 mr-5 rounded-2xl">
-        <div className="bg-[#FFDFC2] h-56 flex flex-row items-center">
+        <div className="bg-[#FFDFC2] rounded-l-2xl h-56 flex flex-row items-center">
           <img
             className={"image_logo m-auto w-56"}
             src={'/wine.png'}
             alt="wine"
           />
         </div>
-        <div className="bg-[#FFFFFF] h-56 pt-5 pl-5">
-          <h3 className="text-[#6B003A] text-[18px] leading-5 font-bold">{info.name}</h3>
-          <p className="text-[#6B003A] text-[12px] w-56">{info.volume}</p>
-          <p className="text-[14px] text-[#6B003A] font-bold">{info.price}</p>
+        <div className="bg-[#FFFFFF] rounded-r-2xl h-56 pt-5 pl-5 pb-5">
+          <h3 className="text-[#6B003A] text-[18px] font_normal_bold leading-5">{info.name}</h3>
+          <p className="text-[#6B003A] text-[12px] font_medium_bold w-56">{info.volume}</p>
+          <p className="text-[#6B003A] text-[14px] font_normal_bold">${info.price}</p>
           <div className="flex flex-row flex-wrap">
             {wineAttribute.map(item => (
-              <span key={item} className="bg-[#FBB1A1] text-[#FFFFFF] text-[12px] font-bold rounded-full p-1.5 mr-2 mt-2">{item}</span>
+              <span key={item} className="bg-[#FBB1A1] text-[#FFFFFF] text-[12px] font_normal_bold rounded-full pt-1 pb-1 pl-2 pr-2 mr-2 mt-2">{item}</span>
             ))}
           </div>
         </div>

@@ -89,15 +89,7 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
       ])
     }
   }, [])
-  // const item = [
-  //   { label: 'Country/State', value: 'Maryland' },
-  //   { label: 'Wine Type', value: 'White Wine' },
-  //   { label: 'Style', value: 'Dry' },
-  //   { label: 'Body', value: 'Light-bodied' },
-  //   { label: 'Brand', value: 'Boordy' },
-  //   { label: 'Varietal', value: 'Chardonnay' },
-  //   { label: 'Taste', value: 'Melon, Herb' }
-  // ]
+
   function handleShare() {
     console.log('share')
   }
@@ -112,14 +104,14 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
       <div className={'ml-5 mr-5 pt-5 pb-5 mt-5 bg-[#FFFFFF] rounded-2xl'}>
         <div onClick={handleEditPicture} className={'ml-5 mr-5 bg-[#FFDFC2] h-[212px] rounded-2xl flex flex-row justify-center items-center'}>
           {isSaved ? <img src={'6ccfa742f3aa74d2fade4bac928f958b.png'} alt="" className="h-full w-full object-cover" /> :
-            <div className="w-[155px] h-[48px] border-solid border-2 border-[#6B003A] rounded-[24px] flex flex-row justify-center items-center">
-              <span className="text-[#6B003A] font_medium_bold">Edit Picture</span>
+            <div className="w-[155px] h-[48px] border-solid border-3 border-[#6B003A] rounded-[24px] flex flex-row justify-center items-center">
+              <span className="text-[#6B003A] text-[18px] font_normal_bold">Edit Picture</span>
             </div>
           }
         </div>
         <div className="mt-5">
           <div>
-            <p className="text-[#6B003A] text-[14px] font_medium_bold text-left ml-5 mr-5">{cardInfo}</p><br />
+            <p className="text-[#6B003A] text-[14px] font_medium_bold text-left italic ml-5 mr-5">{cardInfo}</p><br />
           </div>
         </div>
         <div className="border-t-2 border-[#6B003A]" />
@@ -130,17 +122,17 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
             alt="wine"
           />
           <div>
-            <h3 className="text-[#6B003A] text-[18px] leading-4">{info.name}</h3>
-            <p className="text-[#6B003A] text-[12px] w-56">{info.volume}ml</p>
-            <p className="text-[#6B003A] text-[14px] w-48 leading-5">{info.msg}</p>
+            <h3 className="text-[#6B003A] text-[18px] font_normal_bold leading-4">{info.name}</h3>
+            <p className="text-[#6B003A] text-[12px] font_medium_bold w-56">{info.volume}</p>
+            <p className="text-[#6B003A] text-[14px] font_medium_bold w-48 leading-5">{info.msg}</p>
           </div>
         </div>
         <div className="mt-5">
           {
             item.map(item => (
               <p key={item.label} className="flex flex-row justify-between">
-                <span className="text-[#6B003A] text-[14px] pl-5 font-bold">{item.label}</span>
-                <span className="text-[#6B003A] text-[14px] pr-5">{item.value}</span>
+                <span className="text-[#6B003A] text-[14px] font_normal_bold pl-5">{item.label}</span>
+                <span className="text-[#6B003A] text-[14px] font_medium_bold pr-5">{item.value}</span>
               </p>
             ))
           }
