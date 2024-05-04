@@ -15,12 +15,18 @@ const WineWizScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
         speakText(initialText.join(' '));
     }
 
+    const stopSpeaking = async () => {
+        const { stopSpeaking } = await import('../../../utils/textToSpeech');
+        stopSpeaking();
+    }
+
     useEffect(() => {
         speakText();
 
         return () => {
             // stop speaking
-
+            console.log('stopSpeaking')
+            stopSpeaking();
         }
     }, []);
 

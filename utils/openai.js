@@ -30,7 +30,7 @@ export async function retrieveAssistant() {
   //   limit: "20",
   // });
   if (typeof window !== 'undefined') {
-    localStorage.setItem("assistant_id", "asst_diffUTSlsMltQsgL3Hs4tVLP");
+    localStorage.setItem("assistant_id", "asst_SYN9pOE7SvPhVjQiaEvFTHm0");
   }
   // console.log(myAssistants.data);
 
