@@ -8,8 +8,8 @@ import { startRecording, stopRecording } from '../../../utils/audio';
 import { transcribeAudio, createThread, createMessageSingle, runThread, listMessage } from '../../../utils/openai'
 const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
 
-    let audio = null;
-    let flag = false;
+    let audio: HTMLAudioElement | null = null;
+    let flag: boolean = false;
 
     const { displayTexts, handleReset, setDisplayTexts } = useDisplayWord([])
     const [showPicking, setShowPicking] = useState(false)

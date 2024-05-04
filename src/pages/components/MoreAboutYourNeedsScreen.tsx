@@ -7,9 +7,9 @@ import useDisplayWord from '@/hooks/useDisplayWord'
 
 
 const MoreAboutYourNeedsScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
-    let text = [] as any;
-    let audio = null;
-    let flag = false;
+    let text: string[] = [];
+    let audio: HTMLAudioElement | null = null;
+    let flag: boolean = false;
 
     const speakText = async () => {
         const { speakText } = await import('../../../utils/textToSpeech');

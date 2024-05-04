@@ -10,7 +10,7 @@ const WineWizScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
         'I can pick the perfect gift wine for you with just a few questions answered. Afterwards, I will help you create personalized gift cards to make your gift special!'
     ];
     const { displayTexts, handleReset } = useDisplayWord(initialText);
-    let audio = null;
+    let audio: HTMLAudioElement | null = null;
     let flag = false;
 
     const speakText = async () => {
