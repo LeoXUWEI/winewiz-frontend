@@ -118,3 +118,14 @@ export async function createVariation(imagebuffer) {
   console.log(image.data);
   return image;
 }
+
+export async function completions(content) {
+  const completion = await openai.chat.completions.create({
+    messages: [ 
+        {"role": "user", "content": content}],
+    model: "gpt-3.5-turbo",
+  });
+
+  console.log(completion.choices[0]);
+  return completion.choices[0].message.content;
+}
