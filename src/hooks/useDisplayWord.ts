@@ -30,7 +30,7 @@ const useDisplayWord = (texts: Array<string>) => {
           setCharIndex(0);
         }
       }
-    }, 20); 
+    }, 60); 
 
     return () => clearTimeout(timeout);
   }, [texts, textIndex, charIndex]); 
