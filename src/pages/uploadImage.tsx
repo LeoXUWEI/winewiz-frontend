@@ -43,8 +43,13 @@ export default function MakeGiftCard() {
 
             let createImageContent = "make a " + currentStyle + " style picture for these features " + versionRes + " make sure you maintain a vibe for the environment setting of " + jsonFormat.theme + " and include in the image a bottle of " + jsonFormat.name + ". ";
             let createImg = await createImage(createImageContent);
-            console.log(createImg);
-            setAvatarUrl(createImg);
+            if (createImg) {
+              console.log(createImg);
+              setAvatarUrl(createImg);
+              localStorage.setItem("generateUrl",createImg);
+            } else {
+              console.log("生成的图片为空");
+            }
           }
         }
 
