@@ -50,7 +50,7 @@ export default function MakeGiftCard() {
                 return resVisionPreview;
               })
               .catch(err => console.log(err));
-            let createImageContent = "make a " + currentStyle + " style picture. Include in the image a bottle of " + jsonFormat.name + ". You must make each persons race strictly correct. Here is the description of the image. " + versionRes + ". Make sure you maintain a vibe for the environment setting of " + jsonFormat.theme + ". Try your best to depict this information correctly for each character: the race, skin color, face shape, haircut, hair color, outfit, facial expressions, eyes, ears, nose, mouths, eyebrows, etc. ";
+            let createImageContent = "make a " + currentStyle + " style picture. Include in the image a bottle of " + jsonFormat.name + ". You must make each person's race strictly correct. Here is the description of the image. " + versionRes + ". Make sure you maintain a vibe for the environment setting of " + jsonFormat.theme + ". Try your best to depict this information correctly for each character: the race, skin color, face shape, haircut, hair color, outfit, facial expressions, eyes, ears, nose, mouths, eyebrows, etc. ";
             // let createImageContent = "make a " + currentStyle + " style picture for these features " + versionRes + " make sure you maintain a vibe for the environment setting of " + jsonFormat.theme + " and include in the image a bottle of " + jsonFormat.name + ". ";
             let createImg = await createImage(createImageContent);
             if (createImg) {
