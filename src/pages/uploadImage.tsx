@@ -13,7 +13,7 @@ export default function MakeGiftCard() {
   const [customObjContent, setCustomObjContent] = useState<{ className: string, text: string, onClick?: Function, children?: any }[]>([])
   const imageStyle = ['Photorealistic', 'Anime', 'Oil paint', 'Watercolor', 'Disney 2D', 'Disney 3D', 'Vector Illustration']
   const handleSave = () => {
-    router.push('/makeGiftCard?isSaved=true')
+    router.push('/makeGiftCard?isSaved=true&image=' + avatarUrl)
   }
   async function handleGenerate() {
     setGenerateUrl(true)
@@ -46,7 +46,6 @@ export default function MakeGiftCard() {
             if (createImg) {
               console.log(createImg);
               setAvatarUrl(createImg);
-              localStorage.setItem("generateUrl",createImg);
             } else {
               console.log("生成的图片为空");
             }
