@@ -103,9 +103,9 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
         if (!recording.current) {
             recording = { current: await startRecording() };
 
-            const newCustomObjContent: { className: string, text: string, onClick?: Function, showIcon?: boolean }[] = customObjContent.map((item, index) => {
+            const newCustomObjContent: { className: string, text: string, onClick?: Function, children?: any }[] = customObjContent.map((item, index) => {
                 if (index === 2) {
-                    return { ...item, text: 'tap to send', className: 'pinot' };
+                    return { ...item, text: 'Tap to send', className: 'bubblyrose' };
                 }
                 return item;
             });
@@ -114,9 +114,9 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
             const blob = await stopRecording(recording.current);
             setAudioBlob(blob);
             recording.current = null;
-            const newCustomObjContent: { className: string, text: string, onClick?: Function, showIcon?: boolean }[] = customObjContent.map((item, index) => {
+            const newCustomObjContent: { className: string, text: string, onClick?: Function, children?: any }[] = customObjContent.map((item, index) => {
                 if (index === 2) {
-                    return { ...item, text: 'tap to speak', className: 'white' };
+                    return { ...item, text: 'Tap to speak', className: 'white' };
                 }
                 return item;
             });
