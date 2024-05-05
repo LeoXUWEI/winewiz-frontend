@@ -46,9 +46,9 @@ export default function MakeGiftCard() {
             if (createImg) {
               console.log(createImg);
               setAvatarUrl(createImg);
-              localStorage.setItem("generateUrl",createImg);
+              localStorage.setItem("generateUrl", createImg);
             } else {
-              console.log("生成的图片为空");
+              console.log("No image generated");
             }
           }
         }
