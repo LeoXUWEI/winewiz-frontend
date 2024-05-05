@@ -117,8 +117,8 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
           {
             item && item.map((item: any) => (
               <p key={item.label} className="flex flex-row justify-between">
-                <span className="text-[#6B003A] text-[14px] font_normal_bold pl-5">{item.label}</span>
-                <span className="text-[#6B003A] text-[14px] font_medium_bold pr-5">{item.value}</span>
+                <span className="text-[#6B003A] text-[14px] text-left font_normal_bold pl-5">{item.label}</span>
+                <span className="text-[#6B003A] text-[14px] text-right font_medium_bold pr-5">{item.value}</span>
               </p>
             ))
           }

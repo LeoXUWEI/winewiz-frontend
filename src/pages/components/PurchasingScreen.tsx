@@ -8,7 +8,7 @@ import { completions } from '../../../utils/openai'
 
 const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
   const router = useRouter()
-  let text = ["Here is what I picked for you. It is a Boordy Seyval Vidal Chardonnay..."]
+  let text = [""]
   let audio: HTMLAudioElement | null = null;
   let flag = false;
 
@@ -90,11 +90,11 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
   function handleReStart() {
     const newCustomObjContent: { className: string, text: string, onClick?: Function }[] = customObjContent.map((item, index) => {
       if (index === 0) {
-          return { ...item, className: 'bordered opacity' };
+        return { ...item, className: 'bordered opacity' };
       }
       return item;
-  });
-  setCustomObjContent(newCustomObjContent)
+    });
+    setCustomObjContent(newCustomObjContent)
     handleReset();
     if (audio) {
       audio.currentTime = 0;
