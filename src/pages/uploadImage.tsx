@@ -3,10 +3,11 @@ import Image from 'next/image';
 import { useRouter } from 'next/router'
 import SwitchButton from '@/components/switchButton';
 import UploadPicture from '@/components/uploadPicture'
-import avatarPhoto from '../../public/4382a4763a19dc4ed6b8f1e9984194d8.png'
+import { visionPreview, createImage } from '../../utils/openai'
 export default function MakeGiftCard() {
   const router = useRouter()
   const [avatarUrl, setAvatarUrl] = useState<any>('')
+  const [file, setFile] = useState<File>()
   const [generateUrl, setGenerateUrl] = useState(false)
   const selectedIndex = useRef(-1)
   const [customObjContent, setCustomObjContent] = useState<{ className: string, text: string, onClick?: Function, children?: any }[]>([])
@@ -14,8 +15,47 @@ export default function MakeGiftCard() {
   const handleSave = () => {
     router.push('/makeGiftCard?isSaved=true')
   }
-  function handleGenerate() {
+  async function handleGenerate() {
     setGenerateUrl(true)
+
+    if (typeof window !== 'undefined') {
+      let contentFromGpt = localStorage.getItem("selectWinJson");
+      if (contentFromGpt && (typeof contentFromGpt === 'string')) {
+        // 去除末尾空白字符后再截取
+        let jsonStr = contentFromGpt.trim();
+        const index = jsonStr.lastIndexOf("}");
+        if (index !== -1) {
+          jsonStr = jsonStr.substring(0, index + 1);
+          let jsonFormat = JSON.parse(jsonStr);
+
+          const currentStyle = imageStyle[selectedIndex.current];
+          if (file) {
+            console.log(avatarUrl);
+            let versionRes = await getBase64(file) // `file` your img file
+              .then(async (res) => {
+                console.log(res);
+                let visionPreviewContent = "Identify and describe the main characters shown in the uploaded photo, including any distinguishing features or expressions. Note any significant features of the character. You must output a string in this format “(put all descriptions here)”."
+                let resVisionPreview = await visionPreview(res, visionPreviewContent);
+                console.log('resVisionPreview' + resVisionPreview);
+                return resVisionPreview;
+              })
+              .catch(err => console.log(err));
+
+            let createImageContent = "make a " + currentStyle + " style picture for these features " + versionRes + " make sure you maintain a vibe for the environment setting of " + jsonFormat.theme + " and include in the image a bottle of " + jsonFormat.name + ". ";
+            let createImg = await createImage(createImageContent);
+            console.log(createImg);
+            setAvatarUrl(createImg);
+          }
+        }
+
+      }
+
+
+
+    }
+
+    //
+
     setCustomObjContent([
       {
         className: 'pinot',
@@ -29,6 +69,7 @@ export default function MakeGiftCard() {
       return
     }
     selectedIndex.current = index
+
     setCustomObjContent([
       {
         className: 'pinot',
@@ -38,11 +79,25 @@ export default function MakeGiftCard() {
     ])
   }
   const handlePicture = async (file: File) => {
-    setAvatarUrl(avatarPhoto)
+    setFile(file);
+    let url = URL.createObjectURL(file)
+    setAvatarUrl(url)
     return {
-      url: URL.createObjectURL(file),
+      url: url,
     }
   }
+
+  async function getBase64(file: File) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = () => {
+        resolve(reader.result)
+      }
+      reader.onerror = reject
+    })
+  }
+
   return (
     <>
       <div className="container bg-[#F7ECE4] overscroll-y-scroll h-screen">
@@ -54,14 +109,14 @@ export default function MakeGiftCard() {
         <div className={'ml-5 mr-5 bg-[#FFDFC2] h-[212px] rounded-2xl flex flex-row justify-center items-center'}>
           {
             avatarUrl ?
-              <img src={`${generateUrl ? '6ccfa742f3aa74d2fade4bac928f958b.png' : '/4382a4763a19dc4ed6b8f1e9984194d8.png'}`} alt="" className="h-full w-full object-cover" /> :
-            <>
-              <UploadPicture handleUpload={handlePicture}>
-                <div className="w-[155px] h-[48px] border-solid border-3 border-[#6B003A] rounded-[24px] flex flex-row justify-center items-center">
-                  <span className="text-[#6B003A] text-[18px] font_normal_bold">Upload Photo</span>
-                </div>
-              </UploadPicture>
-            </>
+              <img src={`${avatarUrl}`} alt="" className="h-full w-full object-cover" /> :
+              <>
+                <UploadPicture handleUpload={handlePicture}>
+                  <div className="w-[155px] h-[48px] border-solid border-3 border-[#6B003A] rounded-[24px] flex flex-row justify-center items-center">
+                    <span className="text-[#6B003A] text-[18px] font_normal_bold">Upload Photo</span>
+                  </div>
+                </UploadPicture>
+              </>
           }
         </div>
         {avatarUrl && <div className="ml-5 mr-5 mt-2 flex flex-row flex-wrap">
