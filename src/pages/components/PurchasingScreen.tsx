@@ -78,7 +78,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     handleReset()
   }
   function handlePurchase() {
-    window.location.href = info.url;
+    window.open(info.url, '_blank');
   }
   async function handleMakeGiftcard() {
 
