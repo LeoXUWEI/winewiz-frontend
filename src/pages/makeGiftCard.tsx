@@ -81,7 +81,7 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
       <div className={'text-[#6B003A] text-[14px] font_medium_bold text-left mt-3 pl-5 pr-5 w-screen'}>Here is how your gift card will look like</div>
       <div className={'ml-5 mr-5 pt-5 pb-5 mt-5 bg-[#FFFFFF] rounded-2xl'}>
         <div onClick={handleEditPicture} className={'ml-5 mr-5 bg-[#FFDFC2] h-[212px] rounded-2xl flex flex-row justify-center items-center'}>
-          {isSaved ? <img src={image} alt="generatedImg" className="h-full w-full object-cover" /> :
+          {isSaved ? <img src={'6ccfa742f3aa74d2fade4bac928f958b.png'} alt="generatedImg" className="h-full w-full object-cover" /> :
             <div className="w-[155px] h-[48px] border-solid border-3 border-[#6B003A] rounded-[24px] flex flex-row justify-center items-center">
               <span className="text-[#6B003A] text-[18px] font_normal_bold">Edit Picture</span>
             </div>
