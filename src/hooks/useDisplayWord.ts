@@ -31,7 +31,7 @@ const useDisplayWord = (originText: Array<string>) => {
           setCharIndex(0);
         }
       }
-    }, 60); 
+    }, 60); //此处调控打字机速度
 
     return () => clearTimeout(timeout);
   }, [texts, textIndex, charIndex]); 

@@ -121,8 +121,8 @@ export async function createImage(prompt) {
     n: 1,
     size: "1024x1024",
   });
-  image_url = response.data[0].url;
-  return image_url;
+
+  return response.data[0].url;
 }
 //对话获取礼品卡信息
 export async function completions(content) {
@@ -136,18 +136,18 @@ export async function completions(content) {
   return completion.choices[0].message.content;
 }
 //识别图片信息
-export async function visionPreview(base64Image) {
+export async function visionPreview(base64Image, visionPreviewContent) {
   const response = await openai.chat.completions.create({
     model: "gpt-4-turbo",
     messages: [
       {
         role: "user",
         content: [
-          { type: "text", text: "What's in this image?" },
+          { type: "text", text: visionPreviewContent },
           {
             "type": "image_url",
             "image_url": {
-              "url": `data:image/jpeg;base64,${base64Image}`
+              "url": base64Image
             },
           },
         ],
@@ -155,5 +155,5 @@ export async function visionPreview(base64Image) {
     ],
   });
   console.log(response.choices[0]);
-  return response.choices[0];
+  return response.choices[0].message.content;
 }
