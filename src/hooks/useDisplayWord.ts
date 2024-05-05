@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 
-const useDisplayWord = (texts: Array<string>) => {
+const useDisplayWord = (originText: Array<string>) => {
   const [displayTexts, setDisplayTexts] = useState<Array<string>>([]);
+  const [texts, setTexts] = useState(originText)
   const [textIndex, setTextIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
 
@@ -35,7 +36,7 @@ const useDisplayWord = (texts: Array<string>) => {
     return () => clearTimeout(timeout);
   }, [texts, textIndex, charIndex]); 
 
-  return { displayTexts, handleReset,setDisplayTexts};
+  return { displayTexts, handleReset,setDisplayTexts, setTexts};
 };
 
 export default useDisplayWord;

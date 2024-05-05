@@ -11,7 +11,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     let audio: HTMLAudioElement | null = null;
     let flag: boolean = false;
 
-    const { displayTexts, handleReset, setDisplayTexts } = useDisplayWord([])
+    const { displayTexts, handleReset, setDisplayTexts, setTexts } = useDisplayWord([])
     const [showPicking, setShowPicking] = useState(false)
     const [displayPickText, setDisplayPickText] = useState("");
     let recording = useRef<MediaRecorder | null>();
@@ -60,7 +60,8 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
             if (contentFromGpt && (typeof contentFromGpt === 'string')) {
                 let jsonFormat = JSON.parse(contentFromGpt);
                 displayTexts.push(jsonFormat.msg);
-                setDisplayTexts(displayTexts);
+                setDisplayTexts(prevContent => [jsonFormat.msg]);
+                setTexts(displayTexts)
                 //页面加载完毕时限制speakText只加载一次
                 if (!flag) {
                     flag = true;
@@ -104,7 +105,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
 
             const newCustomObjContent: { className: string, text: string, onClick?: Function, showIcon?: boolean }[] = customObjContent.map((item, index) => {
                 if (index === 2) {
-                    return { ...item, text: 'tap to send' };
+                    return { ...item, text: 'tap to send', className: 'pinot' };
                 }
                 return item;
             });
@@ -115,7 +116,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
             recording.current = null;
             const newCustomObjContent: { className: string, text: string, onClick?: Function, showIcon?: boolean }[] = customObjContent.map((item, index) => {
                 if (index === 2) {
-                    return { ...item, text: 'tap to speak' };
+                    return { ...item, text: 'tap to speak', className: 'white' };
                 }
                 return item;
             });
@@ -146,7 +147,8 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
                                 if (content && (typeof content === 'string')) {
                                     let jsonFormat = JSON.parse(content);
                                     displayTexts.push(jsonFormat.msg)
-                                    setDisplayTexts(displayTexts);
+                                    // setDisplayTexts(displayTexts);
+                                    setDisplayTexts(prevContent => [jsonFormat.msg]);
 
                                     speakText();
                                     let index = 0;
@@ -210,9 +212,9 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
         <>
             <div>
                 <h1 className={'text-[#6B003A] text-[24px] font_normal_bold text-center pt-10'}>WineWiz</h1>
-                <div className={'h-10 overflow-auto'} ref={displayTextRef}>
-                    {displayTexts.map((item: string, index: number) => (
-                        <div className={'text-[#6B003A] text-[14px] font_medium_bold text-left mt-3 pl-5 pr-5 w-screen'} key={index}>{item}</div>
+                <div className={'h-11 overflow-auto'} ref={displayTextRef}>
+                    {displayTexts && displayTexts?.map((item: string, index: number) => (
+                        <div className={'text-[#6B003A] text-[14px] font_medium_bold text-left mt-2 pl-5 pr-5 w-screen'} key={index}>{item}</div>
                     ))}
                 </div>
             </div>

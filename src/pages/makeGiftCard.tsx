@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Image from 'next/image';
 import { useRouter } from 'next/router'
 import { SendOutline } from 'antd-mobile-icons'
@@ -17,36 +17,9 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
     }
   ])
 
-  const [info, setInfo] = useState({
-    "name": "Chateau Palmer Margaux, 2010",
-    "msg": "The Chateau Palmer Margaux 2010 is an exquisite choice for a luxury wine, especially for those with a budget of $100 and up. Priced at $575, this Bordeaux blend from the Margaux region in France is renowned for its depth and complexity. The wine connoisseur will appreciate the full-bodied richness, black/purple color, and the delicate balance of blackberry and cassis notes with a hint of camphor and barbecue smoke. It's tannic yet poised, ensuring a memorable tasting experience.",
-    "keywords": "luxury wine, budget $100 and up",
-    "theme": "Opulent elegance",
-    "volume": "750ml",
-    "product_highlights": "It is tannic and backward, but has a sensational black/purple color and a gorgeous nose of camphor, barbecue smoke, blackberry and cassis. Full-bodied, this wine has a precision and freshness...",
-    "country_state": "France",
-    "category_2": "Red Wine",
-    "price": "",
-    "category_3": "Bordeaux Blend",
-    "brand": "Chateau Palmer",
-    "style": "Full-bodied",
-    "body": "Full-bodied",
-    "taste": "Blackberry, cassis, camphor, barbecue smoke",
-    "food_pairings": "Beef, Lamb, Hard Cheese",
-    "abv": "14%",
-    "url": "https://www.totalwine.com/wine/red-wine/bordeaux-blend/chateau-palmer-margaux/p/31310750",
-    "img": "https://www.totalwine.com/dynamic/x1000,sq/media/sys_master/twmmedia/hd7/h49/17193102278686.png"
-  });
+  const info = useRef<any>();
 
-  const [item, setItems] = useState([
-    { label: 'Country/State', value: 'Maryland' },
-    { label: 'Wine Type', value: 'White Wine' },
-    { label: 'Style', value: 'Dry' },
-    { label: 'Body', value: 'Light-bodied' },
-    { label: 'Brand', value: 'Boordy' },
-    { label: 'Varietal', value: 'Chardonnay' },
-    { label: 'Taste', value: 'Melon, Herb' }
-  ]);
+  const [item, setItems] = useState<any>();
 
   useEffect(() => {
 
@@ -62,19 +35,19 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
         if (index !== -1) {
           jsonStr = jsonStr.substring(0, index + 1);
           let jsonFormat = JSON.parse(jsonStr);
-          setInfo(jsonFormat);
+          info.current = jsonFormat
 
           // 将info的信息转换为item数组
           const item = [
-            { label: 'Country/State', value: info.country_state },
-            { label: 'Wine Type', value: info.category_2 },
-            { label: 'Varietal', value: info.category_3 },
-            { label: 'Brand', value: info.brand },
-            { label: 'Style', value: info.style },
-            { label: 'Body', value: info.body },
-            { label: 'Taste', value: info.taste },
-            { label: 'Food Pairings', value: info.food_pairings },
-            { label: 'ABV', value: info.abv }
+            { label: 'Country/State', value: info.current.country_state },
+            { label: 'Wine Type', value: info.current.category_2 },
+            { label: 'Varietal', value: info.current.category_3 },
+            { label: 'Brand', value: info.current.brand },
+            { label: 'Style', value: info.current.style },
+            { label: 'Body', value: info.current.body },
+            { label: 'Taste', value: info.current.taste },
+            { label: 'Food Pairings', value: info.current.food_pairings },
+            { label: 'ABV', value: info.current.abv }
           ];
           setItems(item);
         }
@@ -125,14 +98,14 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
             alt="wine"
           />
           <div>
-            <h3 className="text-[#6B003A] text-[18px] font_normal_bold leading-4">{info.name}</h3>
-            <p className="text-[#6B003A] text-[12px] font_medium_bold w-56">{info.volume}</p>
-            <p className="text-[#6B003A] text-[14px] font_medium_bold w-48 leading-5">{info.msg}</p>
+            <h3 className="text-[#6B003A] text-[18px] font_normal_bold leading-4">{info.current?.name}</h3>
+            <p className="text-[#6B003A] text-[12px] font_medium_bold w-56">{info.current?.volume}</p>
+            <p className="text-[#6B003A] text-[14px] font_medium_bold w-48 leading-5">{info.current?.msg}</p>
           </div>
         </div>
         <div className="mt-5">
           {
-            item.map(item => (
+            item && item.map((item: any) => (
               <p key={item.label} className="flex flex-row justify-between">
                 <span className="text-[#6B003A] text-[14px] font_normal_bold pl-5">{item.label}</span>
                 <span className="text-[#6B003A] text-[14px] font_medium_bold pr-5">{item.value}</span>
