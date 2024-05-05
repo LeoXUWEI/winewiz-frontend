@@ -125,6 +125,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
                 // Send audio for transcription
                 const file = new File([blob], "userspeak.mp3");
                 const transcription = await transcribeAudio(file);
+                console.log('transcription' + transcription);
                 if (transcription) {
                     //构建数据传递 gpt
                     localStorage.setItem("contentFromGpt", '');
