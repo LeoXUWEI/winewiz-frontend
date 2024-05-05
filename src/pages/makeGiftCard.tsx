@@ -94,7 +94,7 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
         <div className="flex flex-row mt-5">
           <img
             className={"image_logo m-auto w-32"}
-            src={'/wine.png'}
+            src={info.current?.img}
             alt="wine"
           />
           <div>
