@@ -13,6 +13,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
   const [wineAttribute, setWineAttribute] = useState(['wedding', 'california', 'steak lover', 'Dry', 'refreshing flavor'])
   const { displayTexts, handleReset, setTexts } = useDisplayWord(text)
   const info = useRef<any>();
+  const displayTextRef = useRef<any>()
   const [customObjContent, setCustomObjContent] = useState<{ className: string, text: string, onClick?: Function, showIcon?: boolean }[]>([
     {
       className: 'picking',
@@ -55,6 +56,10 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     }
 
   }, [])
+  useEffect(() => {
+      displayTextRef?.current.scrollTo(0, displayTextRef?.current.scrollHeight);
+
+  }, [displayTexts])
   function handleReStart() {
     handleReset()
   }
@@ -75,9 +80,11 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     <>
       <div>
         <h1 className={'text-[#6B003A] text-[24px] font_normal_bold text-center pt-10'}>WineWiz</h1>
-        {displayTexts.map((item: string, index: number) => (
-          <div className={'text-[#6B003A] text-[14px] font_medium_bold text-left mt-3 pl-5 pr-5 w-screen'} key={index}>{item}</div>
-        ))}
+        <div className={'h-11 overflow-auto'} ref={displayTextRef}>
+          {displayTexts.map((item: string, index: number) => (
+            <div className={'text-[#6B003A] text-[14px] font_medium_bold text-left mt-1 pl-5 pr-5 w-screen'} key={index}>{item}</div>
+          ))}
+        </div>
       </div>
       <div className="flex flex-row items-center h-72  ml-5 mr-5 rounded-2xl">
         <div className="bg-[#FFDFC2] rounded-l-2xl h-56 flex flex-row items-center">

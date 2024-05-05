@@ -61,7 +61,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
                 let jsonFormat = JSON.parse(contentFromGpt);
                 displayTexts.push(jsonFormat.msg);
                 setDisplayTexts(prevContent => [jsonFormat.msg]);
-                setTexts(displayTexts)
+                setTexts(prevContent => [jsonFormat.msg])
                 //页面加载完毕时限制speakText只加载一次
                 if (!flag) {
                     flag = true;
@@ -146,7 +146,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
 
                                 if (content && (typeof content === 'string')) {
                                     let jsonFormat = JSON.parse(content);
-                                    displayTexts.push(jsonFormat.msg)
+                                    // displayTexts.push(jsonFormat.msg)
                                     // setDisplayTexts(displayTexts);
                                     setDisplayTexts(prevContent => [jsonFormat.msg]);
 
