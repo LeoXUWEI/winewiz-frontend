@@ -99,7 +99,7 @@ const BudgetScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
         { label: 'super premium wines', value: '$50 to $100', key: '$50 to $100' },
         { label: 'luxury wines', value: '$100 and up', key: '$100 and up' },
         { label: 'collector and icon wines', value: '$200 and up', key: '$200 and up' },
-        // { label: 'I do not have a specific budget', value: '', key: 'no' },
+        { label: 'I do not have a specific budget', value: '', key: 'no' },
     ]
 
     const handleChange = (key: string) => {
