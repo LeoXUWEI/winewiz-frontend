@@ -9,7 +9,7 @@ export default function MakeGiftCard() {
   const [generateUrl, setGenerateUrl] = useState(false)
   const selectedIndex = useRef(-1)
   const [customObjContent, setCustomObjContent] = useState<{ className: string, text: string, onClick?: Function, children?: any }[]>([])
-  const photoType = ['Photorealistic', 'Anime', 'Oil paint', 'Vector Illustration', 'Watercolor', 'Disney']
+  const imageStyle = ['Photorealistic', 'Anime', 'Oil paint', 'Watercolor', 'Disney 2D', 'Disney 3D', 'Vector Illustration']
   const handleSave = () => {
     router.push('/makeGiftCard?isSaved=true')
   }
@@ -57,7 +57,7 @@ export default function MakeGiftCard() {
           }
         </div>
         {avatarUrl && <div className="ml-5 mr-5 mt-2 flex flex-row flex-wrap">
-          {photoType.map((item, index: number) => (
+          {imageStyle.map((item, index: number) => (
             <span onClick={() => handleSelect(index)} className={`block p-2 mr-2 mb-2 text-[14px] text-[#6B003A] font_normal_bold rounded-2xl ${index === selectedIndex.current ? 'bg-[#FBB1A1]' : 'bg-[#FFFFFF]'}`} key={item}>{item}</span>
           ))}
         </div>

@@ -98,7 +98,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
           <div className={'text-[#6B003A] text-[14px] font_medium_bold text-left mt-3 pl-5 pr-5 w-screen'} key={index}>{item}</div>
         ))}
       </div>
-      <div className="flex flex-row items-center h-72 mt-10 ml-5 mr-5 rounded-2xl">
+      <div className="flex flex-row items-center h-72  ml-5 mr-5 rounded-2xl">
         <div className="bg-[#FFDFC2] rounded-l-2xl h-56 flex flex-row items-center">
           <img
             className={"image_logo m-auto w-56"}
