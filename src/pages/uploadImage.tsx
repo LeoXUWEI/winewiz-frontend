@@ -12,7 +12,7 @@ export default function MakeGiftCard() {
   const selectedIndex = useRef(-1)
   let createdImage = useRef<string>()
   const [customObjContent, setCustomObjContent] = useState<{ className: string, text: string, onClick?: Function, children?: any, loading?: boolean, loadingText?: string }[]>([])
-  const imageStyle = ['Photorealistic', 'Anime', 'Oil paint', 'Watercolor', 'Disney 2D', 'Disney 3D', 'Vector Illustration']
+  const imageStyle = ['Anime', 'Watercolor', 'Disney 2D', 'Disney 3D', 'Vector Illustration']
   const handleSave = () => {
     router.push('/makeGiftCard?isSaved=true&image=' + createdImage.current)
   }
