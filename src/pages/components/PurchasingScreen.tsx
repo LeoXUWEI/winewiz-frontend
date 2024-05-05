@@ -8,7 +8,21 @@ import { completions } from '../../../utils/openai'
 
 const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
   const router = useRouter()
-  const text = ["Here is what I picked for you. It is a Boordy Seyval Vidal Chardonnay..."]
+  let text = ["Here is what I picked for you. It is a Boordy Seyval Vidal Chardonnay..."]
+  let audio: HTMLAudioElement | null = null;
+  let flag = false;
+
+  const speakText = async () => {
+    const { speakText } = await import('../../../utils/textToSpeech');
+    audio = await speakText(text.join(' '));
+    //判断语音文件解析完之前是否跳转到了下一页
+    if (flag) {
+      audio.play();
+    } else {
+      audio.load();
+      audio = null;
+    }
+  }
 
   const [wineAttribute, setWineAttribute] = useState([])
   const { displayTexts, handleReset, setTexts } = useDisplayWord(text)
@@ -45,13 +59,26 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
           let jsonFormat = JSON.parse(jsonStr);
           info.current = jsonFormat
           setWineAttribute(jsonFormat.taste.split(', '));
+          if (info.current?.name) {
+            text = [`Here is what I picked for you. It is a ${info.current.name}...`];
+            setTexts(text);
+            if (!flag) {
+              flag = true;
+              speakText();
+            }
+          }
         }
       }
 
 
 
       return () => {
-
+        // stop speaking
+        if (audio) {
+          audio.pause();
+          audio.load();
+          audio = null;
+        }
       };
     }
 
@@ -68,7 +95,11 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
       return item;
   });
   setCustomObjContent(newCustomObjContent)
-    handleReset()
+    handleReset();
+    if (audio) {
+      audio.currentTime = 0;
+      audio.play();
+    }
   }
   function handlePurchase() {
     window.open(info.current.url, '_blank');
@@ -81,6 +112,11 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
       localStorage.setItem("cardsInfo", res);
     }
     router.push('/makeGiftCard');
+  }
+
+  function btnToNextScreen() {
+    toNextScreen();
+    flag = false;
   }
 
   return (
@@ -113,7 +149,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
         </div>
       </div>
       <div className={'mt-16 w-80 mx-auto'}>
-        <SwitchButton toNextScreen={toNextScreen} customObjContent={customObjContent} />
+        <SwitchButton toNextScreen={btnToNextScreen} customObjContent={customObjContent} />
       </div>
     </>
   )
