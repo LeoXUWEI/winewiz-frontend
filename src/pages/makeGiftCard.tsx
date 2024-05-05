@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router'
 import { SendOutline } from 'antd-mobile-icons'
 import SwitchButton from '@/components/switchButton';
+import { Value } from "sass";
 export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
   const router = useRouter()
   const { isSaved } = router.query
@@ -67,11 +68,13 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
           const item = [
             { label: 'Country/State', value: info.country_state },
             { label: 'Wine Type', value: info.category_2 },
+            { label: 'Varietal', value: info.category_3 },
+            { label: 'Brand', value: info.brand },
             { label: 'Style', value: info.style },
             { label: 'Body', value: info.body },
-            { label: 'Brand', value: info.brand },
-            { label: 'Varietal', value: info.food_pairings },
-            { label: 'Taste', value: info.taste }
+            { label: 'Taste', value: info.taste },
+            { label: 'Food Pairings', value: info.food_pairings },
+            { label: 'ABV', value: info.abv }
           ];
           setItems(item);
         }
