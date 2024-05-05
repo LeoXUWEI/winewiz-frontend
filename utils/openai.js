@@ -121,7 +121,7 @@ export async function createImage(prompt) {
     n: 1,
     size: "1792x1024",
   });
-
+  console.log(response.data[0].url);
   return response.data[0].url;
 }
 //对话获取礼品卡信息

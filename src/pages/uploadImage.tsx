@@ -14,7 +14,9 @@ export default function MakeGiftCard() {
   const [customObjContent, setCustomObjContent] = useState<{ className: string, text: string, onClick?: Function, children?: any, loading?: boolean, loadingText?: string }[]>([])
   const imageStyle = ['Anime', 'Watercolor', 'Disney 2D', 'Disney 3D', 'Vector Illustration']
   const handleSave = () => {
-    router.push('/makeGiftCard?isSaved=true&image=' + createdImage.current)
+    if (createdImage.current) {
+      router.push('/makeGiftCard?isSaved=true&image=' + encodeURIComponent(createdImage.current))
+    }
   }
   async function handleGenerate() {
     setCustomObjContent([
@@ -56,6 +58,7 @@ export default function MakeGiftCard() {
             if (createImg) {
               console.log(createImg);
               createdImage.current = createImg
+              localStorage.setItem("image", createImg);
               setAvatarUrl(createImg);
             } else {
               console.log("No image generated");

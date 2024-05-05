@@ -6,8 +6,8 @@ import SwitchButton from '@/components/switchButton';
 import { Value } from "sass";
 export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
   const router = useRouter()
-
-  const { isSaved, image } = router.query
+  const [image, setImage] = useState("");
+  const { isSaved } = router.query
 
   const [cardInfo, setCardInfo] = useState("")
   const [customObjContent, setCustomObjContent] = useState<{ className: string, text: string, onClick?: Function, children?: any }[]>([
@@ -24,11 +24,19 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
   const [item, setItems] = useState<any>();
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedImage = localStorage.getItem("image");
+      if (storedImage !== null) {
+        setImage(storedImage as string);
+      }
+    }
+  }, [image])
+
+  useEffect(() => {
 
     if (typeof window !== 'undefined') {
       let cardsInfo = localStorage.getItem("cardsInfo") as string;
       setCardInfo(cardsInfo);
-
       let contentFromGpt = localStorage.getItem("selectWinJson");
       if (contentFromGpt && (typeof contentFromGpt === 'string')) {
         // 去除末尾空白字符后再截取
@@ -81,7 +89,7 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
       <div className={'text-[#6B003A] text-[14px] font_medium_bold text-left mt-3 pl-5 pr-5 w-screen'}>Here is how your gift card will look like</div>
       <div className={'ml-5 mr-5 pt-5 pb-5 mt-5 bg-[#FFFFFF] rounded-2xl'}>
         <div onClick={handleEditPicture} className={'ml-5 mr-5 bg-[#FFDFC2] h-[212px] rounded-2xl flex flex-row justify-center items-center'}>
-          {isSaved ? <img src={'6ccfa742f3aa74d2fade4bac928f958b.png'} alt="generatedImg" className="h-full w-full object-cover" /> :
+          {isSaved ? <img src={image} alt="generatedImg" className="h-full w-full object-cover" /> :
             <div className="w-[155px] h-[48px] border-solid border-3 border-[#6B003A] rounded-[24px] flex flex-row justify-center items-center">
               <span className="text-[#6B003A] text-[18px] font_normal_bold">Edit Picture</span>
             </div>
