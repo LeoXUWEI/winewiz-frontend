@@ -47,7 +47,7 @@ export default function MakeGiftCard() {
               console.log(createImg);
               setAvatarUrl(createImg);
             } else {
-              console.log("生成的图片为空");
+              console.log("No image generated");
             }
           }
         }
