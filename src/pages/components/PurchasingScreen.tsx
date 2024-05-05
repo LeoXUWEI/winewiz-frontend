@@ -57,7 +57,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
 
   }, [])
   useEffect(() => {
-      displayTextRef?.current.scrollTo(0, displayTextRef?.current.scrollHeight);
+    displayTextRef?.current.scrollTo(0, displayTextRef?.current.scrollHeight);
 
   }, [displayTexts])
   function handleReStart() {
@@ -90,7 +90,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
         <div className="bg-[#FFDFC2] rounded-l-2xl h-56 flex flex-row items-center">
           <img
             className={"image_logo m-auto w-56"}
-            src={'/wine.png'}
+            src={info.current?.img}
             alt="wine"
           />
         </div>
