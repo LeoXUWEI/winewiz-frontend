@@ -6,7 +6,9 @@ import SwitchButton from '@/components/switchButton';
 import { Value } from "sass";
 export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
   const router = useRouter()
-  const { isSaved } = router.query
+ 
+  const { isSaved ,image} = router.query
+  
   const [cardInfo, setCardInfo] = useState("")
   const [customObjContent, setCustomObjContent] = useState<{ className: string, text: string, onClick?: Function, children?: any }[]>([
     {
