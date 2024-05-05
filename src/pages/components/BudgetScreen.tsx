@@ -83,6 +83,13 @@ const BudgetScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
         displayTextRef?.current.scrollTo(0, displayTextRef?.current.scrollHeight);
     }, [displayTexts])
     function handleReStart() {
+        const newCustomObjContent: { className: string, text: string, onClick: Function }[] = customObjContent.map((item, index) => {
+            if (index === 0) {
+                return { ...item, className: 'bordered opacity' };
+            }
+            return item;
+        });
+        setCustomObjContent(newCustomObjContent)
         handleReset()
     }
     const tabs = [

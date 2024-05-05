@@ -68,6 +68,13 @@ const MoreAboutYourNeedsScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
 
 
     function handleReStart() {
+        const newCustomObjContent: { className: string, text: string, onClick: Function }[] = customObjContent.map((item, index) => {
+            if (index === 0) {
+                return { ...item, className: 'bordered opacity' };
+            }
+            return item;
+        });
+        setCustomObjContent(newCustomObjContent)
         handleReset()
     }
 

@@ -10,7 +10,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
   const router = useRouter()
   const text = ["Here is what I picked for you. It is a Boordy Seyval Vidal Chardonnay..."]
 
-  const [wineAttribute, setWineAttribute] = useState(['wedding', 'california', 'steak lover', 'Dry', 'refreshing flavor'])
+  const [wineAttribute, setWineAttribute] = useState([])
   const { displayTexts, handleReset, setTexts } = useDisplayWord(text)
   const info = useRef<any>();
   const displayTextRef = useRef<any>()
@@ -61,6 +61,13 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
 
   }, [displayTexts])
   function handleReStart() {
+    const newCustomObjContent: { className: string, text: string, onClick?: Function }[] = customObjContent.map((item, index) => {
+      if (index === 0) {
+          return { ...item, className: 'bordered opacity' };
+      }
+      return item;
+  });
+  setCustomObjContent(newCustomObjContent)
     handleReset()
   }
   function handlePurchase() {
