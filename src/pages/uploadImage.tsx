@@ -10,12 +10,21 @@ export default function MakeGiftCard() {
   const [file, setFile] = useState<File>()
   const [generateUrl, setGenerateUrl] = useState(false)
   const selectedIndex = useRef(-1)
-  const [customObjContent, setCustomObjContent] = useState<{ className: string, text: string, onClick?: Function, children?: any }[]>([])
+  const [customObjContent, setCustomObjContent] = useState<{ className: string, text: string, onClick?: Function, children?: any, loading?: boolean, loadingText?: string }[]>([])
   const imageStyle = ['Photorealistic', 'Anime', 'Oil paint', 'Watercolor', 'Disney 2D', 'Disney 3D', 'Vector Illustration']
   const handleSave = () => {
     router.push('/makeGiftCard?isSaved=true&image=' + avatarUrl)
   }
   async function handleGenerate() {
+    setCustomObjContent([
+      {
+        className: 'pinot',
+        text: 'Save',
+        loading: true,
+        loadingText: 'Generating',
+        onClick: handleSave
+      }
+    ])
     setGenerateUrl(true)
 
     if (typeof window !== 'undefined') {

@@ -17,7 +17,7 @@ const switchButton: React.FC<switchButtonProps> = ({ toNextScreen, customObjCont
   return (
     <div className={classes}>
       {customObjContent?.map((item, index) => (
-        <Button block size='large' className={`${item.className} text-[18px] font_extra_bold`} onClick={item.onClick} key={index}>
+        <Button block loading={item?.loading} loadingText={item.loadingText} size='large' className={`${item.className} text-[18px] font_extra_bold`} onClick={item.onClick} key={index}>
           <Space>
             {/* {item.showIcon && <AudioOutline />} */}
             {item.children}
