@@ -113,7 +113,7 @@ export default function MakeGiftCard() {
         <div className={'ml-5 mr-5 bg-[#FFDFC2] h-[212px] rounded-2xl flex flex-row justify-center items-center'}>
           {
             avatarUrl ?
-              <img src={`${avatarUrl}`} alt="" className="h-full w-full object-cover" /> :
+              <img src={`${avatarUrl}`} alt="avatar" className="h-full w-full object-cover" /> :
               <>
                 <UploadPicture handleUpload={handlePicture}>
                   <div className="w-[155px] h-[48px] border-solid border-3 border-[#6B003A] rounded-[24px] flex flex-row justify-center items-center">
