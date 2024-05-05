@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import Image from 'next/image';
 import { useRouter } from 'next/router'
 import SwitchButton from '@/components/switchButton';
+import UploadPicture from '@/components/uploadPicture'
 import avatarPhoto from '../../public/4382a4763a19dc4ed6b8f1e9984194d8.png'
 export default function MakeGiftCard() {
   const router = useRouter()
@@ -23,9 +24,6 @@ export default function MakeGiftCard() {
       }
     ])
   }
-  const handleUploadPhoto = () => {
-    setAvatarUrl(avatarPhoto)
-  }
   const handleSelect = (index: number) => {
     if (generateUrl) {
       return
@@ -39,6 +37,12 @@ export default function MakeGiftCard() {
       }
     ])
   }
+  const handlePicture = async (file: File) => {
+    setAvatarUrl(avatarPhoto)
+    return {
+      url: URL.createObjectURL(file),
+    }
+  }
   return (
     <>
       <div className="container bg-[#F7ECE4] overscroll-y-scroll h-screen">
@@ -47,13 +51,17 @@ export default function MakeGiftCard() {
           Now, upload a photo and choose a style you want to apply to the image you use on the gift card.
         </div>
         <div className="text-[#6B003A] font_normal_bold text-[18px] ml-5 pt-2">Picture</div>
-        <div onClick={handleUploadPhoto} className={'ml-5 mr-5 bg-[#FFDFC2] h-[212px] rounded-2xl flex flex-row justify-center items-center'}>
+        <div className={'ml-5 mr-5 bg-[#FFDFC2] h-[212px] rounded-2xl flex flex-row justify-center items-center'}>
           {
             avatarUrl ?
               <img src={`${generateUrl ? '6ccfa742f3aa74d2fade4bac928f958b.png' : '/4382a4763a19dc4ed6b8f1e9984194d8.png'}`} alt="" className="h-full w-full object-cover" /> :
-              <div className="w-[155px] h-[48px] border-solid border-3 border-[#6B003A] rounded-[24px] flex flex-row justify-center items-center">
-                <span className="text-[#6B003A] text-[18px] font_normal_bold">Upload Photo</span>
-              </div>
+            <>
+              <UploadPicture handleUpload={handlePicture}>
+                <div className="w-[155px] h-[48px] border-solid border-3 border-[#6B003A] rounded-[24px] flex flex-row justify-center items-center">
+                  <span className="text-[#6B003A] text-[18px] font_normal_bold">Upload Photo</span>
+                </div>
+              </UploadPicture>
+            </>
           }
         </div>
         {avatarUrl && <div className="ml-5 mr-5 mt-2 flex flex-row flex-wrap">
