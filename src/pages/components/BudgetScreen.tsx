@@ -50,7 +50,7 @@ const BudgetScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
     const displayTextRef = useRef<any>()
 
     const handleContinue = async () => {
-        if (selectKey) {
+        if (selectKey.current) {
             console.log('Selected key:', selectKey);
             try {
                 console.log('Creating thread...');
