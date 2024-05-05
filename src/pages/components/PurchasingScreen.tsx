@@ -10,7 +10,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
   const router = useRouter()
   const text = ["Here is what I picked for you. It is a Boordy Seyval Vidal Chardonnay..."]
 
-  const [wineAttribute, setWineAttribute] = useState(['wedding', 'california', 'steak lover', 'Dry', 'refreshing flavor'])
+  const [wineAttribute, setWineAttribute] = useState([])
   const { displayTexts, handleReset, setTexts } = useDisplayWord(text)
   const info = useRef<any>();
   const displayTextRef = useRef<any>()
@@ -57,10 +57,17 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
 
   }, [])
   useEffect(() => {
-      displayTextRef?.current.scrollTo(0, displayTextRef?.current.scrollHeight);
+    displayTextRef?.current.scrollTo(0, displayTextRef?.current.scrollHeight);
 
   }, [displayTexts])
   function handleReStart() {
+    const newCustomObjContent: { className: string, text: string, onClick?: Function }[] = customObjContent.map((item, index) => {
+      if (index === 0) {
+          return { ...item, className: 'bordered opacity' };
+      }
+      return item;
+  });
+  setCustomObjContent(newCustomObjContent)
     handleReset()
   }
   function handlePurchase() {
@@ -90,7 +97,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
         <div className="bg-[#FFDFC2] rounded-l-2xl h-56 flex flex-row items-center">
           <img
             className={"image_logo m-auto w-56"}
-            src={'/wine.png'}
+            src={info.current?.img}
             alt="wine"
           />
         </div>

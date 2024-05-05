@@ -10,12 +10,22 @@ export default function MakeGiftCard() {
   const [file, setFile] = useState<File>()
   const [generateUrl, setGenerateUrl] = useState(false)
   const selectedIndex = useRef(-1)
-  const [customObjContent, setCustomObjContent] = useState<{ className: string, text: string, onClick?: Function, children?: any }[]>([])
+  let createdImage = useRef<string>()
+  const [customObjContent, setCustomObjContent] = useState<{ className: string, text: string, onClick?: Function, children?: any, loading?: boolean, loadingText?: string }[]>([])
   const imageStyle = ['Photorealistic', 'Anime', 'Oil paint', 'Watercolor', 'Disney 2D', 'Disney 3D', 'Vector Illustration']
   const handleSave = () => {
-    router.push('/makeGiftCard?isSaved=true&image=' + avatarUrl)
+    router.push('/makeGiftCard?isSaved=true&image=' + createdImage.current)
   }
   async function handleGenerate() {
+    setCustomObjContent([
+      {
+        className: 'pinot',
+        text: 'Save',
+        loading: true,
+        loadingText: 'Generating',
+        onClick: handleSave
+      }
+    ])
     setGenerateUrl(true)
 
     if (typeof window !== 'undefined') {
@@ -45,6 +55,7 @@ export default function MakeGiftCard() {
             let createImg = await createImage(createImageContent);
             if (createImg) {
               console.log(createImg);
+              createdImage.current = createImg
               setAvatarUrl(createImg);
             } else {
               console.log("No image generated");

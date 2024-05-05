@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from 'react';
 import SwitchButton from '@/components/switchButton';
+import { AudioOutline } from 'antd-mobile-icons'
 import { ScreenProps } from "@/types/Screen.props";
 import useDisplayWord from '@/hooks/useDisplayWord';
 import { transcribeAudio, createMessages, runThread, listMessage } from '../../../utils/openai'
@@ -79,7 +80,7 @@ const WizListeningScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
         {
             className: 'bubblyrose',
             text: 'Tap to send',
-            showIcon: true,
+            children: <AudioOutline />,
             onClick: handleSend
         }
     ];
