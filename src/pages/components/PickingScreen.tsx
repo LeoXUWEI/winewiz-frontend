@@ -59,9 +59,10 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
             let contentFromGpt = localStorage.getItem("contentFromGpt");
             if (contentFromGpt && (typeof contentFromGpt === 'string')) {
                 let jsonFormat = JSON.parse(contentFromGpt);
+                setDisplayTexts([]);
                 displayTexts.push(jsonFormat.msg);
-                setDisplayTexts(prevContent => [jsonFormat.msg]);
-                setTexts(prevContent => [jsonFormat.msg])
+                setDisplayTexts(displayTexts);
+                setTexts(displayTexts);
                 //页面加载完毕时限制speakText只加载一次
                 if (!flag) {
                     flag = true;
@@ -71,12 +72,12 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
 
             let index = 0;
             const interval = setInterval(() => {
-                let oldisplayPickText = displayPickText;
+
                 if (contentFromGpt && (typeof contentFromGpt === 'string')) {
                     let jsonFormat = JSON.parse(contentFromGpt);
                     localStorage.setItem("PickText", displayPickText + jsonFormat.keywords);
                     if (index <= jsonFormat.keywords.length) {
-                        setDisplayPickText(oldisplayPickText + jsonFormat.keywords.substring(0, index));
+                        setDisplayPickText(jsonFormat.keywords.substring(0, index));
                         index++;
 
                     } else {
@@ -148,8 +149,10 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
                                     let jsonFormat = JSON.parse(content);
                                     // displayTexts.push(jsonFormat.msg)
                                     // setDisplayTexts(displayTexts);
-                                    setDisplayTexts(prevContent => [jsonFormat.msg]);
-
+                                    setDisplayTexts([]);
+                                    displayTexts.push(jsonFormat.msg);
+                                    setDisplayTexts(displayTexts);
+                                    setTexts(displayTexts);
                                     speakText();
                                     let index = 0;
                                     const interval = setInterval(() => {
@@ -159,7 +162,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
                                             let jsonFormat = JSON.parse(content);
                                             localStorage.setItem("PickText", displayPickText + jsonFormat.keywords);
                                             if (index <= jsonFormat.keywords.length) {
-                                                setDisplayPickText(prevDisplayPickText => prevDisplayPickText + jsonFormat.keywords.substring(index, index + 1));
+                                                setDisplayPickText(jsonFormat.keywords.substring(0, index));
                                                 index++;
                                             } else {
                                                 clearInterval(interval);
