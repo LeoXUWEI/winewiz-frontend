@@ -97,7 +97,7 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
         // // imgUrl 是图片的 base64格式 代码 png 格式
         const imgUrl = canvas.toDataURL('image/png');
         // //下载图片的功能。
-        downloadIamge(imgUrl, "plantCardImg.png")
+        downloadIamge(imgUrl, "WineWiz_GiftCard.png")
       }
 
 
