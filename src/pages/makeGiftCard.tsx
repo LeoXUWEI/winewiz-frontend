@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from 'next/router'
-import { SendOutline } from 'antd-mobile-icons'
+import { DownlandOutline } from 'antd-mobile-icons'
 import SwitchButton from '@/components/switchButton';
 import html2canvas from 'html2canvas';
 export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
@@ -13,7 +13,7 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
     {
       className: 'shallowPiont',
       text: 'Share',
-      children: <SendOutline />,
+      children: <DownlandOutline />,
       onClick: handleShare
     }
   ])
@@ -67,8 +67,8 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
       setCustomObjContent([
         {
           className: 'pinot',
-          text: 'Share',
-          children: <SendOutline />,
+          text: 'Download Gift Card',
+          children: <DownlandOutline />,
           onClick: handleShare
         }
       ])
