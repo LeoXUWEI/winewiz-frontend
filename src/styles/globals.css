@@ -94,14 +94,14 @@ section .wavy div:nth-child(1) span {
 section .wavy div:nth-child(2) span {
   z-index: 2;
   animation: animate 22s linear infinite;
-  border-radius: 30%;
+  border-radius: 36%;
   background: rgba(190, 32, 47, 0.5);
 }
 
 section .wavy div:nth-child(3) span {
   z-index: 1;
   animation: animate 24s linear infinite;
-  border-radius: 35%;
+  border-radius: 38%;
   background: rgba(227, 82, 90, 0.25);
 }
 
