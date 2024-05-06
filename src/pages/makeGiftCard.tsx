@@ -2,7 +2,8 @@ import { useEffect, useState, useRef } from "react";
 import { useRouter } from 'next/router'
 import { SendOutline } from 'antd-mobile-icons'
 import SwitchButton from '@/components/switchButton';
-import html2canvas from 'html2canvas';
+import html2canvas from '../../utils/html2canvas.js';
+
 export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
   const router = useRouter()
   const [image, setImage] = useState("");
@@ -26,7 +27,9 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
     if (typeof window !== 'undefined') {
       const storedImage = localStorage.getItem("image");
       if (storedImage !== null) {
-        setImage(storedImage as string);
+        const url = storedImage.replace('https://oaidalleapiprodscus.blob.core.windows.net', 'api')
+        console.log(url)
+        setImage(url as string);
       }
     }
   }, [image])
@@ -87,16 +90,33 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
   const downloadAsImage = async () => {
     const captureElement = document.getElementById('capture-area');
     if (captureElement) {
-      const canvas = await html2canvas(captureElement);
-      const image = canvas.toDataURL("image/png", 1.0);
-      const link = document.createElement('a');
-      link.href = image;
-      link.download = 'WineWiz Gift Card.png';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      html2canvas(captureElement).then((canvas) => {
+        // // imgUrl 是图片的 base64格式 代码 png 格式
+        const imgUrl = canvas.toDataURL('image/png');
+        // //下载图片的功能。
+        downloadIamge(imgUrl, "plantCardImg.png")
+      })
     }
   };
+
+  function downloadIamge(imgsrc:string, name:string) {  //下载图片地址和图片名
+    const image = new Image();
+    image.setAttribute("crossOrigin", "anonymous");
+    image.onload = function () {
+      let canvas = document.createElement("canvas");
+      canvas.width = image.width;
+      canvas.height = image.height;
+      const context = canvas.getContext("2d");
+      context.drawImage(image, 0, 0, image.width, image.height);
+      const url = canvas.toDataURL("image/png"); //得到图片的base64编码数据
+      const a = document.createElement("a"); // 生成一个a元素
+      const event = new MouseEvent("click"); // 创建一个单击事件
+      a.download = name || "photo"; // 设置图片名称
+      a.href = url; // 将生成的URL设置为a.href属性
+      a.dispatchEvent(event); // 触发a的单击事件
+    };
+    image.src = imgsrc;
+  }
 
 
   return (
