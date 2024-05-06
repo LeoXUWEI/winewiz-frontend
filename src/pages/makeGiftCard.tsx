@@ -87,13 +87,20 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
   }
 
   const downloadAsImage = async () => {
+    const captureElement = document.getElementById('capture-area');
+    if (!captureElement) {
+      console.error('Error: The capture-area element was not found.');
+      return; // Early exit if the element is not found
+    }
+
     try {
-      const dataUrl = await htmlToImage.toPng(document.getElementById('capture-area'));
+      const dataUrl = await htmlToImage.toPng(captureElement);
       saveAs(dataUrl, 'download.png');
     } catch (error) {
-      console.error('Oops, something went wrong!', error);
+      console.error('Oops, something went wrong while generating the image!', error);
     }
   };
+
 
   return (
     <div className="container bg-[#F7ECE4] overscroll-y-scroll h-full">
