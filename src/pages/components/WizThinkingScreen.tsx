@@ -3,7 +3,7 @@ import { ScreenProps } from "@/types/Screen.props";
 import useDisplayWord from '@/hooks/useDisplayWord'
 import React, { useEffect } from 'react';
 
-const WizThinkingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
+const WizThinkingScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }) => {
 
     const { displayTexts } = useDisplayWord(['Wiz is thinking'])
 

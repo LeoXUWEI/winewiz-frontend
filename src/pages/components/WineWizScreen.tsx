@@ -4,7 +4,7 @@ import SwitchButton from '@/components/switchButton';
 import useDisplayWord from '@/hooks/useDisplayWord';
 import { clearInterval } from "timers";
 
-const WineWizScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
+const WineWizScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }) => {
     const initialText = [
         'Hi, I am Wiz, your personal wine master.',
         'I can pick the perfect gift wine for you with just a few questions answered. Afterwards, I will help you create personalized gift cards to make your gift special!'

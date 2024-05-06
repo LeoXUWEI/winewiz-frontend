@@ -6,7 +6,7 @@ import { ScreenProps } from "@/types/Screen.props";
 import useDisplayWord from '@/hooks/useDisplayWord'
 import { startRecording, stopRecording } from '../../../utils/audio';
 import { transcribeAudio, createThread, createMessageSingle, runThread, listMessage } from '../../../utils/openai'
-const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
+const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }) => {
 
     let audio: HTMLAudioElement | null = null;
     let flag: boolean = false;

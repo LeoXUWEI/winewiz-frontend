@@ -7,7 +7,7 @@ import useDisplayWord from '@/hooks/useDisplayWord';
 import { transcribeAudio, createMessages, runThread, listMessage } from '../../../utils/openai'
 import { startRecording, stopRecording } from '../../../utils/audio';
 
-const WizListeningScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
+const WizListeningScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }) => {
     const text = ['Wiz is listening'];
     const { displayTexts, handleReset, setDisplayTexts } = useDisplayWord(text);
 

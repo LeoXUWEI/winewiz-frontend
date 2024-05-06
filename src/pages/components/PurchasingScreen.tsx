@@ -6,7 +6,7 @@ import { ScreenProps } from "@/types/Screen.props";
 import useDisplayWord from '@/hooks/useDisplayWord'
 import { completions } from '../../../utils/openai'
 
-const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
+const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }) => {
   const router = useRouter()
   let text = [""]
   let audio: HTMLAudioElement | null = null;

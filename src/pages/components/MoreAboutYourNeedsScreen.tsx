@@ -6,7 +6,7 @@ import { ScreenProps } from "@/types/Screen.props";
 import useDisplayWord from '@/hooks/useDisplayWord'
 
 
-const MoreAboutYourNeedsScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
+const MoreAboutYourNeedsScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }) => {
     let text: string[] = [];
     let audio: HTMLAudioElement | null = null;
     let flag: boolean = false;

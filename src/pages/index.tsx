@@ -36,33 +36,37 @@ const SCREENS_MAP = {
 
 }
 
-const amplitudes = {
-    [SCREENS.INDEX]: 450,
-    [SCREENS.WINE_WIZ]: 350,
-    [SCREENS.BUDGET]: 350,
-    [SCREENS.MORE_ABOUT_YOUR_NEED]: 350,
-    [SCREENS.WIZ_LISTENING]: 250,
-    [SCREENS.WIZ_THINKING]: 150,
-    [SCREENS.PICKING_WINE]: 350,
-    [SCREENS.PURCHASING_WINE]: 350
-};
-
 export default function ChattingPage() {
     const [currentScreen, setCurrentScreen] = useState(SCREENS.INDEX);
+    const [amplitudes, setAmplitudes] = useState({
+        [SCREENS.INDEX]: 450,
+        [SCREENS.WINE_WIZ]: 350,
+        [SCREENS.BUDGET]: 450,
+        [SCREENS.MORE_ABOUT_YOUR_NEED]: 350,
+        [SCREENS.WIZ_LISTENING]: 250,
+        [SCREENS.WIZ_THINKING]: 150,
+        [SCREENS.PICKING_WINE]: 350,
+        [SCREENS.PURCHASING_WINE]: 350
+    })
     const toNextScreen = () => {
         const nextScreen = SCREENS_MAP[currentScreen];
         setCurrentScreen(nextScreen);
     }
 
+    const handleWaveHeight = (val: number) => {
+        const newAmplitudes = {...amplitudes,  [currentScreen]: val }
+        setAmplitudes(newAmplitudes)
+    }
+
     const SCREENS_COMPONENTS = {
-        [SCREENS.INDEX]: <WineWizIndex toNextScreen={toNextScreen} />,
-        [SCREENS.WINE_WIZ]: <WineWizScreen toNextScreen={toNextScreen} />,
-        [SCREENS.BUDGET]: <BudgetScreen toNextScreen={toNextScreen} />,
-        [SCREENS.MORE_ABOUT_YOUR_NEED]: <MoreAboutYourNeedsScreen toNextScreen={toNextScreen} />,
-        [SCREENS.WIZ_LISTENING]: <WizListeningScreen toNextScreen={toNextScreen} />,
-        [SCREENS.WIZ_THINKING]: <WizThinkingScreen toNextScreen={toNextScreen} />,
-        [SCREENS.PICKING_WINE]: <PickingScreen toNextScreen={toNextScreen} />,
-        [SCREENS.PURCHASING_WINE]: <PurchasingScreen toNextScreen={toNextScreen} />,
+        [SCREENS.INDEX]: <WineWizIndex toNextScreen={toNextScreen} handleWaveHeight={handleWaveHeight} />,
+        [SCREENS.WINE_WIZ]: <WineWizScreen toNextScreen={toNextScreen} handleWaveHeight={handleWaveHeight} />,
+        [SCREENS.BUDGET]: <BudgetScreen toNextScreen={toNextScreen} handleWaveHeight={handleWaveHeight} />,
+        [SCREENS.MORE_ABOUT_YOUR_NEED]: <MoreAboutYourNeedsScreen toNextScreen={toNextScreen} handleWaveHeight={handleWaveHeight} />,
+        [SCREENS.WIZ_LISTENING]: <WizListeningScreen toNextScreen={toNextScreen} handleWaveHeight={handleWaveHeight} />,
+        [SCREENS.WIZ_THINKING]: <WizThinkingScreen toNextScreen={toNextScreen} handleWaveHeight={handleWaveHeight} />,
+        [SCREENS.PICKING_WINE]: <PickingScreen toNextScreen={toNextScreen} handleWaveHeight={handleWaveHeight} />,
+        [SCREENS.PURCHASING_WINE]: <PurchasingScreen toNextScreen={toNextScreen} handleWaveHeight={handleWaveHeight} />,
         [SCREENS.MAKE_GIFT]: <MakeGiftCard toNextScreen={toNextScreen} />,
     };
 

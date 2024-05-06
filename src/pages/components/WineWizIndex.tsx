@@ -2,7 +2,7 @@ import React from "react";
 import { ScreenProps } from "@/types/Screen.props";
 
 
-const WineWizIndex: React.FC<ScreenProps> = ({ toNextScreen }) => {
+const WineWizIndex: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }) => {
     return (
         <div onClick={toNextScreen} className={"content flex-row w-screen h-screen"}>
             <div className={"enterShow flex flex-col justify-center pt-36"}>
