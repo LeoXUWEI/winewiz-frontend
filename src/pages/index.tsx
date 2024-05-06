@@ -42,10 +42,10 @@ export default function ChattingPage() {
         [SCREENS.INDEX]: 450,
         [SCREENS.WINE_WIZ]: 450,
         [SCREENS.BUDGET]: 450,
-        [SCREENS.MORE_ABOUT_YOUR_NEED]: 350,
+        [SCREENS.MORE_ABOUT_YOUR_NEED]: 450,
         [SCREENS.WIZ_LISTENING]: 250,
         [SCREENS.WIZ_THINKING]: 150,
-        [SCREENS.PICKING_WINE]: 350,
+        [SCREENS.PICKING_WINE]: 450,
         [SCREENS.PURCHASING_WINE]: 350
     })
     const toNextScreen = () => {

@@ -16,6 +16,12 @@ const WineWizScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }
     const speakText = async () => {
         const { speakText } = await import('../../../utils/textToSpeech');
         audio = await speakText(initialText.join(' '));
+
+        // 在语音开始播放时设置高度
+        audio.addEventListener('play', () => handleWaveHeight(350));
+        // 在语音播放结束时设置高度
+        audio.addEventListener('ended', () => handleWaveHeight(450));
+
         //判断语音文件解析完之前是否跳转到了下一页
         if (flag) {
             audio.play();
@@ -53,6 +59,7 @@ const WineWizScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }
         setTimeout(toNextScreen, 200);
         //在语音播放前跳转下一页则阻止语音播放
         flag = false;
+        handleWaveHeight(450);
     };
 
     return (

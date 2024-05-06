@@ -17,6 +17,12 @@ const BudgetScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight })
     const speakText = async () => {
         const { speakText } = await import('../../../utils/textToSpeech');
         audio = await speakText(text.join(' ')) as HTMLAudioElement;
+
+        // 在语音开始播放时设置高度
+        audio.addEventListener('play', () => handleWaveHeight(350));
+        // 在语音播放结束时设置高度
+        audio.addEventListener('ended', () => handleWaveHeight(450));
+
         //判断语音文件解析完之前是否跳转到了下一页
         if (flag && audio) {
             audio.play();
@@ -82,6 +88,7 @@ const BudgetScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight })
     useEffect(() => {
         displayTextRef?.current.scrollTo(0, displayTextRef?.current.scrollHeight);
     }, [displayTexts])
+
     function handleReStart() {
         const newCustomObjContent: { className: string, text: string, onClick: Function }[] = customObjContent.map((item, index) => {
             if (index === 0) {
@@ -94,6 +101,7 @@ const BudgetScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight })
         if (audio) {
             audio.currentTime = 0;
             audio.play();
+
         }
     }
     const tabs = [

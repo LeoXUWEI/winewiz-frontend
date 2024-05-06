@@ -40,6 +40,12 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }
     const speakText = async () => {
         const { speakText } = await import('../../../utils/textToSpeech');
         audio = await speakText(displayTexts[displayTexts.length - 1]);
+
+        // 在语音开始播放时设置高度
+        audio.addEventListener('play', () => handleWaveHeight(350));
+        // 在语音播放结束时设置高度
+        audio.addEventListener('ended', () => handleWaveHeight(450));
+
         //判断语音文件解析完之前是否跳转到了下一页
         if (flag) {
             audio.play();

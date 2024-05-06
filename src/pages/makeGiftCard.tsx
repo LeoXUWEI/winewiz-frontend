@@ -2,8 +2,6 @@ import { useEffect, useState, useRef } from "react";
 import { useRouter } from 'next/router'
 import { SendOutline } from 'antd-mobile-icons'
 import SwitchButton from '@/components/switchButton';
-import * as htmlToImage from 'html-to-image';
-import { saveAs } from 'file-saver';
 import html2canvas from 'html2canvas';
 export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
   const router = useRouter()
