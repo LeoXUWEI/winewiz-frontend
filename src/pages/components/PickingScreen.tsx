@@ -117,6 +117,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }
                 return item;
             });
             setCustomObjContent(newCustomObjContent)
+            handleWaveHeight(250)
         } else {
             const blob = await stopRecording(recording.current);
             setAudioBlob(blob);
@@ -128,6 +129,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }
                 return item;
             });
             setCustomObjContent(newCustomObjContent)
+            handleWaveHeight(450)
 
             if (blob) {
                 // Send audio for transcription
@@ -206,6 +208,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }
     async function handlePick() {
         setCustomObjContent(prevContent => ([]))
         setShowPicking(() => true)
+        handleWaveHeight(150)
         if (typeof window !== 'undefined') {
             //选酒
             const threadId = await createThread();
@@ -227,6 +230,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }
         toNextScreen();
         //在语音播放前跳转下一页则阻止语音播放
         flag = false;
+
     }
     return (
         <>
