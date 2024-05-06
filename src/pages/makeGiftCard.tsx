@@ -1,9 +1,10 @@
 import { useEffect, useState, useRef } from "react";
-import Image from 'next/image';
 import { useRouter } from 'next/router'
 import { SendOutline } from 'antd-mobile-icons'
 import SwitchButton from '@/components/switchButton';
-import { Value } from "sass";
+import * as htmlToImage from 'html-to-image';
+import { saveAs } from 'file-saver';
+
 export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
   const router = useRouter()
   const [image, setImage] = useState("");
@@ -77,17 +78,28 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
   }, [])
 
   function handleShare() {
-    console.log('share')
+    downloadAsImage();
   }
+
   const handleEditPicture = () => {
     if (isSaved) return
     router.push('/uploadImage')
   }
+
+  const downloadAsImage = async () => {
+    try {
+      const dataUrl = await htmlToImage.toPng(document.getElementById('capture-area'));
+      saveAs(dataUrl, 'download.png');
+    } catch (error) {
+      console.error('Oops, something went wrong!', error);
+    }
+  };
+
   return (
     <div className="container bg-[#F7ECE4] overscroll-y-scroll h-full">
       <h1 className={'text-[#6B003A] text-[24px] font_extra_bold text-center pt-10'}>Make Gift Card</h1>
       <div className={'text-[#6B003A] text-[14px] font_medium_bold text-left mt-3 pl-5 pr-5 w-screen'}>Here is how your gift card will look like</div>
-      <div className={'ml-5 mr-5 pt-5 pb-5 mt-5 bg-[#FFFFFF] rounded-2xl'}>
+      <div id="capture-area" className={'ml-5 mr-5 pt-5 pb-5 mt-5 bg-[#FFFFFF] rounded-2xl'}>
         <div onClick={handleEditPicture} className={'ml-5 mr-5 bg-[#FFDFC2] h-[245px] rounded-2xl flex flex-row justify-center items-center'}>
           {isSaved ? <img src={image} alt="generatedImg" className="h-full w-full object-cover" /> :
             <div className="w-[155px] h-[48px] border-solid border-3 border-[#6B003A] rounded-[24px] flex flex-row justify-center items-center">
