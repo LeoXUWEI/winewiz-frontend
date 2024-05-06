@@ -18,6 +18,13 @@ const proxyTable = {
             '^/api': '/api'
         },
         changeOrigin: true
+    },
+    '/api2': {
+        target: 'https://www.totalwine.com',
+        pathRewrite: {
+            '^/api2': '/api2'
+        },
+        changeOrigin: true
     }
 }
 
@@ -27,6 +34,7 @@ app.prepare().then(() => {
     // 如果是开发环境，则代理接口
     if (dev) {
         server.use('/api', createProxyMiddleware(proxyTable['/api']));
+        server.use('/api2', createProxyMiddleware(proxyTable['/api2']));
     }
 
     // 托管所有请求

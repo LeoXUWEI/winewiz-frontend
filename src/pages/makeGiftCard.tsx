@@ -47,7 +47,9 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
         if (index !== -1) {
           jsonStr = jsonStr.substring(0, index + 1);
           let jsonFormat = JSON.parse(jsonStr);
+          jsonFormat.img = jsonFormat.img.replace('https://www.totalwine.com', 'api2')
           info.current = jsonFormat
+          console.log(jsonFormat.img)
 
           // 将info的信息转换为item数组
           const item = [
@@ -97,8 +99,8 @@ const imgUrl = canvas.toDataURL('image/png');
 // //下载图片的功能。
 downloadIamge(imgUrl, "plantCardImg.png")
       }
-        
-      
+
+
     }
   };
 
