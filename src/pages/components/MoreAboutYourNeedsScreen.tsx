@@ -76,6 +76,10 @@ const MoreAboutYourNeedsScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
         });
         setCustomObjContent(newCustomObjContent)
         handleReset()
+        if (audio) {
+            audio.currentTime = 0;
+            audio.play();
+        }
     }
 
     function handleSpeak() {

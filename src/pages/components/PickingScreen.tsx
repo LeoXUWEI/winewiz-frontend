@@ -192,6 +192,10 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
         });
         setCustomObjContent(newCustomObjContent)
         handleReset()
+        if (audio) {
+            audio.currentTime = 0;
+            audio.play();
+        }
     }
     async function handlePick() {
         setCustomObjContent(prevContent => ([]))

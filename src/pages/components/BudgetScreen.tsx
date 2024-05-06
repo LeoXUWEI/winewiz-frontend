@@ -91,6 +91,10 @@ const BudgetScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
         });
         setCustomObjContent(newCustomObjContent)
         handleReset()
+        if (audio) {
+            audio.currentTime = 0;
+            audio.play();
+        }
     }
     const tabs = [
         { label: 'budget wines', value: '$10 and under', key: '$10 and under' },
