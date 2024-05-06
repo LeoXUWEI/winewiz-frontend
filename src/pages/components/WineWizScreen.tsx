@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ScreenProps } from "@/types/Screen.props";
 import SwitchButton from '@/components/switchButton';
 import useDisplayWord from '@/hooks/useDisplayWord';
-import { clearInterval } from "timers";
+
 
 const WineWizScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }) => {
     const initialText = [
@@ -39,6 +39,7 @@ const WineWizScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }
                 audio.load();
                 audio = null;
             }
+
         }
     }, []);
 

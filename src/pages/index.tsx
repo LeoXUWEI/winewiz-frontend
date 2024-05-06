@@ -40,7 +40,7 @@ export default function ChattingPage() {
     const [currentScreen, setCurrentScreen] = useState(SCREENS.INDEX);
     const [amplitudes, setAmplitudes] = useState({
         [SCREENS.INDEX]: 450,
-        [SCREENS.WINE_WIZ]: 350,
+        [SCREENS.WINE_WIZ]: 450,
         [SCREENS.BUDGET]: 450,
         [SCREENS.MORE_ABOUT_YOUR_NEED]: 350,
         [SCREENS.WIZ_LISTENING]: 250,
@@ -54,7 +54,7 @@ export default function ChattingPage() {
     }
 
     const handleWaveHeight = (val: number) => {
-        const newAmplitudes = {...amplitudes,  [currentScreen]: val }
+        const newAmplitudes = { ...amplitudes, [currentScreen]: val }
         setAmplitudes(newAmplitudes)
     }
 
