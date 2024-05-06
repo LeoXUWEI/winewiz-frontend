@@ -14,6 +14,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }
     const { displayTexts, handleReset, setDisplayTexts, setTexts } = useDisplayWord([])
     const [showPicking, setShowPicking] = useState(false)
     const [displayPickText, setDisplayPickText] = useState("");
+    const audioText = useRef<any>([])
     let recording = useRef<MediaRecorder | null>();
     const [audioBlob, setAudioBlob] = useState<Blob | null>();
     const displayTextRef = useRef<any>();
@@ -39,7 +40,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }
 
     const speakText = async () => {
         const { speakText } = await import('../../../utils/textToSpeech');
-        audio = await speakText(displayTexts[displayTexts.length - 1]);
+        audio = await speakText(audioText.current[audioText.current.length - 1]);
 
         // 在语音开始播放时设置高度
         audio.addEventListener('play', () => handleWaveHeight(350));
@@ -65,10 +66,8 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }
             let contentFromGpt = localStorage.getItem("contentFromGpt");
             if (contentFromGpt && (typeof contentFromGpt === 'string')) {
                 let jsonFormat = JSON.parse(contentFromGpt);
-                setDisplayTexts([]);
-                displayTexts.push(jsonFormat.msg);
-                setDisplayTexts(displayTexts);
-                setTexts(displayTexts);
+                audioText.current.push(jsonFormat.msg)
+                setTexts([jsonFormat.msg]);
                 //页面加载完毕时限制speakText只加载一次
                 if (!flag) {
                     flag = true;
@@ -155,12 +154,8 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }
 
                                 if (content && (typeof content === 'string')) {
                                     let jsonFormat = JSON.parse(content);
-                                    // displayTexts.push(jsonFormat.msg)
-                                    // setDisplayTexts(displayTexts);
-                                    setDisplayTexts([]);
-                                    displayTexts.push(jsonFormat.msg);
-                                    setDisplayTexts(displayTexts);
-                                    setTexts(displayTexts);
+                                    audioText.current.push(jsonFormat.msg)
+                                    setTexts([jsonFormat.msg]);
                                     speakText();
                                     let index = 0;
                                     const interval = setInterval(() => {
@@ -209,6 +204,9 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }
         setCustomObjContent(prevContent => ([]))
         setShowPicking(() => true)
         handleWaveHeight(150)
+        if (audio) {
+            audio.pause()
+        }
         if (typeof window !== 'undefined') {
             //选酒
             const threadId = await createThread();
