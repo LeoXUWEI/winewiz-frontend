@@ -6,7 +6,7 @@ dotenv.config({ path: '.env.local'});
 // const speechRegion = process.env.NEXT_PUBLIC_SPEECH_REGION;
 // const subscriptionKey = process.env.NEXT_PUBLIC_SUBSCRIPTION_KEY;
 const speechRegion = 'westus3';
-const subscriptionKey = '7caf4ce1c9e64e918c1b7ac1d8ed5979';
+const subscriptionKey = 'c98d03497e0f41cda6fff7c0e2cf96ad';
 const endpoint = `https://${speechRegion}.tts.speech.microsoft.com/cognitiveservices/v1`;
 
 export async function textToSpeech(text: string) {
