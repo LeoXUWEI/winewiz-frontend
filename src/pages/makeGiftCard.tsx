@@ -4,7 +4,7 @@ import { SendOutline } from 'antd-mobile-icons'
 import SwitchButton from '@/components/switchButton';
 import * as htmlToImage from 'html-to-image';
 import { saveAs } from 'file-saver';
-
+import html2canvas from 'html2canvas';
 export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
   const router = useRouter()
   const [image, setImage] = useState("");
@@ -88,16 +88,15 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
 
   const downloadAsImage = async () => {
     const captureElement = document.getElementById('capture-area');
-    if (!captureElement) {
-      console.error('Error: The capture-area element was not found.');
-      return; // Early exit if the element is not found
-    }
-
-    try {
-      const dataUrl = await htmlToImage.toPng(captureElement);
-      saveAs(dataUrl, 'download.png');
-    } catch (error) {
-      console.error('Oops, something went wrong while generating the image!', error);
+    if (captureElement) {
+      const canvas = await html2canvas(captureElement);
+      const image = canvas.toDataURL("image/png", 1.0);
+      const link = document.createElement('a');
+      link.href = image;
+      link.download = 'download.png';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
   };
 
