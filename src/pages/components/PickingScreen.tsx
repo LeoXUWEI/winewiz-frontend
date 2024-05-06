@@ -185,7 +185,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }
     }
     function handleReStart() {
         const newCustomObjContent: { className: string, text: string, onClick?: Function }[] = customObjContent.map((item, index) => {
-            if (index === 0) {
+            if (index === 1) {
                 return { ...item, className: 'bordered opacity' };
             }
             return item;
