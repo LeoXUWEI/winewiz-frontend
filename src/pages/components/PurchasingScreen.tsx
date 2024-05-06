@@ -48,7 +48,6 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
 
   useEffect(() => {
 
-
     if (typeof window !== 'undefined') {
       let contentFromGpt = localStorage.getItem("selectWinJson");
       if (contentFromGpt && (typeof contentFromGpt === 'string')) {
