@@ -124,7 +124,7 @@ export default function MakeGiftCard() {
           Now, upload a photo and choose a style you want to apply to the image you use on the gift card.
         </div>
         <div className="text-[#6B003A] font_normal_bold text-[18px] ml-5 pt-2">Picture</div>
-        <div className={'ml-5 mr-5 bg-[#FFDFC2] h-[212px] rounded-2xl flex flex-row justify-center items-center'}>
+        <div className={'ml-5 mr-5 bg-[#FFDFC2] h-[245px] rounded-2xl flex flex-row justify-center items-center'}>
           {
             avatarUrl ?
               <img src={`${avatarUrl}`} alt="avatar" className="h-full w-full object-cover" /> :
