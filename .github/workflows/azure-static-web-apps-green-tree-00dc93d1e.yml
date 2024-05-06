@@ -33,9 +33,9 @@ jobs:
           output_location: "" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
         env:
-          NEXT_PUBLIC_SPEECH_REGION: westus3
-          NEXT_PUBLIC_SUBSCRIPTION_KEY: 7caf4ce1c9e64e918c1b7ac1d8ed5979
-          NEXT_PUBLIC_OPENAI_API_KEY: sk-proj-PKGldvwgt5cGWufRPrRuT3BlbkFJt3hpoTKasxArJMI2fkOH
+          NEXT_PUBLIC_SPEECH_REGION: ${{ secrets.AZURE_NEXT_PUBLIC_SPEECH_REGION }}
+          NEXT_PUBLIC_SUBSCRIPTION_KEY: ${{ secrets.AZURE_NEXT_PUBLIC_SUBSCRIPTION_KEY }}
+          NEXT_PUBLIC_OPENAI_API_KEY: ${{ secrets.AZURE_NEXT_PUBLIC_OPENAI_API_KEY }}
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
