@@ -60,7 +60,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen }) => {
           info.current = jsonFormat
           setWineAttribute(jsonFormat.taste.split(', '));
           if (info.current?.name) {
-            text = [`Here is what I picked for you. It is a ${info.current.name}...`];
+            text = [`${info.current.msg}`];
             setTexts(text);
             if (!flag) {
               flag = true;
