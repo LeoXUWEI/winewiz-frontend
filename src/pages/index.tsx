@@ -46,7 +46,7 @@ export default function ChattingPage() {
         [SCREENS.WIZ_LISTENING]: 250,
         [SCREENS.WIZ_THINKING]: 150,
         [SCREENS.PICKING_WINE]: 450,
-        [SCREENS.PURCHASING_WINE]: 350
+        [SCREENS.PURCHASING_WINE]: 450
     })
     const toNextScreen = () => {
         const nextScreen = SCREENS_MAP[currentScreen];

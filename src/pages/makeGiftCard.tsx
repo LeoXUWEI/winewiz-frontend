@@ -91,7 +91,7 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
       const image = canvas.toDataURL("image/png", 1.0);
       const link = document.createElement('a');
       link.href = image;
-      link.download = 'download.png';
+      link.download = 'WineWiz Gift Card.png';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
