@@ -128,7 +128,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }
                 return item;
             });
             setCustomObjContent(newCustomObjContent)
-            handleWaveHeight(450)
+            handleWaveHeight(150)
 
             if (blob) {
                 // Send audio for transcription
@@ -158,6 +158,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }
                                     handleReset()
                                     setTexts([jsonFormat.msg]);
                                     speakText();
+                                    handleWaveHeight(350);
                                     let index = 0;
                                     const interval = setInterval(() => {
 
