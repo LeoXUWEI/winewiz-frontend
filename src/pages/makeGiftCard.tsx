@@ -27,9 +27,9 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
     if (typeof window !== 'undefined') {
       const storedImage = localStorage.getItem("image");
       if (storedImage !== null) {
-        const url = storedImage.replace('https://oaidalleapiprodscus.blob.core.windows.net', 'api')
-        console.log(url)
-        setImage(url as string);
+        // const url = storedImage.replace('https://oaidalleapiprodscus.blob.core.windows.net', 'api')
+        console.log(storedImage)
+        setImage(storedImage as string);
       }
     }
   }, [image])
@@ -47,7 +47,7 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
         if (index !== -1) {
           jsonStr = jsonStr.substring(0, index + 1);
           let jsonFormat = JSON.parse(jsonStr);
-          jsonFormat.img = jsonFormat.img.replace('https://www.totalwine.com', 'api2')
+          // jsonFormat.img = jsonFormat.img.replace('https://www.totalwine.com', 'api2')
           info.current = jsonFormat
           console.log(jsonFormat.img)
 
