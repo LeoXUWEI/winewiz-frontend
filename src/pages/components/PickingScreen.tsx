@@ -106,6 +106,9 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }
 
     async function recordVoice() {
         console.log(recording);
+        if (audio) {
+            audio.pause()
+        }
         if (!recording.current) {
             recording = { current: await startRecording() };
 
