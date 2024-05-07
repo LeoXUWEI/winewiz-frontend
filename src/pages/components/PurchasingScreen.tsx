@@ -139,15 +139,15 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }
           ))}
         </div>
       </div>
-      <div className="flex flex-row items-center h-72  ml-5 mr-5 rounded-2xl">
-        <div className="bg-[#FFDFC2] rounded-l-2xl h-56 flex flex-row items-center">
+      <div className="flex flex-row items-stretch ml-5 mr-5 mt-5 rounded-2xl">
+        <div className="bg-[#FFDFC2] rounded-l-2xl flex flex-row items-center">
           <img
             className={"image_logo m-auto w-56"}
             src={info.current?.img}
             alt="wine"
           />
         </div>
-        <div className="bg-[#FFFFFF] rounded-r-2xl h-56 pt-5 pl-5 pb-5">
+        <div className="bg-[#FFFFFF] rounded-r-2xl h-auto pt-5 pl-5 pb-5">
           <h3 className="text-[#6B003A] text-[18px] font_normal_bold leading-5">{info.current?.name}</h3>
           <p className="text-[#6B003A] text-[12px] font_medium_bold w-56">{info.current?.volume}</p>
           <p className="text-[#6B003A] text-[14px] font_normal_bold">${info.current?.price}</p>
