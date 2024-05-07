@@ -1,39 +1,53 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# WineWiz
+
+WineWiz is an AI-powered wine picking app developed for the Microsoft Generative AI Hackathon. It aims to help users find the perfect wine gift for their loved ones by asking a few simple questions and providing personalized recommendations.
+
+## Features
+
+- Conversational AI interface to guide users through the wine selection process
+- Text-to-speech functionality for a more engaging user experience
+- Ability to create personalized gift cards for the selected wine
+- Voice input support for hands-free interaction
+
+## Technologies Used
+
+- Next.js
+- React
+- TypeScript
+- OpenAI API (for natural language processing and text generation)
+- Web Speech API (for text-to-speech and voice input)
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the repository:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+   ```bash
+   git clone https://github.com/your-repo/WineWiz.git
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+    ```
+    cd WineWiz
+    npm install
+    ```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+3. Set up your OpenAI API key as an environment variable:
+    ```
+    export OPENAI_API_KEY=your_api_key_here
+    ```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+4. Start the development server:
+    ```
+    npm run dev
+    ```
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+5. Open http://localhost:3000 in your browser to see the app.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contributing
+Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# WineWiz
+## License
+This project is licensed under the Apache-2.0 License.
