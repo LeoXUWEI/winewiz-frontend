@@ -63,7 +63,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }
           jsonStr = jsonStr.substring(0, index + 1);
           let jsonFormat = JSON.parse(jsonStr);
           info.current = jsonFormat
-          setWineAttribute(jsonFormat.taste.split(', '));
+          setWineAttribute(jsonFormat.keywords.split(', '));
           if (info.current?.name) {
             text = [`${info.current.msg}`];
             setTexts(text);
