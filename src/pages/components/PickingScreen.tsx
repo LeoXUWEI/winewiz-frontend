@@ -155,6 +155,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }
                                 if (content && (typeof content === 'string')) {
                                     let jsonFormat = JSON.parse(content);
                                     audioText.current.push(jsonFormat.msg)
+                                    handleReset()
                                     setTexts([jsonFormat.msg]);
                                     speakText();
                                     let index = 0;
