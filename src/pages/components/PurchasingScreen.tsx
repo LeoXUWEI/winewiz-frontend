@@ -46,7 +46,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }
     },
     {
       className: 'pinot',
-      text: 'Make Giftcard',
+      text: 'Make Gift Card',
       onClick: handleMakeGiftcard
     }
   ])
@@ -107,10 +107,15 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }
     }
   }
   function handlePurchase() {
+    if (audio) {
+      audio.pause()
+    }
     window.open(info.current.url, '_blank');
   }
   async function handleMakeGiftcard() {
-
+    if (audio) {
+      audio.pause()
+    }
     let content = "Write a heartwarming message suitable for a gift card to accompany the gift wine " + info.current.category_3 + " that celebrates the " + info.current.theme + ". Express gratitude, reminisce about shared memories, and convey the joy of having each other in your lives. Encourage the recipient to cherish the bond you share and express optimism for the future adventures you'll embark on together. Please be concise in one or two paragraphs. You must only output the body text paragraphs of the card. You must not include the header and footer or other parts of the card."
     let res = await completions(content);
     if (typeof window !== 'undefined' && res) {

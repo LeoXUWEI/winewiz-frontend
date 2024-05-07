@@ -243,7 +243,7 @@ const PickingScreen: React.FC<ScreenProps> = ({ toNextScreen, handleWaveHeight }
             <div className={'w-80 h-56 mx-auto mt-10 border-dashed border-2 border-white rounded-lg p-2'}>
                 <span className={'text-[#6B003A] text-[14px] font_normal_bold'}>{displayPickText}</span>
             </div>
-            {showPicking && <p className={'text-white text-[18px] font_extra_bold text-center mt-10 ='}>Wiz is picking..</p>}
+            {showPicking && <p className={'text-white text-[18px] font_extra_bold text-center mt-10 ='}>Wiz is picking...</p>}
             <div className={'mt-16 w-80 mx-auto'}>
                 <SwitchButton toNextScreen={toNextScreen} customObjContent={customObjContent} />
             </div>

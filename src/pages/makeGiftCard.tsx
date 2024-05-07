@@ -13,7 +13,7 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
   const [customObjContent, setCustomObjContent] = useState<{ className: string, text: string, onClick?: Function, children?: any }[]>([
     {
       className: 'shallowPiont',
-      text: 'Share',
+      text: 'Download Gift Card',
       children: <DownlandOutline />,
       onClick: handleShare
     }
