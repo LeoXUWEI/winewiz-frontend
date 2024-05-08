@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { DownlandOutline } from 'antd-mobile-icons'
 import SwitchButton from '@/components/switchButton';
 import html2canvas from '../../utils/html2canvas.js';
+import imagesReady from '../../utils/html2canvas.js';
 
 export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
   const router = useRouter()
@@ -92,14 +93,38 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
   const downloadAsImage = async () => {
     const captureElement = document.getElementById('capture-area');
     if (captureElement) {
-      const canvas = await html2canvas(captureElement)
+      await imagesReady(document.body);
+      const canvas = await html2canvas(captureElement, {
+        useCORS: true,
+      })
+      // if (canvas) {
+      //   // // imgUrl 是图片的 base64格式 代码 png 格式
+      //   const imgUrl = canvas.toDataURL('image/png');
+      //   // //下载图片的功能。
+      //   downloadIamge(imgUrl, "WineWiz_GiftCard.png")
+      // }
       if (canvas) {
-        // // imgUrl 是图片的 base64格式 代码 png 格式
-        const imgUrl = canvas.toDataURL('image/png');
-        // //下载图片的功能。
-        downloadIamge(imgUrl, "WineWiz_GiftCard.png")
+        // Convert the canvas to a Blob
+        canvas.toBlob((blob: Blob) => {
+          if (blob) {
+            // Create a temporary URL for the Blob
+            const url = URL.createObjectURL(blob);
+  
+            // Create a temporary anchor element
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'WineWiz_GiftCard.png';
+  
+            // Trigger the download
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+  
+            // Clean up the temporary URL
+            URL.revokeObjectURL(url);
+          }
+        }, 'image/png');
       }
-
 
     }
   };
