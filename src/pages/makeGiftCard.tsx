@@ -27,10 +27,11 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const storedImage = localStorage.getItem("image");
+      let storedImage = localStorage.getItem("image");
       if (storedImage !== null) {
         // const url = storedImage.replace('https://oaidalleapiprodscus.blob.core.windows.net', 'api')
         console.log(storedImage)
+        storedImage = "/api/proxy-image?imageUrl=" + storedImage
         setImage(storedImage as string);
       }
     }
