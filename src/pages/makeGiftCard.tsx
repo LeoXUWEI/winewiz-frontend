@@ -4,7 +4,7 @@ import { DownlandOutline } from 'antd-mobile-icons'
 import SwitchButton from '@/components/switchButton';
 import html2canvas from '../../utils/html2canvas.js';
 import imagesReady from '../../utils/html2canvas.js';
-
+import nextBase64 from 'next-base64';
 export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
   const router = useRouter()
   const [image, setImage] = useState("");
@@ -31,7 +31,7 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
       if (storedImage !== null) {
         // const url = storedImage.replace('https://oaidalleapiprodscus.blob.core.windows.net', 'api')
         console.log(storedImage)
-        storedImage = "/api/proxy-image?imageUrl=" + storedImage
+        storedImage = "/api/proxy-image?imageUrl=" + nextBase64.encode(storedImage)
         setImage(storedImage as string);
       }
     }
@@ -51,7 +51,7 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
           jsonStr = jsonStr.substring(0, index + 1);
           let jsonFormat = JSON.parse(jsonStr);
 
-          jsonFormat.img = "/api/proxy-image?imageUrl=" + jsonFormat.img
+          jsonFormat.img = "/api/proxy-image?imageUrl=" + nextBase64.encode(jsonFormat.img)
           info.current = jsonFormat
           console.log(jsonFormat.img)
 

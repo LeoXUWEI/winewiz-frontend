@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-
+import nextBase64 from 'next-base64';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 
@@ -8,14 +8,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const { imageUrl } = req.query;
+    
+  
     if (!imageUrl || typeof imageUrl !== 'string') {
       return res.status(400).json({ error: 'Missing or invalid imageUrl parameter' });
     }
-
-    // 可选：在这里进行验证图片 URL 的合法性等其他逻辑
-
+     
+    console.log(nextBase64.decode(imageUrl));
+    console.log("=============================");
+    // console.log(url);
     // 代理并转发图片请求
-    const response = await fetch(imageUrl);
+    const response = await fetch(nextBase64.decode(imageUrl));
     if (!response.ok) {
       throw new Error('Failed to fetch image');
     }
