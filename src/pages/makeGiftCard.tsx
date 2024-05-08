@@ -95,24 +95,6 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
     const captureElement = document.getElementById('capture-area');
     if (captureElement) {
       await imagesReady(document.body);
-      // const canvas2 = document.createElement("canvas");
-      // // 获取要生成图片的 DOM 元素
-      // let canvasDom = info.current;
-      // // 获取指定的宽高
-      // const width = parseInt(info.current.offsetWidth);
-      // const height = parseInt(info.current.offsetHeight);
-      // // console.log("获取指定的宽高", width, height)
-      // // 宽高扩大 2 倍 处理图片模糊
-      // canvas2.width = width;
-      // canvas2.height = height;
-      // canvas2.style.width = width / 2 + "px";
-      // canvas2.style.height = height / 2 + "px";
-      //
-      // const context = canvas2.getContext("2d");
-      // context.scale(1, 1);
-      // // context.fillStyle = '#FFFFFF'
-      // context.fillRect(0, 0, canvas2.width, canvas2.height);
-      // console.log(context)
 
       const canvas = await html2canvas(captureElement, {
         useCORS: true,
@@ -120,12 +102,6 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
         // backgroundColor: null,
         // canvas: canvas2,
       })
-      // if (canvas) {
-      //   // // imgUrl 是图片的 base64格式 代码 png 格式
-      //   const imgUrl = canvas.toDataURL('image/png');
-      //   // //下载图片的功能。
-      //   downloadIamge(imgUrl, "WineWiz_GiftCard.png")
-      // }
       if (canvas) {
         // Convert the canvas to a Blob
         canvas.toBlob((blob: Blob) => {
@@ -180,7 +156,7 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
       <div className={'text-[#6B003A] text-[14px] font_medium_bold text-left mt-3 pl-5 pr-5 w-screen'}>Here is how your gift card will look like</div>
       <div id="capture-area" className={'ml-5 mr-5 pt-5 pb-5 pr-2 pl-2 mt-5 bg-[#FFFFFF] rounded-2xl'}>
         <div onClick={handleEditPicture} className={'ml-5 mr-5 bg-[#FFDFC2] h-[245px] rounded-2xl flex flex-row justify-center items-center'}>
-          {isSaved ? <img src={image} alt="generatedImg" className="h-full w-full object-cover" ref={imgBox}/> :
+          {isSaved ? <img src={image} alt="generatedImg" className="h-full w-full object-cover"/> :
             <div className="w-[155px] h-[48px] border-solid border-3 border-[#6B003A] rounded-[24px] flex flex-row justify-center items-center">
               <span className="text-[#6B003A] text-[18px] font_normal_bold">Edit Picture</span>
             </div>
