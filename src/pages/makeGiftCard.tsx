@@ -49,7 +49,8 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
         if (index !== -1) {
           jsonStr = jsonStr.substring(0, index + 1);
           let jsonFormat = JSON.parse(jsonStr);
-          // jsonFormat.img = jsonFormat.img.replace('https://www.totalwine.com', 'api2')
+
+          jsonFormat.img = "/api/proxy-image?imageUrl=" + jsonFormat.img
           info.current = jsonFormat
           console.log(jsonFormat.img)
 
@@ -156,7 +157,7 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
       <div className={'text-[#6B003A] text-[14px] font_medium_bold text-left mt-3 pl-5 pr-5 w-screen'}>Here is how your gift card will look like</div>
       <div id="capture-area" className={'ml-5 mr-5 pt-5 pb-5 pr-2 pl-2 mt-5 bg-[#FFFFFF] rounded-2xl'}>
         <div onClick={handleEditPicture} className={'ml-5 mr-5 bg-[#FFDFC2] h-[245px] rounded-2xl flex flex-row justify-center items-center'}>
-          {isSaved ? <img src={image} alt="generatedImg" className="h-full w-full object-cover"/> :
+          {isSaved ? <img src={image} alt="generatedImg" className="h-full w-full object-cover" /> :
             <div className="w-[155px] h-[48px] border-solid border-3 border-[#6B003A] rounded-[24px] flex flex-row justify-center items-center">
               <span className="text-[#6B003A] text-[18px] font_normal_bold">Edit Picture</span>
             </div>
