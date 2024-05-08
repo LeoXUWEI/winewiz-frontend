@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from 'next/router'
 import { DownlandOutline } from 'antd-mobile-icons'
 import SwitchButton from '@/components/switchButton';
@@ -23,6 +23,7 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
   const info = useRef<any>();
 
   const [item, setItems] = useState<any>();
+  const imgBox = useRef<any>()
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -94,8 +95,30 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
     const captureElement = document.getElementById('capture-area');
     if (captureElement) {
       await imagesReady(document.body);
+      // const canvas2 = document.createElement("canvas");
+      // // 获取要生成图片的 DOM 元素
+      // let canvasDom = info.current;
+      // // 获取指定的宽高
+      // const width = parseInt(info.current.offsetWidth);
+      // const height = parseInt(info.current.offsetHeight);
+      // // console.log("获取指定的宽高", width, height)
+      // // 宽高扩大 2 倍 处理图片模糊
+      // canvas2.width = width;
+      // canvas2.height = height;
+      // canvas2.style.width = width / 2 + "px";
+      // canvas2.style.height = height / 2 + "px";
+      //
+      // const context = canvas2.getContext("2d");
+      // context.scale(1, 1);
+      // // context.fillStyle = '#FFFFFF'
+      // context.fillRect(0, 0, canvas2.width, canvas2.height);
+      // console.log(context)
+
       const canvas = await html2canvas(captureElement, {
         useCORS: true,
+        allowTaint: true,
+        // backgroundColor: null,
+        // canvas: canvas2,
       })
       // if (canvas) {
       //   // // imgUrl 是图片的 base64格式 代码 png 格式
@@ -109,17 +132,17 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
           if (blob) {
             // Create a temporary URL for the Blob
             const url = URL.createObjectURL(blob);
-  
+
             // Create a temporary anchor element
             const a = document.createElement('a');
             a.href = url;
             a.download = 'WineWiz_GiftCard.png';
-  
+
             // Trigger the download
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
-  
+
             // Clean up the temporary URL
             URL.revokeObjectURL(url);
           }
@@ -157,7 +180,7 @@ export default function MakeGiftCard({ toNextScreen }: { toNextScreen: any }) {
       <div className={'text-[#6B003A] text-[14px] font_medium_bold text-left mt-3 pl-5 pr-5 w-screen'}>Here is how your gift card will look like</div>
       <div id="capture-area" className={'ml-5 mr-5 pt-5 pb-5 pr-2 pl-2 mt-5 bg-[#FFFFFF] rounded-2xl'}>
         <div onClick={handleEditPicture} className={'ml-5 mr-5 bg-[#FFDFC2] h-[245px] rounded-2xl flex flex-row justify-center items-center'}>
-          {isSaved ? <img src={image} alt="generatedImg" className="h-full w-full object-cover" /> :
+          {isSaved ? <img src={image} alt="generatedImg" className="h-full w-full object-cover" ref={imgBox}/> :
             <div className="w-[155px] h-[48px] border-solid border-3 border-[#6B003A] rounded-[24px] flex flex-row justify-center items-center">
               <span className="text-[#6B003A] text-[18px] font_normal_bold">Edit Picture</span>
             </div>
